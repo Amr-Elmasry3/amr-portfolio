@@ -18,13 +18,14 @@ const HeroSection = () => {
 				<HeroInfo />
 			</div>
 
-			{/* Hero Image */}
+			{/* Hero Image — amr's brand photo (transparent background,
+			    so it sits directly on the page background wash) */}
 			<div className="flex-1 hidden md:block">
 				<Image
-					src="/assets/hero-photo.webp"
-					alt="hero-photo"
-					width={640}
-					height={440}
+					src="/assets/IMG_20261110_201722.png"
+					alt="Amr Elmasry"
+					width={1299}
+					height={941}
 					priority
 				/>
 			</div>
