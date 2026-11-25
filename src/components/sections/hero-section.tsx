@@ -10,7 +10,7 @@ import HeroInfo from "@/components/sections/hero-info";
 const HeroSection = () => {
 	return (
 		<section
-			className="hero-section flex items-center justify-baseline md:justify-between gap-0 md:gap-6 mb-12"
+			className="hero-section flex items-center justify-baseline md:justify-between gap-0 md:gap-6 mb-12 min-h-[calc(100dvh-7rem)]"
 			role="banner"
 		>
 			{/* Hero Info */}
