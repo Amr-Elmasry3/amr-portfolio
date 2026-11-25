@@ -35,7 +35,7 @@ const AccentSwitch = () => {
 				aria-haspopup="menu"
 				onClick={() => setOpen((v) => !v)}
 				className="flex items-center gap-2 min-h-9.5 h-full px-3 py-1 rounded-md border border-solid border-border-strong bg-surface-secondary shadow-xs cursor-pointer">
-				<Palette className="text-text-secondary" size={16} />
+				<Palette className="hidden sm:block text-text-secondary" size={16} />
 
 				<span
 					aria-hidden="true"
@@ -43,7 +43,7 @@ const AccentSwitch = () => {
 					style={{ backgroundColor: activeAccent?.swatch }}
 				/>
 
-				<ChevronDown className="text-text-secondary" size={16} />
+				<ChevronDown className="hidden sm:block text-text-secondary" size={16} />
 			</button>
 
 			{open && (

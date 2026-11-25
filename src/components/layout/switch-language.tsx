@@ -61,7 +61,7 @@ const SwitchLanguage = () => {
 				<span className="flex items-center gap-2">
 					{flagFor(currentLocale)}
 
-					<span className="text-caption font-bold text-text-secondary">
+					<span className="hidden sm:inline text-caption font-bold text-text-secondary">
 						{languages[currentLocale]}
 					</span>
 				</span>

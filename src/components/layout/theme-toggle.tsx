@@ -35,7 +35,7 @@ const ThemeToggle = () => {
 			}
 			className={`${theme === "light" ? "flex-row" : "flex-row-reverse"} flex items-center justify-between gap-1 bg-primary-light p-0.5 rounded-[20px] border border-solid border-primary-border shadow-xs cursor-pointer my-transition`}
 			onClick={changeTheme}>
-			<span className="text-[10px] font-bold text-text-description uppercase px-2 my-transition">
+			<span className="hidden sm:inline text-[10px] font-bold text-text-description uppercase px-2 my-transition">
 				{theme === "light"
 					? t1.rich("light", {
 							highlight: (chunks) => (
