@@ -56,7 +56,7 @@ const RootLayout = async ({
 			dir={`${locale === "ar" ? "rtl" : "ltr"}`}
 			className={`${ibmPlexArabic.variable} ${inter.variable} antialiased`}
 			suppressHydrationWarning>
-			<body className="my-container">
+			<body>
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<AllProviders>
 						<BootGate>
@@ -66,9 +66,11 @@ const RootLayout = async ({
 
 							<Sidebar />
 
-							<Header />
+							<div className="my-container">
+								<Header />
 
-							{children}
+								{children}
+							</div>
 						</BootGate>
 					</AllProviders>
 				</NextIntlClientProvider>
