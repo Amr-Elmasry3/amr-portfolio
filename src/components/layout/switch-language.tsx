@@ -66,7 +66,10 @@ const SwitchLanguage = () => {
 					</span>
 				</span>
 
-				<ChevronDown className="text-button text-text-secondary" size={16} />
+				<ChevronDown
+					className="hidden sm:block text-button text-text-secondary"
+					size={16}
+				/>
 			</button>
 
 			{open && (
