@@ -103,43 +103,55 @@ p {
 	line-height: 1.6;
 }
 
-/* Page background glows: soft radial washes of the active accent
-   color over the neutral page background. Kept deliberately faint. */
-.page-background-glows {
-	background:
-		radial-gradient(
-			55% 45% at 85% 0%,
-			color-mix(in srgb, var(--primary) 13%, transparent) 0%,
-			transparent 100%
-		),
-		radial-gradient(
-			50% 40% at 8% 100%,
-			color-mix(in srgb, var(--primary) 9%, transparent) 0%,
-			transparent 100%
-		),
-		linear-gradient(
-			180deg,
-			color-mix(in srgb, var(--primary) 5%, transparent) 0%,
-			transparent 45%
-		);
+/* Page background: a soft wash of the active accent color spread
+   diagonally over the whole page, plus a faint grid that fades out
+   towards the bottom. Both layers follow the accent automatically. */
+.page-background-wash {
+	background: linear-gradient(
+		155deg,
+		color-mix(in srgb, var(--primary) 8%, transparent) 0%,
+		transparent 55%,
+		color-mix(in srgb, var(--primary) 5%, transparent) 100%
+	);
 }
 
-.dark .page-background-glows {
-	background:
-		radial-gradient(
-			55% 45% at 85% 0%,
-			color-mix(in srgb, var(--primary) 20%, transparent) 0%,
-			transparent 100%
-		),
-		radial-gradient(
-			50% 40% at 8% 100%,
-			color-mix(in srgb, var(--primary) 13%, transparent) 0%,
-			transparent 100%
+.dark .page-background-wash {
+	background: linear-gradient(
+		155deg,
+		color-mix(in srgb, var(--primary) 12%, transparent) 0%,
+		transparent 55%,
+		color-mix(in srgb, var(--primary) 8%, transparent) 100%
+	);
+}
+
+.page-background-grid {
+	background-image:
+		linear-gradient(
+			to right,
+			color-mix(in srgb, var(--text-primary) 5%, transparent) 1px,
+			transparent 1px
 		),
 		linear-gradient(
-			180deg,
-			color-mix(in srgb, var(--primary) 7%, transparent) 0%,
-			transparent 45%
+			to bottom,
+			color-mix(in srgb, var(--text-primary) 5%, transparent) 1px,
+			transparent 1px
+		);
+	background-size: 72px 72px;
+	mask-image: linear-gradient(180deg, black 0%, transparent 90%);
+	-webkit-mask-image: linear-gradient(180deg, black 0%, transparent 90%);
+}
+
+.dark .page-background-grid {
+	background-image:
+		linear-gradient(
+			to right,
+			color-mix(in srgb, var(--text-primary) 6%, transparent) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			to bottom,
+			color-mix(in srgb, var(--text-primary) 6%, transparent) 1px,
+			transparent 1px
 		);
 }
 

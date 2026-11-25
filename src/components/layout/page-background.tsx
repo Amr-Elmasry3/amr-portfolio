@@ -5,8 +5,11 @@ const PageBackground = () => {
 			className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
 			<div className="absolute inset-0 bg-background" />
 
-			{/* Accent-tinted ambient glows (follow the active accent color) */}
-			<div className="page-background-glows absolute inset-0" />
+			{/* Soft accent wash spread over the whole page */}
+			<div className="page-background-wash absolute inset-0" />
+
+			{/* Faint grid that fades out towards the bottom */}
+			<div className="page-background-grid absolute inset-0" />
 		</div>
 	);
 };
