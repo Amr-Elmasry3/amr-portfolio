@@ -235,6 +235,25 @@ p {
 	}
 }
 
+/* The AE logo layer behind the hero photo: the artwork extracted
+   from the original composite (public/assets/hero-logo.png) used
+   as an alpha mask over an accent gradient, so amr's original
+   mark recolors live with the active accent. */
+.hero-logo-fill {
+	background-image: linear-gradient(
+		45deg,
+		var(--primary) 0%,
+		color-mix(in srgb, var(--primary) 70%, white) 55%,
+		color-mix(in srgb, var(--primary) 40%, white) 100%
+	);
+	mask-image: url("/assets/hero-logo.png");
+	mask-size: 100% 100%;
+	mask-repeat: no-repeat;
+	-webkit-mask-image: url("/assets/hero-logo.png");
+	-webkit-mask-size: 100% 100%;
+	-webkit-mask-repeat: no-repeat;
+}
+
 /* Fades the hero composition out at the bottom so the cutout
    photo dissolves into the page instead of ending in a hard
    cropped edge. */

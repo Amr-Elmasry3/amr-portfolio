@@ -18,24 +18,28 @@ const HeroSection = () => {
 				<HeroInfo />
 			</div>
 
-			{/* Hero Image — amr's composite brand photo (him over his
-			    AE logo), with an accent glow behind and a gentle
-			    float. The composition fades out at the bottom so the
-			    photo never looks cropped. Splitting it into a clean
-			    cutout + a recolorable logo layer is planned once amr
-			    provides the photo without the logo baked in. */}
+			{/* Hero Image — two layers on the original 1299x941
+			    canvas: the AE logo artwork extracted from the old
+			    composite, used as a mask over an accent gradient
+			    (so the original mark recolors with the accent), and
+			    amr's clean cutout photo on top, offset to the exact
+			    position it held in the composite. An accent glow
+			    sits behind, the composition floats gently and fades
+			    out at the bottom so it never looks cropped. */}
 			<div className="flex-1 hidden md:block">
 				<div className="relative">
 					<div aria-hidden="true" className="hero-photo-glow"></div>
 
-					<div className="hero-fade animate-float-soft relative">
+					<div className="hero-fade animate-float-soft relative aspect-[1299/941]">
+						<div aria-hidden="true" className="hero-logo-fill absolute inset-0"></div>
+
 						<Image
-							src="/assets/IMG_20261110_201722.png"
+							src="/assets/hero-image.png"
 							alt="Amr Elmasry"
-							width={1299}
+							width={729}
 							height={941}
 							priority
-							className="relative"
+							className="absolute top-0 left-[32.02%] h-full w-auto"
 						/>
 					</div>
 				</div>
