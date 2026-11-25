@@ -18,16 +18,21 @@ const HeroSection = () => {
 				<HeroInfo />
 			</div>
 
-			{/* Hero Image — amr's brand photo (transparent background,
-			    so it sits directly on the page background wash) */}
+			{/* Hero Image — amr's brand photo (transparent background)
+			    with an accent glow behind it and a gentle float */}
 			<div className="flex-1 hidden md:block">
-				<Image
-					src="/assets/IMG_20261110_201722.png"
-					alt="Amr Elmasry"
-					width={1299}
-					height={941}
-					priority
-				/>
+				<div className="relative">
+					<div aria-hidden="true" className="hero-photo-glow"></div>
+
+					<Image
+						src="/assets/IMG_20261110_201722.png"
+						alt="Amr Elmasry"
+						width={1299}
+						height={941}
+						priority
+						className="relative animate-float-soft"
+					/>
+				</div>
 			</div>
 		</section>
 	);

@@ -191,6 +191,50 @@ p {
 	}
 }
 
+/* Hero photo treatment: a soft glow in the current accent color
+   behind the (transparent) brand photo, plus a gentle float so
+   the photo feels alive without an animation library. */
+.hero-photo-glow {
+	position: absolute;
+	inset: 10% 6%;
+	border-radius: 9999px;
+	background: radial-gradient(
+		closest-side,
+		color-mix(in srgb, var(--primary) 32%, transparent),
+		transparent
+	);
+	filter: blur(24px);
+	pointer-events: none;
+}
+
+.dark .hero-photo-glow {
+	background: radial-gradient(
+		closest-side,
+		color-mix(in srgb, var(--primary) 42%, transparent),
+		transparent
+	);
+}
+
+.animate-float-soft {
+	animation: float-soft 6s ease-in-out infinite;
+}
+
+@keyframes float-soft {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.animate-float-soft {
+		animation: none;
+	}
+}
+
 .gradient-text {
 	background: linear-gradient(
 		90deg,
