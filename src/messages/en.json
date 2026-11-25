@@ -1,1 +1,333 @@
-{ "Swarm": { "replay": "Replay animation" } }
+{
+  "LoaingScreen": {
+    "boot": "> boot portfolio",
+    "initializing": "Initializing Developer Workapace...",
+    "checkList": [
+      {
+        "title": "Loading Ui Components..."
+      },
+      {
+        "title": "Registering Routes..."
+      },
+      {
+        "title": "Building Project Showcase..."
+      },
+      {
+        "title": "Initializing Animations..."
+      },
+      {
+        "title": "Optimizing Performance..."
+      }
+    ],
+    "launch": "Launching Portfolio",
+    "hello": "Welcome to Amr Elamsry`s Portfolio"
+  },
+  "HomePage": {
+    "hello": "Hi, I`m",
+    "name": {
+      "first": "Amr",
+      "second": "Elmasry"
+    },
+    "title": "Frontend Developer",
+    "description": "I build fast, modern and delightful web experiences with <highlight>React.js</highlight>, <highlight>Next.js</highlight> and <highlight>TypeScript</highlight>.",
+    "location": "Mansoura, Egypt",
+    "status": "Available for Work",
+    "foundMe": "Found Me On"
+  },
+  "metadata": {
+    "description": "Amr Elmasry is a Frontend Developer from Egypt building fast, modern, and responsive web experiences with React, Next.js, and TypeScript."
+  },
+  "Header": {
+    "mode": {
+      "light": "Day <highlight>Mode</highlight>",
+      "dark": "Night <highlight>Mode</highlight>"
+    },
+    "language": {
+      "ar": "Ar",
+      "en": "En"
+    }
+  },
+  "Buttons": {
+    "cv": "Download Cv",
+    "projects": "View Projects"
+  },
+  "Sidebar": {
+    "links": [
+      {
+        "title": "Home",
+        "icon": "home",
+        "href": "#",
+        "active": true
+      },
+      {
+        "title": "About",
+        "icon": "userCircle",
+        "href": "#about",
+        "active": false
+      },
+      {
+        "title": "Skills",
+        "icon": "codeAlt",
+        "href": "#skills",
+        "active": false
+      },
+      {
+        "title": "Projects",
+        "icon": "folderCode",
+        "href": "#projects",
+        "active": false
+      },
+      {
+        "title": "Contact",
+        "icon": "paperPlane",
+        "href": "#contact",
+        "active": false
+      }
+    ]
+  },
+  "About": {
+    "paragraph1": "I`m a <highlight>Frontend Developer</highlight> passionate about building, modern and responsive web applications using <highlight>React.js</highlight>, <highlight>Next.js</highlight> and <highlight>TypeScript</highlight>.",
+    "paragraph2": "I`ve built real-world personal projects including a <highlight>real-time chat application</highlight> and <highlight>React-based e-commerce platform</highlight>, working on responsive Ui, state management, API integration, and performance optimization.",
+    "paragraph3": "I enjoy creating <highlight>clean</highlight>, <highlight>user-friendly interfaces</highlight> and continuously improving my skills through practical projects and modern frontend technologies.",
+    "numbers": [
+      {
+        "title": "Years Learning",
+        "number": "2+",
+        "icon": "graduationCap"
+      },
+      {
+        "title": "Personal Projects",
+        "number": "12+",
+        "icon": "folderCode2"
+      },
+      {
+        "title": "Technologies",
+        "number": "15+",
+        "icon": "fileCode"
+      },
+      {
+        "title": "Passion for Development",
+        "number": "100%",
+        "icon": "heartCode"
+      }
+    ]
+  },
+  "SectionsHeading": {
+    "about": "About <highlight>Me</highlight>",
+    "skills": "My <highlight>Skills</highlight>",
+    "projects": "Our <highlight>Projects</highlight>",
+    "contact": "Get <highlight>In Touch</highlight>"
+  },
+  "Contact": {
+    "contactInfo": {
+      "status": "Available for Work",
+      "statusDescription": "I`m currently available for freelance work and full-time positions.",
+      "info": {
+        "email": "Email",
+        "phone": "Phone",
+        "linkedin": "Linkedin",
+        "github": "Github"
+      }
+    },
+    "contactForm": {
+      "title": "Send Me a Message",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "message": "Message",
+      "messagePlaceholder": "Tell me how I can help...",
+      "submit": "Send Message",
+      "success": "Thanks! Your message was sent successfully.",
+      "error": "Sorry, your message could not be sent. Please try again.",
+      "validation": {
+        "nameRequired": "Name is required",
+        "nameMin": "Name must be at least 2 characters",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Enter a valid email address",
+        "messageRequired": "Message is required",
+        "messageMin": "Message must be at least 10 characters"
+      }
+    }
+  },
+  "Projects": [
+    {
+      "id": 1,
+      "title": "YallaChat - Realtime Chat Application",
+      "badge": "New",
+      "description": "YallaChat is a modern real-time chat application built to provide fast and seamless communication between users. The app features instant messaging, responsive UI design, and smooth real-time interactions using modern web technologies. It focuses on delivering a clean user experience with scalable architecture and interactive chat functionality.",
+      "shortDescription": "A modern real-time chat app delivering fast, seamless messaging with a clean, responsive interface.",
+      "basicFunctions": [
+        {
+          "id": 1,
+          "key": "real-time messaging",
+          "value": "Send and receive messages instantly with live chat synchronization."
+        },
+        {
+          "id": 2,
+          "key": "authentication",
+          "value": "Secure login and account management system for users."
+        },
+        {
+          "id": 3,
+          "key": "media sharing",
+          "value": "Upload and share images, files, and voice messages inside conversations."
+        },
+        {
+          "id": 4,
+          "key": "chat management",
+          "value": "Create conversations, manage chats, and interact with users dynamically."
+        },
+        {
+          "id": 5,
+          "key": "responsive experience",
+          "value": "Optimized responsive interface for desktop and mobile devices."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Grogin - Online Grocery Marketplace",
+      "badge": "New",
+      "description": "Grogin is an integrated and advanced e-commerce platform specialized in selling fresh and packaged food products. The project aims to provide a seamless and secure shopping experience for users, enabling them to browse and filter products intelligently, manage their shopping carts and favorites easily, and access food-related articles and tips through the blog section.",
+      "shortDescription": "An online grocery marketplace with smart product filtering, cart management, and a food blog.",
+      "basicFunctions": [
+        {
+          "id": 1,
+          "key": "user experience",
+          "value": "Browse products add/remove items from cart, favorites and compare."
+        },
+        {
+          "id": 2,
+          "key": "product discovery",
+          "value": "Advanced filtering system by price, category, reviews, and Sort system for products."
+        },
+        {
+          "id": 3,
+          "key": "account management",
+          "value": "Create a new account, login, and manage user data. (Formik & Yup)"
+        },
+        {
+          "id": 4,
+          "key": "content",
+          "value": "Blogs section to view related articles."
+        },
+        {
+          "id": 5,
+          "key": "performance",
+          "value": "The app is built with performance in mind with technologies like lazy loading and memoization."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Typing Speed Test - Web Game",
+      "description": "Speed Test is an exciting and interactive web game designed to test the speed and accuracy of typing. The game is based on the principle of challenge against time, where the player must type the words presented to him before the time allotted for each word expires. The game offers three levels of difficulty (easy, medium, hard) to suit beginners and professionals, making it suitable for everyone.",
+      "shortDescription": "An interactive typing game that challenges players against the clock across three difficulty levels.",
+      "basicFunctions": [
+        {
+          "id": 1,
+          "key": "level system",
+          "value": "Three difficulty levels (Easy: 8 seconds per word, Medium: 6 seconds per word, Hard: 4 seconds per word)."
+        },
+        {
+          "id": 2,
+          "key": "game mechanism",
+          "value": "Words appear sequentially, and each word must be typed correctly before its time expires to move on to the next word."
+        },
+        {
+          "id": 3,
+          "key": "end of game",
+          "value": "The round ends if the time runs out before the word is completed."
+        },
+        {
+          "id": 4,
+          "key": "scoring",
+          "value": "At the end of the round, the score (number of words typed correctly) and the difficulty level are displayed."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Real Weather App",
+      "description": "Real Weather App is a responsive weather application that provides real-time weather information for cities worldwide. Users can search for any city and instantly get updated weather details through an interactive and user-friendly interface powered by weather API integration.",
+      "shortDescription": "A responsive weather app that delivers real-time conditions for any city worldwide, powered by live weather API integration.",
+      "basicFunctions": [
+        {
+          "id": 1,
+          "key": "city search",
+          "value": "Search for weather information by entering any city name worldwide."
+        },
+        {
+          "id": 2,
+          "key": "real-time weather",
+          "value": "Display live temperature, weather conditions, humidity, and more."
+        },
+        {
+          "id": 3,
+          "key": "responsive interface",
+          "value": "Fully responsive layout that works across desktop, tablet, and mobile devices."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Amazing - All In One Marketplace",
+      "description": "Amazing is a one-stop online store that offers a unique shopping experience for a wide range of products that include apparel, electronics (such as laptops and phones), food, and more. The platform is built to be a one-stop destination that caters to all users' needs, with a focus on a modern and seamless user interface and ease of product discovery.",
+      "shortDescription": "An all-in-one online marketplace offering apparel, electronics, food, and more in one seamless store.",
+      "basicFunctions": [
+        {
+          "id": 1,
+          "key": "integrated shopping experience",
+          "value": "Browse a variety of products from multiple categories."
+        },
+        {
+          "id": 2,
+          "key": "advanced search & filtering",
+          "value": "Product search system, with multiple filtering capabilities by category, rate, and price."
+        },
+        {
+          "id": 3,
+          "key": "user management",
+          "value": "Create an account, login, and logout."
+        },
+        {
+          "id": 4,
+          "key": "user menus",
+          "value": "Dynamically add and remove products from cart, wishlist, and compare list."
+        },
+        {
+          "id": 5,
+          "key": "interactive interface",
+          "value": "Responsive design that works on all devices."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Questions Challenge App",
+      "description": "Question Challenge is an interactive web application in the form of a trivia game that tests the user's knowledge and intuition. The app presents the player with a series of questions within a specific time limit and challenges them to answer them correctly and as quickly as possible. The app features a visual design that shows the player's progress in real time through colorful indicators, creating an engaging and exciting game experience.",
+      "shortDescription": "An interactive trivia game that tests players' knowledge against the clock with real-time scoring.",
+      "basicFunctions": [
+        {
+          "id": 1,
+          "key": "time challenge",
+          "value": "Play against the clock to answer as many questions as possible."
+        },
+        {
+          "id": 2,
+          "key": "answer tracking",
+          "value": "A visual bullets (points) system that displays the player's answer history (true/false) with a different color for each answer (green for true, red for false)."
+        },
+        {
+          "id": 3,
+          "key": "smooth experience",
+          "value": "Automatic transition to the next question once the current question is answered."
+        }
+      ]
+    }
+  ],
+  "Swarm": {
+    "replay": "Replay animation"
+  }
+}
