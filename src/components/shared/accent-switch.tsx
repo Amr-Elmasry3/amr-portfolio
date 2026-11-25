@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { useAccent } from "@/app/[locale]/providers/accent-provider";
 import { ACCENTS } from "@/constants/accents.constants";
+import { withViewTransition } from "@/lib/view-transition";
 
 // Closed by default to save header space; opens a dropdown
 // listing every accent color.
@@ -63,8 +64,11 @@ const AccentSwitch = () => {
 									type="button"
 									role="menuitem"
 									aria-label={t(item.name)}
-									onClick={() => {
-										setAccent(item.name);
+									onClick={(e) => {
+										withViewTransition(() => setAccent(item.name), {
+											x: e.clientX,
+											y: e.clientY,
+										});
 										setOpen(false);
 									}}
 									className={`w-full text-start flex items-center gap-2 px-3 py-2 cursor-pointer my-transition ${isActive ? "bg-primary-light" : "hover:bg-surface"}`}>

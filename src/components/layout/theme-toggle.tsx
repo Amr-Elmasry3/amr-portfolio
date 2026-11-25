@@ -2,8 +2,10 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore, type MouseEvent } from "react";
 import { useTranslations } from "next-intl";
+
+import { withViewTransition } from "@/lib/view-transition";
 
 const emptySubscribe = () => () => {};
 
@@ -18,10 +20,13 @@ const ThemeToggle = () => {
 		() => false,
 	);
 
-	const changeTheme = () => {
+	const changeTheme = (e: MouseEvent<HTMLButtonElement>) => {
 		const newTheme = theme === "light" ? "dark" : "light";
 
-		setTheme(newTheme);
+		withViewTransition(() => setTheme(newTheme), {
+			x: e.clientX,
+			y: e.clientY,
+		});
 	};
 
 	// Prevent hydration mismatch
