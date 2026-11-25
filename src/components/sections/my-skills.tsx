@@ -1,12 +1,9 @@
-import { Rocket } from "lucide-react";
-
 import SmallBoxWrapper from "@/components/shared/small-box-wrapper";
 import { mySkills, skillsIcon } from "@/constants/skills";
 
-// Grid of skill tiles (brand icon + name), ending with the
-// decorative rocket tile on large screens, as in the previous
-// version. The icon span carries the primary text color so the
-// monochrome marks (currentColor) stay visible in both themes.
+// Grid of skill tiles (brand icon + name). The icon span
+// carries the primary text color so the monochrome marks
+// (currentColor) stay visible in both themes.
 const MySkills = () => {
 	return (
 		<ul className="skills-content grid gap-3 grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
@@ -25,10 +22,6 @@ const MySkills = () => {
 					</SmallBoxWrapper>
 				</li>
 			))}
-
-			<li className="hidden lg:flex items-center justify-center">
-				<Rocket className="text-heading1 text-primary-active" size={40} />
-			</li>
 		</ul>
 	);
 };
