@@ -3,7 +3,7 @@
 import { Check, ChevronDown, Palette } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { useAccent } from "@/app/[locale]/providers/accent-provider";
 import { ACCENTS } from "@/constants/accents.constants";
@@ -13,6 +13,7 @@ import { ACCENTS } from "@/constants/accents.constants";
 const AccentSwitch = () => {
 	const { accent, setAccent } = useAccent();
 	const isArabic = useLocale() === "ar";
+	const t = useTranslations("Accents");
 
 	const [open, setOpen] = useState(false);
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -61,7 +62,7 @@ const AccentSwitch = () => {
 								<button
 									type="button"
 									role="menuitem"
-									aria-label={item.label}
+									aria-label={t(item.name)}
 									onClick={() => {
 										setAccent(item.name);
 										setOpen(false);
@@ -74,7 +75,7 @@ const AccentSwitch = () => {
 									/>
 
 									<span className="text-caption font-medium text-text-secondary flex-1">
-										{item.label}
+										{t(item.name)}
 									</span>
 
 									{isActive && (
