@@ -33,7 +33,7 @@ const CustomButton = ({
 }: CustomButtonProps) => {
 	return (
 		<button
-			className={`w-full min-h-9.25 text-[13px] xxs:text-caption font-medium ${children || loading ? "flex items-center justify-center gap-3" : ""} py-2 px-4 rounded-xs cursor-pointer my-transition ${btnStyles[btnStyle]}`}
+			className={`w-full h-full min-h-9.25 text-[13px] xxs:text-caption font-medium ${children || loading ? "flex items-center justify-center gap-3" : ""} py-2 px-4 rounded-xs cursor-pointer my-transition ${btnStyles[btnStyle]}`}
 			type={type}
 			onClick={handleClick}
 			disabled={disabled || loading}
@@ -43,7 +43,9 @@ const CustomButton = ({
 
 			<span>{btnTitle}</span>
 
-			{children && <span className="text-button">{children}</span>}
+			{children && (
+				<span className="text-button [&_svg]:w-4 [&_svg]:h-4">{children}</span>
+			)}
 		</button>
 	);
 };

@@ -55,7 +55,7 @@ const HeroInfo = () => {
 
 					{/* Location */}
 					<div className="w-max flex items-center gap-2 bg-transparent py-2.5 px-3 border border-solid border-border-strong rounded-sm shadow-xs">
-						<span className="text-[13px] text-primary-active">
+						<span className="text-[13px] text-primary-active [&_svg]:w-3.5 [&_svg]:h-3.5">
 							{icons["location"]}
 						</span>
 
@@ -81,7 +81,7 @@ const HeroInfo = () => {
 							<Link
 								href={link.href}
 								aria-label={link.title}
-								className="bg-transparent hover:bg-primary-light w-10 h-10 flex items-center justify-center text-xl text-text-secondary hover:text-primary-active border border-solid border-border-strong hover:border-primary-border rounded-sm shadow-sm my-transition"
+								className="bg-transparent hover:bg-primary-light w-10 h-10 flex items-center justify-center text-text-secondary hover:text-primary-active border border-solid border-border-strong hover:border-primary-border rounded-sm shadow-sm my-transition [&_svg]:w-[18px] [&_svg]:h-[18px]"
 								target="_blank"
 							>
 								{icons[link.icon]}

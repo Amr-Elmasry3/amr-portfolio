@@ -9,14 +9,14 @@ const HeroButtons = () => {
 	const t = useTranslations("Buttons");
 
 	return (
-		<div className="hero-links flex items-center justify-center md:justify-start gap-4 mt-5 mb-6">
-			<Link href="#projects">
+		<div className="hero-links flex items-stretch justify-center md:justify-start gap-4 mt-5 mb-6">
+			<Link href="#projects" className="flex">
 				<CustomButton type="button" btnTitle={t("projects")} btnStyle="primary">
 					{icons["rightArrowCircle"]}
 				</CustomButton>
 			</Link>
 
-			<Link href="/Amr-Elmasry-Resume.pdf" target="_blank">
+			<Link href="/Amr-Elmasry-Resume.pdf" target="_blank" className="flex">
 				<CustomButton
 					type="button"
 					btnTitle={t("cv")}
