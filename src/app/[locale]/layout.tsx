@@ -56,6 +56,16 @@ const RootLayout = async ({
 			dir={`${locale === "ar" ? "rtl" : "ltr"}`}
 			className={`${ibmPlexArabic.variable} ${inter.variable} antialiased`}
 			suppressHydrationWarning>
+			<head>
+				{/* Apply the saved accent color before first paint so a
+				    refresh never flashes the default blue first.
+				    Key matches ACCENT_STORAGE_KEY in accents.constants. */}
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `(function(){try{var a=localStorage.getItem("accent-color");if(a&&a!=="blue"){document.documentElement.setAttribute("data-accent",a);}}catch(e){}})();`,
+					}}
+				/>
+			</head>
 			<body>
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<AllProviders>
