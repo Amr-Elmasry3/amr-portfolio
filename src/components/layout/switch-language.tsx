@@ -3,8 +3,7 @@
 import { ChevronDown } from "lucide-react";
 import EG from "country-flag-icons/react/3x2/EG";
 import US from "country-flag-icons/react/3x2/US";
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { routing } from "@/i18n/routing";
@@ -16,10 +15,9 @@ const flagFor = (loc: string) => {
 	return null;
 };
 
-const SwitchLanguageInner = () => {
+const SwitchLanguage = () => {
 	const router = useRouter();
 	const pathname = usePathname() || "/";
-	const searchParams = useSearchParams();
 	const currentLocale = useLocale();
 	const t1 = useTranslations("Header");
 
@@ -28,13 +26,10 @@ const SwitchLanguageInner = () => {
 
 	const changeLocale = useCallback(
 		(locale: string) => {
-			const query = searchParams?.toString();
-			const newPath = `${pathname}${query ? `?${query}` : ""}`;
-
-			router.push(newPath, { locale });
+			router.push(pathname, { locale });
 			setOpen(false);
 		},
-		[pathname, searchParams, router],
+		[pathname, router],
 	);
 
 	useEffect(() => {
@@ -96,39 +91,6 @@ const SwitchLanguageInner = () => {
 				</ul>
 			)}
 		</div>
-	);
-};
-
-// Static lookalike shown while the interactive switch resolves
-// (useSearchParams inside needs a Suspense boundary in the layout).
-const SwitchLanguageFallback = () => {
-	const currentLocale = useLocale();
-	const t1 = useTranslations("Header");
-	const languages = t1.raw("language") as Record<string, string>;
-
-	return (
-		<div className="relative inline-block text-left">
-			<button
-				type="button"
-				aria-label="Change language"
-				className="flex items-center gap-2 min-h-9.5 h-full px-3 py-1 rounded-md border border-solid border-border-strong bg-surface-secondary shadow-xs">
-				<span className="flex items-center gap-2">
-					{flagFor(currentLocale)}
-
-					<span className="hidden sm:inline text-caption font-bold text-text-secondary">
-						{languages[currentLocale]}
-					</span>
-				</span>
-			</button>
-		</div>
-	);
-};
-
-const SwitchLanguage = () => {
-	return (
-		<Suspense fallback={<SwitchLanguageFallback />}>
-			<SwitchLanguageInner />
-		</Suspense>
 	);
 };
 
