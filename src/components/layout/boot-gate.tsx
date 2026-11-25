@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence } from "motion/react";
 import { useCallback, useContext } from "react";
 
 import { BootScreenContext } from "@/contexts/boot-screen-context";
@@ -16,9 +15,7 @@ const BootGate = ({ children }: { children: React.ReactNode }) => {
 
 	return (
 		<>
-			<AnimatePresence mode="wait">
-				{showBootScreen && <BootScreen onComplete={completeBoot} />}
-			</AnimatePresence>
+			{showBootScreen && <BootScreen onComplete={completeBoot} />}
 
 			{children}
 		</>
