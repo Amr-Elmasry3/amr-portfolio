@@ -67,7 +67,7 @@ const AccentSwitch = () => {
 										setAccent(item.name);
 										setOpen(false);
 									}}
-									className={`w-full text-left flex items-center gap-2 px-3 py-2 cursor-pointer my-transition ${isActive ? "bg-primary-light" : "hover:bg-surface"}`}>
+									className={`w-full text-start flex items-center gap-2 px-3 py-2 cursor-pointer my-transition ${isActive ? "bg-primary-light" : "hover:bg-surface"}`}>
 									<span
 										aria-hidden="true"
 										className="h-3.5 w-3.5 rounded-full border border-solid border-black/10 shrink-0"

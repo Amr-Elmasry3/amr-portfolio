@@ -79,7 +79,7 @@ const SwitchLanguage = () => {
 								role="menuitem"
 								aria-label={languages[loc]}
 								onClick={() => changeLocale(loc)}
-								className="w-full text-left flex items-center gap-2 px-3 py-2 hover:bg-surface cursor-pointer my-transition">
+								className="w-full text-start flex items-center gap-2 px-3 py-2 hover:bg-surface cursor-pointer my-transition">
 								{flagFor(loc)}
 
 								<span className="text-caption font-medium text-text-secondary">
