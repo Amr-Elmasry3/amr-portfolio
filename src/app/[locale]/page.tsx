@@ -6,7 +6,7 @@ import SkillsSection from "@/components/sections/skills-section";
 
 const Home = () => {
 	return (
-		<main className="space-y-24">
+		<main className="space-y-24 pb-24">
 			<HeroSection />
 
 			<AboutSection />
