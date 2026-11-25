@@ -2,19 +2,21 @@ import Image from "next/image";
 
 import HeroInfo from "@/components/sections/hero-info";
 
-// Hero section: intro text on one side and the photo on the
-// other (photo hidden on mobile, as in the previous version).
-// The construction-draw overlay and swarm cursor from the old
-// site are intentionally not ported yet — amr will revisit the
-// reveal animations in his own way later.
+// Hero section: intro text over a full-height visual. The
+// photo + logo composition spans the whole height of the view
+// (anchored to the end side), with the text layered above it.
+// On mobile the composition is hidden, as in the previous
+// version. The construction-draw overlay and swarm cursor from
+// the old site are intentionally not ported yet — amr will
+// revisit the reveal animations in his own way later.
 const HeroSection = () => {
 	return (
 		<section
-			className="hero-section flex items-center justify-baseline md:justify-between gap-0 md:gap-6 mb-12"
+			className="hero-section relative flex items-center mb-12 overflow-x-clip md:min-h-[calc(100dvh-7rem)]"
 			role="banner"
 		>
 			{/* Hero Info */}
-			<div className="flex-1 text-center md:text-start">
+			<div className="relative z-10 flex-1 text-center md:flex-none md:w-[52%] md:text-start">
 				<HeroInfo />
 			</div>
 
@@ -24,13 +26,13 @@ const HeroSection = () => {
 			    (so the original mark recolors with the accent), and
 			    amr's clean cutout photo on top, offset to the exact
 			    position it held in the composite. An accent glow
-			    sits behind, the composition floats gently and fades
-			    out at the bottom so it never looks cropped. */}
-			<div className="flex-1 hidden md:block">
-				<div className="relative">
+			    sits behind and the composition fades out at the
+			    bottom so it never looks cropped. */}
+			<div className="absolute top-0 bottom-0 end-0 hidden aspect-[1299/941] md:block">
+				<div className="relative h-full">
 					<div aria-hidden="true" className="hero-photo-glow"></div>
 
-					<div className="hero-fade animate-float-soft relative aspect-[1299/941]">
+					<div className="hero-fade relative h-full">
 						<div aria-hidden="true" className="hero-logo-fill absolute inset-0"></div>
 
 						<Image
