@@ -103,6 +103,94 @@ p {
 	line-height: 1.6;
 }
 
+/* Page background: a soft wash of the active accent color spread
+   diagonally over the whole page, plus a faint grid that fades out
+   towards the bottom. Both layers follow the accent automatically. */
+.page-background-wash {
+	background: linear-gradient(
+		155deg,
+		color-mix(in srgb, var(--primary) 8%, transparent) 0%,
+		transparent 55%,
+		color-mix(in srgb, var(--primary) 5%, transparent) 100%
+	);
+}
+
+.dark .page-background-wash {
+	background: linear-gradient(
+		155deg,
+		color-mix(in srgb, var(--primary) 12%, transparent) 0%,
+		transparent 55%,
+		color-mix(in srgb, var(--primary) 8%, transparent) 100%
+	);
+}
+
+.page-background-grid {
+	background-image:
+		linear-gradient(
+			to right,
+			color-mix(in srgb, var(--text-primary) 5%, transparent) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			to bottom,
+			color-mix(in srgb, var(--text-primary) 5%, transparent) 1px,
+			transparent 1px
+		);
+	background-size: 60px 60px;
+	mask-image: linear-gradient(180deg, black 0%, transparent 90%);
+	-webkit-mask-image: linear-gradient(180deg, black 0%, transparent 90%);
+}
+
+.dark .page-background-grid {
+	background-image:
+		linear-gradient(
+			to right,
+			color-mix(in srgb, var(--text-primary) 6%, transparent) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			to bottom,
+			color-mix(in srgb, var(--text-primary) 6%, transparent) 1px,
+			transparent 1px
+		);
+}
+
+/* Color-switch reveal: when the theme or accent changes, the new
+   colors sweep in as a wipe from the side of the screen (from the
+   right in LTR, mirrored from the left in RTL), so the change is
+   clearly visible whatever the colors are. */
+::view-transition-old(root) {
+	animation: none;
+	z-index: 1;
+}
+
+::view-transition-new(root) {
+	animation: color-wipe 0.7s ease-in-out forwards;
+	z-index: 2147483646;
+}
+
+:root[dir="rtl"]::view-transition-new(root) {
+	animation-name: color-wipe-rtl;
+}
+
+@keyframes color-wipe {
+	from {
+		clip-path: inset(0 0 0 100%);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+@keyframes color-wipe-rtl {
+	from {
+		clip-path: inset(0 100% 0 0);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
 .gradient-text {
 	background: linear-gradient(
 		90deg,

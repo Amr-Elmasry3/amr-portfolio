@@ -47,6 +47,14 @@
       "en": "En"
     }
   },
+  "Accents": {
+    "blue": "Blue",
+    "violet": "Violet",
+    "amber": "Amber",
+    "emerald": "Emerald",
+    "rose": "Rose",
+    "cyan": "Cyan"
+  },
   "Buttons": {
     "cv": "Download Cv",
     "projects": "View Projects"
