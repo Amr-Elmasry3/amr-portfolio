@@ -103,6 +103,46 @@ p {
 	line-height: 1.6;
 }
 
+/* Page background glows: soft radial washes of the active accent
+   color over the neutral page background. Kept deliberately faint. */
+.page-background-glows {
+	background:
+		radial-gradient(
+			55% 45% at 85% 0%,
+			color-mix(in srgb, var(--primary) 13%, transparent) 0%,
+			transparent 100%
+		),
+		radial-gradient(
+			50% 40% at 8% 100%,
+			color-mix(in srgb, var(--primary) 9%, transparent) 0%,
+			transparent 100%
+		),
+		linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--primary) 5%, transparent) 0%,
+			transparent 45%
+		);
+}
+
+.dark .page-background-glows {
+	background:
+		radial-gradient(
+			55% 45% at 85% 0%,
+			color-mix(in srgb, var(--primary) 20%, transparent) 0%,
+			transparent 100%
+		),
+		radial-gradient(
+			50% 40% at 8% 100%,
+			color-mix(in srgb, var(--primary) 13%, transparent) 0%,
+			transparent 100%
+		),
+		linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--primary) 7%, transparent) 0%,
+			transparent 45%
+		);
+}
+
 .gradient-text {
 	background: linear-gradient(
 		90deg,
