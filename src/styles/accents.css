@@ -1,0 +1,133 @@
+/* Accent themes: brand-token overrides per accent, light and dark. */
+
+/* =========================
+   Accent Themes
+   The default accent (blue) is defined in tokens.css / dark.css.
+   Picking another accent sets data-accent on <html>, and only the
+   brand tokens are overridden — in light and dark mode alike.
+   ========================= */
+
+/* ---------- Violet ---------- */
+:root[data-accent="violet"] {
+	--primary: #7c3aed;
+	--primary-hover: #6d28d9;
+	--primary-active: #5b21b6;
+	--primary-light: #ede9fe;
+	--primary-lighter: #fbfaff;
+	--primary-border: #ddd6fe;
+	--surface-active: #f5f3ff;
+	--shadow-primary: 0 8px 22px rgba(124, 58, 237, 0.2);
+	--shadow-primary-hover: 0 10px 28px rgba(124, 58, 237, 0.28);
+}
+
+.dark[data-accent="violet"] {
+	--primary: #a78bfa;
+	--primary-hover: #8b5cf6;
+	--primary-active: #7c3aed;
+	--primary-light: #4c1d95;
+	--primary-lighter: #1e1038;
+	--primary-border: #5b21b6;
+	--surface-active: #2e1065;
+	--shadow-primary: 0 8px 24px rgba(167, 139, 250, 0.18);
+	--shadow-primary-hover: 0 10px 30px rgba(167, 139, 250, 0.25);
+}
+
+/* ---------- Amber ---------- */
+:root[data-accent="amber"] {
+	--primary: #d97706;
+	--primary-hover: #b45309;
+	--primary-active: #92400e;
+	--primary-light: #fef3c7;
+	--primary-lighter: #fffdf5;
+	--primary-border: #fde68a;
+	--surface-active: #fffbeb;
+	--shadow-primary: 0 8px 22px rgba(217, 119, 6, 0.2);
+	--shadow-primary-hover: 0 10px 28px rgba(217, 119, 6, 0.28);
+}
+
+.dark[data-accent="amber"] {
+	--primary: #fbbf24;
+	--primary-hover: #f59e0b;
+	--primary-active: #d97706;
+	--primary-light: #92400e;
+	--primary-lighter: #381c02;
+	--primary-border: #b45309;
+	--surface-active: #451a03;
+	--shadow-primary: 0 8px 24px rgba(251, 191, 36, 0.18);
+	--shadow-primary-hover: 0 10px 30px rgba(251, 191, 36, 0.25);
+}
+
+/* ---------- Emerald ---------- */
+:root[data-accent="emerald"] {
+	--primary: #059669;
+	--primary-hover: #047857;
+	--primary-active: #065f46;
+	--primary-light: #d1fae5;
+	--primary-lighter: #f7fefb;
+	--primary-border: #a7f3d0;
+	--surface-active: #ecfdf5;
+	--shadow-primary: 0 8px 22px rgba(5, 150, 105, 0.2);
+	--shadow-primary-hover: 0 10px 28px rgba(5, 150, 105, 0.28);
+}
+
+.dark[data-accent="emerald"] {
+	--primary: #34d399;
+	--primary-hover: #10b981;
+	--primary-active: #059669;
+	--primary-light: #065f46;
+	--primary-lighter: #062e22;
+	--primary-border: #047857;
+	--surface-active: #022c22;
+	--shadow-primary: 0 8px 24px rgba(52, 211, 153, 0.18);
+	--shadow-primary-hover: 0 10px 30px rgba(52, 211, 153, 0.25);
+}
+
+/* ---------- Rose ---------- */
+:root[data-accent="rose"] {
+	--primary: #e11d48;
+	--primary-hover: #be123c;
+	--primary-active: #9f1239;
+	--primary-light: #ffe4e6;
+	--primary-lighter: #fffafa;
+	--primary-border: #fecdd3;
+	--surface-active: #fff1f2;
+	--shadow-primary: 0 8px 22px rgba(225, 29, 72, 0.2);
+	--shadow-primary-hover: 0 10px 28px rgba(225, 29, 72, 0.28);
+}
+
+.dark[data-accent="rose"] {
+	--primary: #fb7185;
+	--primary-hover: #f43f5e;
+	--primary-active: #e11d48;
+	--primary-light: #881337;
+	--primary-lighter: #38060f;
+	--primary-border: #9f1239;
+	--surface-active: #4c0519;
+	--shadow-primary: 0 8px 24px rgba(251, 113, 133, 0.18);
+	--shadow-primary-hover: 0 10px 30px rgba(251, 113, 133, 0.25);
+}
+
+/* ---------- Cyan ---------- */
+:root[data-accent="cyan"] {
+	--primary: #0891b2;
+	--primary-hover: #0e7490;
+	--primary-active: #155e75;
+	--primary-light: #cffafe;
+	--primary-lighter: #f8feff;
+	--primary-border: #a5f3fc;
+	--surface-active: #ecfeff;
+	--shadow-primary: 0 8px 22px rgba(8, 145, 178, 0.2);
+	--shadow-primary-hover: 0 10px 28px rgba(8, 145, 178, 0.28);
+}
+
+.dark[data-accent="cyan"] {
+	--primary: #22d3ee;
+	--primary-hover: #06b6d4;
+	--primary-active: #0891b2;
+	--primary-light: #164e63;
+	--primary-lighter: #062a33;
+	--primary-border: #155e75;
+	--surface-active: #083344;
+	--shadow-primary: 0 8px 24px rgba(34, 211, 238, 0.18);
+	--shadow-primary-hover: 0 10px 30px rgba(34, 211, 238, 0.25);
+}
