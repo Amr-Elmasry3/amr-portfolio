@@ -24,23 +24,21 @@ const AccentContext = React.createContext<AccentContextValue>({
 // sync through useSyncExternalStore.
 const listeners = new Set<() => void>();
 
-function subscribe(listener: () => void) {
+const subscribe = (listener: () => void) => {
 	listeners.add(listener);
 	return () => {
 		listeners.delete(listener);
 	};
-}
+};
 
-function getSnapshot(): AccentName {
+const getSnapshot = (): AccentName => {
 	const current = document.documentElement.getAttribute("data-accent");
 	return isAccentName(current) ? current : DEFAULT_ACCENT;
-}
+};
 
-function getServerSnapshot(): AccentName {
-	return DEFAULT_ACCENT;
-}
+const getServerSnapshot = (): AccentName => DEFAULT_ACCENT;
 
-function applyAccent(accent: AccentName) {
+const applyAccent = (accent: AccentName) => {
 	const root = document.documentElement;
 
 	if (accent === DEFAULT_ACCENT) {
@@ -52,9 +50,9 @@ function applyAccent(accent: AccentName) {
 	}
 
 	listeners.forEach((listener) => listener());
-}
+};
 
-export function AccentProvider({ children }: { children: React.ReactNode }) {
+export const AccentProvider = ({ children }: { children: React.ReactNode }) => {
 	const accent = React.useSyncExternalStore(
 		subscribe,
 		getSnapshot,
@@ -82,8 +80,6 @@ export function AccentProvider({ children }: { children: React.ReactNode }) {
 	return (
 		<AccentContext.Provider value={value}>{children}</AccentContext.Provider>
 	);
-}
+};
 
-export function useAccent() {
-	return React.useContext(AccentContext);
-}
+export const useAccent = () => React.useContext(AccentContext);

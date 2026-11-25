@@ -16,6 +16,5 @@ export const DEFAULT_ACCENT: AccentName = "blue";
 
 export const ACCENT_STORAGE_KEY = "accent-color";
 
-export function isAccentName(value: string | null): value is AccentName {
-	return ACCENTS.some((accent) => accent.name === value);
-}
+export const isAccentName = (value: string | null): value is AccentName =>
+	ACCENTS.some((accent) => accent.name === value);

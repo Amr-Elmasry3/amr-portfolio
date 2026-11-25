@@ -5,7 +5,7 @@ import { Check } from "lucide-react";
 import { ACCENTS } from "@/constants/accents.constants";
 import { useAccent } from "@/app/[locale]/providers/accent-provider";
 
-function AccentSwitch() {
+const AccentSwitch = () => {
 	const { accent, setAccent } = useAccent();
 
 	return (
@@ -34,6 +34,6 @@ function AccentSwitch() {
 			})}
 		</div>
 	);
-}
+};
 
 export default AccentSwitch;
