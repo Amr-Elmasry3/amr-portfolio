@@ -1,5 +1,5 @@
 // Accent color themes. The default accent (blue) is baked into the
-// :root / .dark tokens in globals.css; every other accent overrides
+// :root / .dark tokens (tokens.css / dark.css); other accents override
 // the brand tokens through a data-accent attribute on <html>.
 export const ACCENTS = [
 	{ name: "blue", label: "Blue", swatch: "#2563eb" },

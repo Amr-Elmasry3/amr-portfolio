@@ -1,37 +1,88 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { Check, ChevronDown, Palette } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
-import { ACCENTS } from "@/constants/accents.constants";
 import { useAccent } from "@/app/[locale]/providers/accent-provider";
+import { ACCENTS } from "@/constants/accents.constants";
 
+// Closed by default to save header space; opens a dropdown
+// listing every accent color.
 const AccentSwitch = () => {
 	const { accent, setAccent } = useAccent();
 
-	return (
-		<div className="flex items-center gap-2" role="radiogroup" aria-label="Accent color">
-			{ACCENTS.map(({ name, label, swatch }) => {
-				const isActive = accent === name;
+	const [open, setOpen] = useState(false);
+	const ref = useRef<HTMLDivElement | null>(null);
 
-				return (
-					<button
-						key={name}
-						type="button"
-						role="radio"
-						aria-checked={isActive}
-						aria-label={`${label} accent`}
-						title={label}
-						onClick={() => setAccent(name)}
-						style={{ backgroundColor: swatch }}
-						className={`flex h-6 w-6 items-center justify-center rounded-full text-white ${
-							isActive
-								? "ring-2 ring-primary ring-offset-2 ring-offset-background"
-								: "opacity-70 hover:opacity-100"
-						}`}>
-						{isActive && <Check size={14} strokeWidth={3} />}
-					</button>
-				);
-			})}
+	useEffect(() => {
+		const onClick = (e: MouseEvent) => {
+			if (!ref.current) return;
+			if (!ref.current.contains(e.target as Node)) setOpen(false);
+		};
+
+		window.addEventListener("click", onClick);
+		return () => window.removeEventListener("click", onClick);
+	}, []);
+
+	const activeAccent = ACCENTS.find((item) => item.name === accent);
+
+	return (
+		<div ref={ref} className="relative inline-block text-left">
+			<button
+				type="button"
+				aria-label="Change accent color"
+				aria-expanded={open}
+				aria-haspopup="menu"
+				onClick={() => setOpen((v) => !v)}
+				className="flex items-center gap-2 min-h-9.5 h-full px-3 py-1 rounded-md border border-solid border-border-strong bg-surface-secondary shadow-xs cursor-pointer">
+				<Palette className="text-text-secondary" size={16} />
+
+				<span
+					aria-hidden="true"
+					className="h-3.5 w-3.5 rounded-full border border-solid border-black/10"
+					style={{ backgroundColor: activeAccent?.swatch }}
+				/>
+
+				<ChevronDown className="text-text-secondary" size={16} />
+			</button>
+
+			{open && (
+				<ul
+					className="absolute right-0 mt-2 w-40 divide-y divide-border border border-solid border-border-strong bg-surface-secondary rounded-md shadow-sm z-50 overflow-hidden my-transition"
+					role="menu">
+					{ACCENTS.map((item) => {
+						const isActive = item.name === accent;
+
+						return (
+							<li key={item.name} role="none">
+								<button
+									type="button"
+									role="menuitem"
+									aria-label={item.label}
+									onClick={() => {
+										setAccent(item.name);
+										setOpen(false);
+									}}
+									className={`w-full text-left flex items-center gap-2 px-3 py-2 cursor-pointer my-transition ${isActive ? "bg-primary-light" : "hover:bg-surface"}`}>
+									<span
+										aria-hidden="true"
+										className="h-3.5 w-3.5 rounded-full border border-solid border-black/10 shrink-0"
+										style={{ backgroundColor: item.swatch }}
+									/>
+
+									<span className="text-caption font-medium text-text-secondary flex-1">
+										{item.label}
+									</span>
+
+									{isActive && (
+										<Check className="text-primary" size={14} />
+									)}
+								</button>
+							</li>
+						);
+					})}
+				</ul>
+			)}
 		</div>
 	);
 };
