@@ -6,7 +6,7 @@ import ThemeToggle from "./theme-toggle";
 
 const Header = () => {
 	return (
-		<header className="flex items-center justify-between gap-2 py-3.5 mb-10">
+		<header className="flex items-center justify-between gap-2 pt-6 pb-3.5 mb-10">
 			{/* Logo */}
 			<div>
 				<Image
