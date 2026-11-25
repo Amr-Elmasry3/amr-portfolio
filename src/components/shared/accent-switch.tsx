@@ -3,6 +3,8 @@
 import { Check, ChevronDown, Palette } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { useLocale } from "next-intl";
+
 import { useAccent } from "@/app/[locale]/providers/accent-provider";
 import { ACCENTS } from "@/constants/accents.constants";
 
@@ -10,6 +12,7 @@ import { ACCENTS } from "@/constants/accents.constants";
 // listing every accent color.
 const AccentSwitch = () => {
 	const { accent, setAccent } = useAccent();
+	const isArabic = useLocale() === "ar";
 
 	const [open, setOpen] = useState(false);
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -48,7 +51,7 @@ const AccentSwitch = () => {
 
 			{open && (
 				<ul
-					className="absolute right-0 mt-2 w-40 divide-y divide-border border border-solid border-border-strong bg-surface-secondary rounded-md shadow-sm z-50 overflow-hidden my-transition"
+					className={`absolute ${isArabic ? "left-0" : "right-0"} mt-2 w-40 divide-y divide-border border border-solid border-border-strong bg-surface-secondary rounded-md shadow-sm z-50 overflow-hidden my-transition`}
 					role="menu">
 					{ACCENTS.map((item) => {
 						const isActive = item.name === accent;
