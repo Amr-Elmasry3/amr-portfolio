@@ -156,24 +156,38 @@ p {
 }
 
 /* Color-switch reveal: when the theme or accent changes, the new
-   colors expand in a circle from the clicked control (the origin
-   is stored in --vt-x / --vt-y by withViewTransition). */
+   colors sweep in as a wipe from the side of the screen (from the
+   right in LTR, mirrored from the left in RTL), so the change is
+   clearly visible whatever the colors are. */
 ::view-transition-old(root) {
 	animation: none;
 	z-index: 1;
 }
 
 ::view-transition-new(root) {
-	animation: color-reveal 0.6s ease-in-out forwards;
+	animation: color-wipe 0.7s ease-in-out forwards;
 	z-index: 2147483646;
 }
 
-@keyframes color-reveal {
+:root[dir="rtl"]::view-transition-new(root) {
+	animation-name: color-wipe-rtl;
+}
+
+@keyframes color-wipe {
 	from {
-		clip-path: circle(0% at var(--vt-x, 50%) var(--vt-y, 50%));
+		clip-path: inset(0 0 0 100%);
 	}
 	to {
-		clip-path: circle(150% at var(--vt-x, 50%) var(--vt-y, 50%));
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+@keyframes color-wipe-rtl {
+	from {
+		clip-path: inset(0 100% 0 0);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
 	}
 }
 

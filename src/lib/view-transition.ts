@@ -1,8 +1,9 @@
 // Runs a DOM update inside a view transition so color changes
-// (theme and accent switches) reveal as a circle expanding from
-// the clicked control instead of snapping instantly. Falls back
-// to a plain update when the API is unavailable or the user
-// prefers reduced motion.
+// (theme and accent switches) sweep in from the side of the
+// screen instead of snapping instantly (see the ::view-transition
+// rules in base.css). Falls back to a plain update when the API
+// is unavailable or the user prefers reduced motion. The origin
+// is kept for possible future use.
 interface TransitionOrigin {
 	x: number;
 	y: number;
