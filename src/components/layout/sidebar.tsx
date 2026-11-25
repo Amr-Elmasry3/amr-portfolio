@@ -31,7 +31,7 @@ const Sidebar = () => {
 		<aside
 			className={`sidebar fixed z-80 bottom-0 w-full sm:w-auto h-auto sm:h-screen ${isArabic ? "right-0" : "left-0"} flex items-end sm:items-center`}>
 			<nav
-				className={`rounded-tr-md rounded-tl-md ${isArabic ? "sm:rounded-none sm:rounded-tl-sm sm:rounded-bl-sm" : "sm:rounded-none sm:rounded-tr-sm sm:rounded-br-sm"} w-full flex flex-row sm:flex-col justify-around gap-3.5 bg-surface-active py-3 px-2 border border-solid border-border-strong shadow-sm my-transition`}
+				className={`rounded-tr-md rounded-tl-md ${isArabic ? "sm:rounded-none sm:rounded-tl-sm sm:rounded-bl-sm" : "sm:rounded-none sm:rounded-tr-sm sm:rounded-br-sm"} w-full flex flex-row sm:flex-col justify-around gap-3.5 [background-color:var(--sidebar-background)] py-3 px-2 border border-solid border-border-strong shadow-sm my-transition`}
 				role="navigation">
 				{links.map((link) => {
 					const isActive = activeHref === link.href;

@@ -14,11 +14,17 @@
 	/* -------------------------
      Page / Surface
      ------------------------- */
-	--background: #0b1120;
-	--surface: #111827;
-	--surface-secondary: #111827;
-	--surface-hover: #1e293b;
+	--background: #0a0a0c;
+	--surface: #131316;
+	--surface-secondary: #131316;
+	--surface-hover: #1f1f23;
 	--surface-active: #172554;
+	/* Soft accent tint for the sidebar: mostly surface, a hint of primary */
+	--sidebar-background: color-mix(
+		in srgb,
+		var(--primary) 10%,
+		var(--surface-secondary)
+	);
 
 	/* -------------------------
      Text
