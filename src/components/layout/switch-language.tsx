@@ -32,8 +32,8 @@ const SwitchLanguage = () => {
 	);
 
 	const flagFor = (loc: string) => {
-		if (loc === "en") return <US className="w-4.5 h-auto" />;
-		if (loc === "ar") return <EG className="w-4.5 h-auto" />;
+		if (loc === "en") return <US className="w-4.5 h-auto shrink-0" />;
+		if (loc === "ar") return <EG className="w-4.5 h-auto shrink-0" />;
 		return null;
 	};
 
@@ -74,7 +74,7 @@ const SwitchLanguage = () => {
 
 			{open && (
 				<ul
-					className="absolute right-0 mt-2 w-full divide-y divide-border border border-solid border-border-strong bg-surface-secondary rounded-md shadow-sm z-50 overflow-hidden my-transition"
+					className="absolute right-0 mt-2 w-36 divide-y divide-border border border-solid border-border-strong bg-surface-secondary rounded-md shadow-sm z-50 overflow-hidden my-transition"
 					role="menu">
 					{routing.locales.map((loc) => (
 						<li key={loc} role="none">
