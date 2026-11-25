@@ -235,6 +235,18 @@ p {
 	}
 }
 
+/* Fades the hero composition out at the bottom so the cutout
+   photo dissolves into the page instead of ending in a hard
+   cropped edge. */
+.hero-fade {
+	mask-image: linear-gradient(to bottom, black 80%, transparent 99%);
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		black 80%,
+		transparent 99%
+	);
+}
+
 .gradient-text {
 	background: linear-gradient(
 		90deg,
