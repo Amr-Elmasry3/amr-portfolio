@@ -19,16 +19,13 @@ const Projects = () => {
 
 	return (
 		<ul className="projects grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-			{projects.map((proj, index) => {
+			{projects.map((proj) => {
 				const translated = tProjects.find((item) => item.id === proj.id);
 
 				return (
 					<li
 						key={proj.id}
-						data-reveal
-						data-once="true"
-						data-delay={0.2 + (index % 3) * 0.05}
-						className="reveal bg-linear-to-br from-surface-secondary/30 via-primary-lighter to-surface-secondary/30 hover:bg-surface-active p-4 rounded-sm border border-solid border-border-strong shadow-sm my-transition"
+						className="bg-linear-to-br from-surface-secondary/30 via-primary-lighter to-surface-secondary/30 hover:bg-surface-active p-4 rounded-sm border border-solid border-border-strong shadow-sm my-transition"
 					>
 						{/* Image */}
 						<div className="w-full h-50 mb-4.5 rounded-sm border border-solid border-border-strong shadow-sm overflow-hidden">

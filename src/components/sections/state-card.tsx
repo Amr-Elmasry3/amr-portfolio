@@ -18,10 +18,9 @@ export interface StatNumber {
 
 interface StateCardProps {
 	number: StatNumber;
-	index: number;
 }
 
-const StateCard = ({ number, index }: StateCardProps) => {
+const StateCard = ({ number }: StateCardProps) => {
 	const ref = useRef<HTMLLIElement>(null);
 	const [started, setStarted] = useState(false);
 
@@ -49,7 +48,7 @@ const StateCard = ({ number, index }: StateCardProps) => {
 	}, []);
 
 	return (
-		<li ref={ref} data-reveal data-once="true" data-delay={index * 0.1} className="reveal">
+		<li ref={ref}>
 			<SmallBoxWrapper>
 				<div className="flex flex-col items-center gap-1">
 					<span className="text-[26px] text-primary [&_svg]:w-[26px] [&_svg]:h-[26px]">

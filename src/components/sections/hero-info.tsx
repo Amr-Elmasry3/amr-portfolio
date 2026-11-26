@@ -17,10 +17,10 @@ const HeroInfo = () => {
 			{/* Details */}
 			<div className="flex flex-col items-center md:items-start">
 				{/* Hello */}
-				<span data-reveal data-delay="0.2" className="reveal text-[18px] text-text-primary">{t("hello")}</span>
+				<span className="text-[18px] text-text-primary">{t("hello")}</span>
 
 				{/* Name */}
-				<h1 data-reveal data-delay="0.3" className="reveal text-[40px] sm:text-heading1 font-bold text-text-primary mt-2 mb-1.5 flex items-center justify-center md:justify-start gap-2.5">
+				<h1 className="text-[40px] sm:text-heading1 font-bold text-text-primary mt-2 mb-1.5 flex items-center justify-center md:justify-start gap-2.5">
 					{name.first}{" "}
 					<span className="gradient-text flex items-end">
 						{name.second}{" "}
@@ -29,12 +29,12 @@ const HeroInfo = () => {
 				</h1>
 
 				{/* Title */}
-				<h3 data-reveal data-delay="0.4" className="reveal text-button font-medium text-text-primary">
+				<h3 className="text-button font-medium text-text-primary">
 					{t("title")}
 				</h3>
 
 				{/* Description */}
-				<p data-reveal data-delay="0.5" className="reveal text-[13px] font-medium text-text-description mt-3.5 mb-5.5 max-w-[95%] xxs:max-w-[75%] sm:max-w-[60%]">
+				<p className="text-[13px] font-medium text-text-description mt-3.5 mb-5.5 max-w-[95%] xxs:max-w-[75%] sm:max-w-[60%]">
 					{t.rich("description", {
 						highlight: (chunks) => (
 							<span className="gradient-text font-bold">{chunks}</span>
@@ -43,7 +43,7 @@ const HeroInfo = () => {
 				</p>
 
 				{/* Status & Location */}
-				<div data-reveal data-delay="0.6" className="reveal flex items-center justify-center md:justify-start xxs:gap-2 gap-4">
+				<div className="flex items-center justify-center md:justify-start xxs:gap-2 gap-4">
 					{/* Status */}
 					<div className="w-max flex items-center gap-2 bg-transparent py-2.5 px-3 border border-solid border-border-strong rounded-sm shadow-xs">
 						<span className="w-2 h-2 bg-success rounded-full"></span>
@@ -71,19 +71,13 @@ const HeroInfo = () => {
 
 			{/* Social links */}
 			<div className="found-me">
-				<span data-reveal data-delay="0.9" className="reveal block text-smallCaption font-bold text-text-secondary">
+				<span className="text-smallCaption font-bold text-text-secondary">
 					{t("foundMe")}
 				</span>
 
 				<ul className="social-links mt-2.5 flex items-center justify-center md:justify-start gap-3">
-					{socialLinks.map((link, index) => (
-						<li
-							key={link.title}
-							data-reveal
-							data-once="true"
-							data-delay={0.98 + index * 0.08}
-							className="reveal"
-						>
+					{socialLinks.map((link) => (
+						<li key={link.title}>
 							<Link
 								href={link.href}
 								aria-label={link.title}

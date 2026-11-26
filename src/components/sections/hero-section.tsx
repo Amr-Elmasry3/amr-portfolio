@@ -27,7 +27,7 @@ const HeroSection = () => {
 			    sits behind and the composition fades out at the
 			    bottom so it never looks cropped. */}
 			<div className="flex-1 hidden md:block">
-				<div data-reveal="scale" data-once="true" data-delay="0.2" className="reveal reveal-scale relative">
+				<div className="relative">
 					<div aria-hidden="true" className="hero-photo-glow"></div>
 
 					<div className="hero-fade relative aspect-[1299/941]">

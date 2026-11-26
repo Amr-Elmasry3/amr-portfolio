@@ -1,0 +1,73 @@
+/* Swarm cursor float paths — the same keyframe offsets and
+   durations as the original framer-motion cursorFloat
+   variants: each cursor drifts out, back through the anchor
+   and out the other side on an ease-in-out loop, on its own
+   period (3s / 3.5s / 4s) so the swarm never moves in sync. */
+
+.swarm-float-0 {
+	animation: swarm-float-0 3s ease-in-out infinite;
+}
+
+.swarm-float-1 {
+	animation: swarm-float-1 3.5s ease-in-out infinite;
+}
+
+.swarm-float-2 {
+	animation: swarm-float-2 4s ease-in-out infinite;
+}
+
+@keyframes swarm-float-0 {
+	0%,
+	100% {
+		transform: translate(0, 0);
+	}
+	25% {
+		transform: translate(30px, -20px);
+	}
+	50% {
+		transform: translate(0, 0);
+	}
+	75% {
+		transform: translate(-30px, 20px);
+	}
+}
+
+@keyframes swarm-float-1 {
+	0%,
+	100% {
+		transform: translate(0, 0);
+	}
+	25% {
+		transform: translate(40px, -25px);
+	}
+	50% {
+		transform: translate(0, 0);
+	}
+	75% {
+		transform: translate(-40px, 25px);
+	}
+}
+
+@keyframes swarm-float-2 {
+	0%,
+	100% {
+		transform: translate(0, 0);
+	}
+	25% {
+		transform: translate(50px, -30px);
+	}
+	50% {
+		transform: translate(0, 0);
+	}
+	75% {
+		transform: translate(-50px, 30px);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.swarm-float-0,
+	.swarm-float-1,
+	.swarm-float-2 {
+		animation: none;
+	}
+}
