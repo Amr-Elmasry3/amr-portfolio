@@ -1,73 +1,96 @@
-/* Swarm cursor float paths — the same keyframe offsets and
-   durations as the original framer-motion cursorFloat
-   variants: each cursor drifts out, back through the anchor
-   and out the other side on an ease-in-out loop, on its own
-   period (3s / 3.5s / 4s) so the swarm never moves in sync. */
+/* Swarm builder hold-back rules — the CSS half of the swarm
+   engine in src/lib/swarm.ts. While the engine works, each
+   target carries data-swarm-state ("pending" | "building")
+   and data-swarm-kind, and the engine drives two custom
+   properties: --swarm-clip (percent still clipped away, for
+   text) and --swarm-draw (0 → 1 trace / paint progress).
+   When a target is done the attributes are removed and the
+   element is fully back to its own styles. */
 
-.swarm-float-0 {
-	animation: swarm-float-0 3s ease-in-out infinite;
+/* While the boot screen is up the page stays hidden, so
+   nothing flashes in the moment the boot screen leaves. */
+html[data-swarm="arming"] .home-page,
+html[data-swarm="arming"] body > aside {
+	opacity: 0;
 }
 
-.swarm-float-1 {
-	animation: swarm-float-1 3.5s ease-in-out infinite;
+/* Boxes (cards, images, buttons…) wait as a soft blur. */
+[data-swarm-state="pending"][data-swarm-kind="box"] {
+	opacity: 0;
+	filter: blur(10px);
 }
 
-.swarm-float-2 {
-	animation: swarm-float-2 4s ease-in-out infinite;
+/* …and land with a fade that matches the engine's FADE_MS. */
+[data-swarm-state="building"][data-swarm-kind="box"] {
+	opacity: 1;
+	filter: blur(0);
+	transition:
+		opacity 0.9s ease,
+		filter 0.9s ease;
 }
 
-@keyframes swarm-float-0 {
-	0%,
-	100% {
-		transform: translate(0, 0);
-	}
-	25% {
-		transform: translate(30px, -20px);
-	}
-	50% {
-		transform: translate(0, 0);
-	}
-	75% {
-		transform: translate(-30px, 20px);
-	}
+/* Text and multi-line blocks are revealed by a clip that the
+   cursor drives as it types / sweeps across the lines,
+   starting from the reading side in both directions. */
+[data-swarm-state="pending"][data-swarm-kind="text"],
+[data-swarm-state="building"][data-swarm-kind="text"],
+[data-swarm-state="pending"][data-swarm-kind="block"],
+[data-swarm-state="building"][data-swarm-kind="block"] {
+	clip-path: inset(0 calc(var(--swarm-clip, 100) * 1%) 0 0);
 }
 
-@keyframes swarm-float-1 {
-	0%,
-	100% {
-		transform: translate(0, 0);
-	}
-	25% {
-		transform: translate(40px, -25px);
-	}
-	50% {
-		transform: translate(0, 0);
-	}
-	75% {
-		transform: translate(-40px, 25px);
-	}
+html[dir="rtl"] [data-swarm-state="pending"][data-swarm-kind="text"],
+html[dir="rtl"] [data-swarm-state="building"][data-swarm-kind="text"],
+html[dir="rtl"] [data-swarm-state="pending"][data-swarm-kind="block"],
+html[dir="rtl"] [data-swarm-state="building"][data-swarm-kind="block"] {
+	clip-path: inset(0 0 0 calc(var(--swarm-clip, 100) * 1%));
 }
 
-@keyframes swarm-float-2 {
-	0%,
-	100% {
-		transform: translate(0, 0);
+/* A short transition smooths the cases where no cursor is
+   driving the variable frame by frame (force-reveals). */
+[data-swarm-state="building"][data-swarm-kind="text"],
+[data-swarm-state="building"][data-swarm-kind="block"] {
+	transition: clip-path 0.3s ease-out;
+}
+
+/* Painted images are wiped on as their cursor sweeps. */
+[data-swarm-state="pending"][data-swarm-kind="paint"],
+[data-swarm-state="building"][data-swarm-kind="paint"] {
+	clip-path: inset(0 calc((1 - var(--swarm-draw, 0)) * 100%) 0 0);
+	transition: clip-path 0.3s ease-out;
+}
+
+html[dir="rtl"] [data-swarm-state="pending"][data-swarm-kind="paint"],
+html[dir="rtl"] [data-swarm-state="building"][data-swarm-kind="paint"] {
+	clip-path: inset(0 0 0 calc((1 - var(--swarm-draw, 0)) * 100%));
+}
+
+/* Shapes inside a data-swarm-draw svg are traced by their
+   cursor: the stroke draws itself in, then the fill lands. */
+[data-swarm-kind="draw"] {
+	stroke-dasharray: 100;
+	stroke-dashoffset: calc(100 - var(--swarm-draw, 0) * 100);
+	fill-opacity: var(--swarm-draw, 0);
+}
+
+/* Safety nets: printing and reduced motion always see the
+   finished page. */
+@media print {
+	[data-swarm-state] {
+		opacity: 1 !important;
+		clip-path: none !important;
+		filter: none !important;
 	}
-	25% {
-		transform: translate(50px, -30px);
-	}
-	50% {
-		transform: translate(0, 0);
-	}
-	75% {
-		transform: translate(-50px, 30px);
+
+	html[data-swarm="arming"] .home-page,
+	html[data-swarm="arming"] body > aside {
+		opacity: 1;
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.swarm-float-0,
-	.swarm-float-1,
-	.swarm-float-2 {
-		animation: none;
+	html[data-swarm="arming"] .home-page,
+	html[data-swarm="arming"] body > aside {
+		opacity: 1;
 	}
 }
