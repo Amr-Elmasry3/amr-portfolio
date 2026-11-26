@@ -90,7 +90,12 @@ export interface SwarmEngine {
 	destroy: () => void;
 }
 
-const ROOT_SELECTORS = ["body > header", "body > aside", ".home-page"];
+const ROOT_SELECTORS = [
+	"body > header",
+	".my-container > header",
+	"body > aside",
+	".home-page",
+];
 const FLOW_ROOT = ".home-page";
 const MAX_TARGETS = 700;
 const STUCK_MS = 10000;

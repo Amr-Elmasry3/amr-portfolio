@@ -10,7 +10,8 @@
 /* While the boot screen is up the page stays hidden, so
    nothing flashes in the moment the boot screen leaves. */
 html[data-swarm="arming"] .home-page,
-html[data-swarm="arming"] body > aside {
+html[data-swarm="arming"] body > aside,
+html[data-swarm="arming"] .my-container > header {
 	opacity: 0;
 }
 
@@ -83,14 +84,16 @@ html[dir="rtl"] [data-swarm-state="building"][data-swarm-kind="paint"] {
 	}
 
 	html[data-swarm="arming"] .home-page,
-	html[data-swarm="arming"] body > aside {
+	html[data-swarm="arming"] body > aside,
+	html[data-swarm="arming"] .my-container > header {
 		opacity: 1;
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
 	html[data-swarm="arming"] .home-page,
-	html[data-swarm="arming"] body > aside {
+	html[data-swarm="arming"] body > aside,
+	html[data-swarm="arming"] .my-container > header {
 		opacity: 1;
 	}
 }
