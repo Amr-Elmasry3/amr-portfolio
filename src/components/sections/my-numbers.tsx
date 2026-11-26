@@ -11,8 +11,8 @@ const MyNumbers = () => {
 
 	return (
 		<ul className="my-numbers w-full flex-1 grid gap-2 grid-cols-[repeat(auto-fill,minmax(220px,1fr))]">
-			{numbers.map((num) => (
-				<StateCard key={num.title} number={num} />
+			{numbers.map((num, index) => (
+				<StateCard key={num.title} number={num} index={index} />
 			))}
 		</ul>
 	);

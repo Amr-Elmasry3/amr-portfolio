@@ -16,7 +16,7 @@ const ContactInfo = () => {
 	return (
 		<div className="w-full lg:w-[35%]">
 			<ul className="flex flex-col gap-3">
-				<li>
+				<li data-reveal data-delay="0.2" className="reveal">
 					<div className="bg-primary-light p-3 border border-solid border-primary-border rounded-sm">
 						<span className="flex items-center gap-2 mb-2 text-[15px] font-bold text-text-secondary">
 							<span className="w-2 h-2 bg-success rounded-full"></span>
@@ -29,8 +29,13 @@ const ContactInfo = () => {
 					</div>
 				</li>
 
-				{contactInfo.map((item) => (
-					<li key={item.key}>
+				{contactInfo.map((item, index) => (
+					<li
+						key={item.key}
+						data-reveal
+						data-delay={0.2 + (index + 1) * 0.1}
+						className="reveal"
+					>
 						<SmallBoxWrapper>
 							<div className="flex items-center gap-3">
 								<span className="min-w-12 h-12 text-subHeading text-text-secondary flex items-center justify-center border border-solid border-border-strong rounded-sm shadow-sm [&_svg]:w-5 [&_svg]:h-5">

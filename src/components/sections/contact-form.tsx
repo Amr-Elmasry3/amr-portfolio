@@ -17,7 +17,7 @@ const ContactForm = () => {
 			formik.touched[fieldName] && formik.errors[fieldName]
 				? "border-danger focus:border-danger"
 				: "border-border-strong focus:border-primary"
-		} rounded-xs shadow-sm bg-surface-secondary px-3 py-2 text-text-primary outline-none transition-colors placeholder:text-[14px] placeholder:text-text-placeholder`;
+		} rounded-xs shadow-sm bg-surface-secondary px-3 py-2 text-text-primary outline-none transition-[border-color,box-shadow] duration-300 focus:shadow-[0_0_0_2px_var(--color-primary-border)] placeholder:text-[14px] placeholder:text-text-placeholder`;
 
 	return (
 		<form
@@ -25,10 +25,10 @@ const ContactForm = () => {
 			onSubmit={formik.handleSubmit}
 			noValidate
 		>
-			<h3 className="text-[18px] font-bold text-text-primary">{t("title")}</h3>
+			<h3 data-reveal data-once="true" data-delay="0.2" className="reveal text-[18px] font-bold text-text-primary">{t("title")}</h3>
 
 			{/* Name Field */}
-			<div>
+			<div data-reveal data-once="true" data-delay="0.3" className="reveal">
 				<label
 					className="mb-1.5 block text-caption font-medium text-text-secondary"
 					htmlFor="name"
@@ -57,7 +57,7 @@ const ContactForm = () => {
 			</div>
 
 			{/* Email Field */}
-			<div>
+			<div data-reveal data-once="true" data-delay="0.4" className="reveal">
 				<label
 					className="mb-1.5 block text-caption font-medium text-text-secondary"
 					htmlFor="email"
@@ -86,7 +86,7 @@ const ContactForm = () => {
 			</div>
 
 			{/* Message Field */}
-			<div>
+			<div data-reveal data-once="true" data-delay="0.5" className="reveal">
 				<label
 					className="mb-1.5 block text-caption font-medium text-text-secondary"
 					htmlFor="message"
@@ -116,7 +116,7 @@ const ContactForm = () => {
 			</div>
 
 			{/* Send Button */}
-			<div className="w-full">
+			<div data-reveal data-once="true" data-delay="0.6" className="reveal w-full">
 				<CustomButton
 					type="submit"
 					btnTitle={t("submit")}

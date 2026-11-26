@@ -9,8 +9,8 @@ const AboutMe = () => {
 
 	return (
 		<ul className="about-me flex-1 flex flex-col gap-4">
-			{paragraphs.map((key) => (
-				<li key={key}>
+			{paragraphs.map((key, index) => (
+				<li key={key} data-reveal data-delay={index * 0.3} className="reveal">
 					<p className="text-caption font-medium text-text-description">
 						{t.rich(key, {
 							highlight: (chunks) => (
