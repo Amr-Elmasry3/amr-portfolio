@@ -176,17 +176,3 @@ html[data-swarm="on"][dir="rtl"] img[data-swarm-kind="paint"] {
 	}
 }
 
-/* While the boot screen is up (data-swarm="arming"), one cursor
-   types the boot name in — the same clip treatment as text blocks. */
-html[data-swarm="arming"] [data-swarm-boot-name][data-swarm-state="pending"] {
-	opacity: 0 !important;
-}
-
-html[data-swarm="arming"] [data-swarm-boot-name][data-swarm-state="building"] {
-	clip-path: inset(-4px calc(var(--swarm-clip, 0) * 1%) -4px -4px);
-}
-
-html[data-swarm="arming"][dir="rtl"]
-	[data-swarm-boot-name][data-swarm-state="building"] {
-	clip-path: inset(-4px -4px -4px calc(var(--swarm-clip, 0) * 1%));
-}

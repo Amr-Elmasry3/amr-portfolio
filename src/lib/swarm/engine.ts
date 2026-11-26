@@ -1006,8 +1006,7 @@ export function createSwarm(): SwarmEngine {
 		}
 
 		// Hand out work: each free cursor takes a nearby block from the front of the queue.
-		// During the boot preview the only work is the boot name itself.
-		if (!intro || previewing) {
+		if (!intro) {
 			const free = agents.filter(
 				(a) => a.phase === "idle" && !a.dying && a.alpha > 0.3,
 			);
@@ -1497,8 +1496,7 @@ export function createSwarm(): SwarmEngine {
 		return true;
 	};
 
-	/** While the boot screen is up, the swarm circles the name — and one
-	 *  cursor types the name itself in, like any other text block. */
+	/** While the boot screen is up, the swarm already circles the name. */
 	const preview = () => {
 		if (live || started || destroyed) return;
 		try {
@@ -1512,21 +1510,6 @@ export function createSwarm(): SwarmEngine {
 			introEnd = Infinity;
 			introBurst = true;
 			lastWork = now;
-
-			// Register the boot name as a text target so a cursor
-			// draws it while the rest of the swarm circles it.
-			const bootEl = document.querySelector<HTMLElement>(
-				"[data-swarm-boot-name]",
-			);
-			if (bootEl) {
-				const bt = makeTarget(bootEl, "text", 1, null);
-				targets = [bt];
-				byEl.set(bootEl, bt);
-				bootEl.setAttribute("data-swarm-state", "pending");
-				bootEl.setAttribute("data-swarm-kind", "text");
-				io?.observe(bootEl);
-			}
-
 			wake();
 		} catch {
 			teardown();
