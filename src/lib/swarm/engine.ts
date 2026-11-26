@@ -1495,7 +1495,11 @@ export function createSwarm(): SwarmEngine {
 				}
 				wake();
 			},
-			{ threshold: 0.01 },
+			// Watch a full screen above and below the viewport, so
+			// blocks become eligible before they scroll in and stay
+			// eligible briefly after they leave — the swarm gets
+			// time to finish a block's children before they pass.
+			{ threshold: 0.01, rootMargin: "100% 0px 100% 0px" },
 		);
 
 		lastScrollY = window.scrollY;
