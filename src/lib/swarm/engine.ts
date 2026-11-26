@@ -36,7 +36,17 @@ interface Target {
 	assist: Agent | null;
 	assisted: boolean;
 	progress: number; // eased build progress, shared with the assisting cursor
-	typing: { clips: number[]; fx: number[] } | null | undefined; // undefined = not prepared yet
+	typing:
+		| {
+				clips: number[];
+				fx: number[];
+				fy: number[];
+				edge: number[];
+				lineTop: number[];
+				lineBottom: number[];
+		  }
+		| null
+		| undefined; // undefined = not prepared yet
 }
 
 interface Geo {
@@ -103,7 +113,7 @@ const FADE_MS = 900;
 const INTRO_MS = 1500;
 const TRAIL_POINTS = 9;
 const ASSIST_MIN_AREA = 110000;
-const TYPE_MAX_CHARS = 40;
+const TYPE_MAX_CHARS = 1600;
 
 const SKIP_TAGS = new Set([
 	"script",
@@ -339,15 +349,27 @@ function discover(
 }
 
 /**
- * Pre-measure where each character ends, so short single-line text can be
- * typed one character at a time. Returns null when the text is too long or
- * can't be measured (the smooth wipe is used instead).
+ * Pre-measure where each typing step ends, so text can be typed in
+ * instead of wiped: short text goes character by character, long
+ * text a word at a time (measuring every character of a paragraph
+ * would be wasteful). Alongside the single-line clip percentages,
+ * each step records which line it lands on and where the caret is,
+ * so multi-line text can be revealed line by line, following the
+ * cursor. Returns null when the text is too long or can't be
+ * measured (the smooth wipe is used instead).
  */
 function measureTyping(
 	el: El,
 	r: DOMRect,
 	rtl: boolean,
-): { clips: number[]; fx: number[] } | null {
+): {
+	clips: number[];
+	fx: number[];
+	fy: number[];
+	edge: number[];
+	lineTop: number[];
+	lineBottom: number[];
+} | null {
 	const nodes: Text[] = [];
 	const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
 	let total = 0;
@@ -359,29 +381,58 @@ function measureTyping(
 	}
 	if (total < 3 || r.width < 20) return null;
 
+	const perChar = total <= 120;
 	const clips: number[] = [100];
 	const fx: number[] = [rtl ? r.right : r.left];
+	const fy: number[] = [(r.top + r.bottom) / 2];
+	const edge: number[] = [rtl ? 1 : 0];
+	const lineTop: number[] = [0];
+	const lineBottom: number[] = [0];
 	const range = document.createRange();
 	let done = 0;
 	let prevClip = 100;
 	for (const tn of nodes) {
 		for (let i = 1; i <= tn.data.length; i++) {
+			done++;
+			// In word mode only measure at word ends.
+			if (!perChar && i < tn.data.length && !/\s/.test(tn.data[i]))
+				continue;
 			range.setStart(nodes[0], 0);
 			range.setEnd(tn, i);
 			const rr = range.getBoundingClientRect();
-			const edge = rtl ? rr.left : rr.right;
+			const edgeX = rtl ? rr.left : rr.right;
 			const clip = rtl
-				? ((edge - r.left) / r.width) * 100
-				: ((r.right - edge) / r.width) * 100;
+				? ((edgeX - r.left) / r.width) * 100
+				: ((r.right - edgeX) / r.width) * 100;
 			prevClip = Math.min(prevClip, clamp(clip, 0, 100));
 			clips.push(prevClip);
-			fx.push(edge);
-			done++;
+			fx.push(edgeX);
+			const rects = range.getClientRects();
+			const last = rects[rects.length - 1];
+			if (last && r.height > 0) {
+				fy.push((last.top + last.bottom) / 2);
+				edge.push(
+					clamp(
+						((rtl ? last.left : last.right) - r.left) / r.width,
+						0,
+						1,
+					),
+				);
+				lineTop.push(clamp((last.top - r.top) / r.height, 0, 1));
+				lineBottom.push(clamp((last.bottom - r.top) / r.height, 0, 1));
+			} else {
+				fy.push(fy[fy.length - 1]);
+				edge.push(edge[edge.length - 1]);
+				lineTop.push(lineTop[lineTop.length - 1]);
+				lineBottom.push(lineBottom[lineBottom.length - 1]);
+			}
 		}
 	}
 	if (done !== total) return null;
 	clips[clips.length - 1] = 0;
-	return { clips, fx };
+	edge[edge.length - 1] = rtl ? 0 : 1;
+	lineBottom[lineBottom.length - 1] = 1;
+	return { clips, fx, fy, edge, lineTop, lineBottom };
 }
 
 // ───────────────────────── engine ─────────────────────────
@@ -516,6 +567,7 @@ export function createSwarm(): SwarmEngine {
 		t.el.removeAttribute("data-swarm-kind");
 		t.el.style.removeProperty("--swarm-clip");
 		t.el.style.removeProperty("--swarm-draw");
+		t.el.style.clipPath = "";
 	};
 
 	const finalize = (t: Target) => {
@@ -788,6 +840,7 @@ export function createSwarm(): SwarmEngine {
 		t.agent = null;
 		if (t.kind === "text" || t.kind === "block") {
 			t.el.style.setProperty("--swarm-clip", "0");
+			t.el.style.clipPath = "";
 		} else if (t.kind === "draw" || t.kind === "paint") {
 			t.el.style.setProperty("--swarm-draw", "1");
 			if (t.kind === "paint")
@@ -873,7 +926,10 @@ export function createSwarm(): SwarmEngine {
 			) {
 				a.phase = "build";
 				a.t0 = now;
-				if (t.kind === "text" && t.typing === undefined) {
+				if (
+					(t.kind === "text" || t.kind === "block") &&
+					t.typing === undefined
+				) {
 					t.typing = measureTyping(t.el, r, rtl);
 				}
 				a.dur =
@@ -911,28 +967,48 @@ export function createSwarm(): SwarmEngine {
 			a.x = lerp(g.sx, g.ex, e);
 			a.y = t.kind === "paint" ? g.cy : lerp(g.sy, g.ey, e);
 			t.el.style.setProperty("--swarm-draw", String(e));
-		} else if (t.kind === "text") {
-			a.y = clamp((r.top + r.bottom) / 2, 6, vh - 6);
-			if (t.typing) {
-				// typed one character at a time
+		} else if (t.kind === "text" || t.kind === "block") {
+			if (t.typing && t.lines > 1.7) {
+				// Typed across its lines: the reveal follows the cursor
+				// line by line — finished lines stay fully visible, the
+				// current line opens up to the caret, the rest is hidden.
 				const len = t.typing.clips.length - 1;
 				const n = Math.min(len, Math.floor(p * (len + 0.999)));
 				a.x = clamp(t.typing.fx[n], 6, vw - 6);
-				t.el.style.setProperty(
-					"--swarm-clip",
-					String(t.typing.clips[n]),
-				);
+				a.y = clamp(t.typing.fy[n], 6, vh - 6);
+				const ex = (t.typing.edge[n] * 100).toFixed(2);
+				const lt = (t.typing.lineTop[n] * 100).toFixed(2);
+				const lb = (t.typing.lineBottom[n] * 100).toFixed(2);
+				t.el.style.clipPath = rtl
+					? `polygon(0% 0%, 100% 0%, 100% ${lb}%, ${ex}% ${lb}%, ${ex}% ${lt}%, 0% ${lt}%)`
+					: `polygon(0% 0%, 100% 0%, 100% ${lt}%, ${ex}% ${lt}%, ${ex}% ${lb}%, 0% ${lb}%)`;
+			} else if (t.kind === "text") {
+				a.y = clamp((r.top + r.bottom) / 2, 6, vh - 6);
+				if (t.typing) {
+					// typed one character at a time
+					const len = t.typing.clips.length - 1;
+					const n = Math.min(len, Math.floor(p * (len + 0.999)));
+					a.x = clamp(t.typing.fx[n], 6, vw - 6);
+					t.el.style.setProperty(
+						"--swarm-clip",
+						String(t.typing.clips[n]),
+					);
+				} else {
+					a.x = lerp(g.sx, g.ex, e);
+					t.el.style.setProperty(
+						"--swarm-clip",
+						String((1 - e) * 100),
+					);
+				}
 			} else {
-				a.x = lerp(g.sx, g.ex, e);
+				// Block text that could not be measured: line sweep.
+				const n = Math.min(8, Math.max(1, Math.round(t.lines)));
+				const raw = e * n;
+				const frac = e >= 1 ? 1 : raw - Math.floor(raw);
+				a.x = lerp(g.sx, g.ex, easeInOut(frac));
+				a.y = clamp(lerp(r.top, r.bottom, e), 6, vh - 6);
 				t.el.style.setProperty("--swarm-clip", String((1 - e) * 100));
 			}
-		} else {
-			const n = Math.min(8, Math.max(1, Math.round(t.lines)));
-			const raw = e * n;
-			const frac = e >= 1 ? 1 : raw - Math.floor(raw);
-			a.x = lerp(g.sx, g.ex, easeInOut(frac));
-			a.y = clamp(lerp(r.top, r.bottom, e), 6, vh - 6);
-			t.el.style.setProperty("--swarm-clip", String((1 - e) * 100));
 		}
 		a.vx = (a.x - px) / Math.max(dt, 0.001);
 		a.vy = (a.y - py) / Math.max(dt, 0.001);
