@@ -757,20 +757,29 @@ export function createSwarm(): SwarmEngine {
 		a.vy = (a.y - py) * 60;
 	};
 
+	// Durations run a touch slower than the raw formulas — the
+	// building should read as drawing, not as a flash.
 	const buildDuration = (t: Target, r: DOMRect) => {
-		if (t.typing) return clamp(250 + t.typing.clips.length * 55, 500, 2200);
+		if (t.typing)
+			return clamp(250 + t.typing.clips.length * 55, 500, 2200) * 1.35;
 		if (t.kind === "paint")
-			return clamp(
-				720 + Math.hypot(r.width, r.height) * 0.32,
-				800,
-				1800,
+			return (
+				clamp(720 + Math.hypot(r.width, r.height) * 0.32, 800, 1800) *
+				1.35
 			);
 		if (t.kind === "draw")
-			return clamp(360 + Math.hypot(r.width, r.height) * 0.7, 500, 1300);
+			return (
+				clamp(360 + Math.hypot(r.width, r.height) * 0.7, 500, 1300) *
+				1.35
+			);
 		if (t.kind === "box")
-			return clamp(480 + 0.62 * Math.sqrt(r.width * r.height), 600, 1700);
-		if (t.kind === "text") return clamp(300 + r.width * 0.95, 400, 1500);
-		return clamp(380 + Math.min(8, t.lines) * 260, 620, 2300);
+			return (
+				clamp(480 + 0.62 * Math.sqrt(r.width * r.height), 600, 1700) *
+				1.35
+			);
+		if (t.kind === "text")
+			return clamp(300 + r.width * 0.95, 400, 1500) * 1.35;
+		return clamp(380 + Math.min(8, t.lines) * 260, 620, 2300) * 1.35;
 	};
 
 	const finishBuild = (a: Agent, t: Target, now: number) => {
@@ -971,8 +980,8 @@ export function createSwarm(): SwarmEngine {
 			lastWork = now;
 
 		const mobile = vw < 768;
-		const base = mobile ? 4 : 7;
-		const max = mobile ? 10 : 22;
+		const base = mobile ? 6 : 10;
+		const max = mobile ? 14 : 28;
 		let desired = 0;
 		if (intro) {
 			desired = base;
@@ -997,7 +1006,8 @@ export function createSwarm(): SwarmEngine {
 		}
 
 		// Hand out work: each free cursor takes a nearby block from the front of the queue.
-		if (!intro) {
+		// During the boot preview the only work is the boot name itself.
+		if (!intro || previewing) {
 			const free = agents.filter(
 				(a) => a.phase === "idle" && !a.dying && a.alpha > 0.3,
 			);
@@ -1224,35 +1234,11 @@ export function createSwarm(): SwarmEngine {
 		c.restore();
 	};
 
-	const drawIntro = (c: CanvasRenderingContext2D, now: number) => {
-		if (previewing || now >= introEnd) return;
-		const t = (now - introStart) / INTRO_MS;
-		const fade = Math.min(1, t * 6, (1 - t) * 4);
-		const cx = vw / 2;
-		const cy = vh / 2 - 10;
-		const r = 28 + Math.sin(now / 200) * 3;
-		c.globalAlpha = fade * 0.12;
-		c.fillStyle = colors.primary;
-		c.beginPath();
-		c.arc(cx, cy, r, 0, Math.PI * 2);
-		c.fill();
-		c.globalAlpha = fade * 0.8;
-		c.strokeStyle = colors.primary;
-		c.lineWidth = 2;
-		c.stroke();
-		c.globalAlpha = fade;
-		c.fillStyle = colors.primary;
-		c.beginPath();
-		c.arc(cx, cy, 5, 0, Math.PI * 2);
-		c.fill();
-	};
-
 	const draw = (now: number) => {
 		if (!ctx) return;
 		const c = ctx;
 		c.clearRect(0, 0, vw, vh);
 
-		drawIntro(c, now);
 
 		for (const gh of ghosts) {
 			if (!gh.target.el.isConnected) continue;
@@ -1495,11 +1481,7 @@ export function createSwarm(): SwarmEngine {
 				}
 				wake();
 			},
-			// Watch a full screen above and below the viewport, so
-			// blocks become eligible before they scroll in and stay
-			// eligible briefly after they leave — the swarm gets
-			// time to finish a block's children before they pass.
-			{ threshold: 0.01, rootMargin: "100% 0px 100% 0px" },
+			{ threshold: 0.01 },
 		);
 
 		lastScrollY = window.scrollY;
@@ -1515,7 +1497,8 @@ export function createSwarm(): SwarmEngine {
 		return true;
 	};
 
-	/** While the boot screen is up, the swarm already circles the name. */
+	/** While the boot screen is up, the swarm circles the name — and one
+	 *  cursor types the name itself in, like any other text block. */
 	const preview = () => {
 		if (live || started || destroyed) return;
 		try {
@@ -1529,6 +1512,21 @@ export function createSwarm(): SwarmEngine {
 			introEnd = Infinity;
 			introBurst = true;
 			lastWork = now;
+
+			// Register the boot name as a text target so a cursor
+			// draws it while the rest of the swarm circles it.
+			const bootEl = document.querySelector<HTMLElement>(
+				"[data-swarm-boot-name]",
+			);
+			if (bootEl) {
+				const bt = makeTarget(bootEl, "text", 1, null);
+				targets = [bt];
+				byEl.set(bootEl, bt);
+				bootEl.setAttribute("data-swarm-state", "pending");
+				bootEl.setAttribute("data-swarm-kind", "text");
+				io?.observe(bootEl);
+			}
+
 			wake();
 		} catch {
 			teardown();

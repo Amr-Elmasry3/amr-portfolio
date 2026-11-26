@@ -30,7 +30,7 @@ const BootScreen = ({ onComplete }: BootScreenProps) => {
 
 	return (
 		<div className="fixed inset-0 z-100 flex items-center justify-center bg-linear-to-br from-surface-secondary via-primary-lighter to-surface-secondary">
-			<div className="flex items-center gap-1">
+			<div data-swarm-boot-name className="flex items-center gap-1">
 				{letters.map((letter, i) => (
 					<span
 						key={`${letter}-${i}`}
