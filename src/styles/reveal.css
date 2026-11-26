@@ -1,0 +1,48 @@
+/* Scroll-reveal system — a CSS-only port of the animation
+   language from the previous version of the site (formerly
+   framer-motion variants): fadeUp is opacity + 20px rise,
+   fadeScale is opacity + 0.95 scale, everything runs 0.6s on
+   the same cubic-bezier(0.25, 0.1, 0.25, 1) ease, and the
+   stagger comes from a per-element --reveal-delay set by the
+   RevealObserver from data-delay. Elements reveal when the
+   observer adds .is-visible; "once" elements also get their
+   reveal classes removed after the entrance so their own
+   hover transitions behave natively again. */
+
+.reveal {
+	opacity: 0;
+	transform: translateY(20px);
+	transition:
+		opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) var(--reveal-delay, 0s),
+		transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) var(--reveal-delay, 0s);
+}
+
+.reveal-scale {
+	transform: scale(0.95);
+}
+
+.reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+/* Section heading connector lines draw downwards into the
+   badge once their heading reveals. */
+.reveal-line {
+	transform: scaleY(0);
+	transform-origin: top center;
+	transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 0.15s;
+}
+
+.is-visible .reveal-line {
+	transform: scaleY(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.reveal,
+	.reveal-line {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
