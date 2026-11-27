@@ -20,7 +20,9 @@ export const useCountUp = ({ value, started }: UseCountUpOptions) => {
 		if (!started) return;
 
 		const startTime = performance.now();
-		const duration = 300;
+		// Roughly the time the swarm spends typing the number, so
+		// the digits finish rolling about when the caret passes.
+		const duration = 650;
 		let frame = 0;
 
 		const updateCount = (currentTime: number) => {
