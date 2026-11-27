@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { icons } from "@/constants/icons";
+
 // The hero photo composition, on the original artwork's canvas:
 // the AE logo (extracted from the old composite as a mask, so it
 // recolours with the accent gradient) with amr's clean cutout on
@@ -34,6 +36,23 @@ const HeroVisual = () => {
 					className="absolute top-0 h-full w-auto"
 					style={{ left: PHOTO_LEFT }}
 				/>
+			</div>
+
+			{/* Static badge chip hanging off the composition's
+			    bottom corner */}
+			<div className="absolute -bottom-5 start-4 flex items-center gap-2.5 rounded-md border border-solid border-border-strong bg-surface/85 px-3 py-2 shadow-md backdrop-blur">
+				<span className="text-[18px] text-primary [&_svg]:size-[18px]">
+					{icons["codeAlt"]}
+				</span>
+
+				<span className="flex flex-col leading-tight">
+					<span className="text-[12px] font-bold text-text-primary">
+						React.js & Next.js
+					</span>
+					<span className="text-[10px] font-medium text-text-description">
+						Frontend Developer
+					</span>
+				</span>
 			</div>
 		</div>
 	);
