@@ -1561,7 +1561,9 @@ export function createSwarm(): SwarmEngine {
 		mo = new MutationObserver(readEnv);
 		mo.observe(html, {
 			attributes: true,
-			attributeFilter: ["class", "dir", "lang"],
+			// data-accent included: the swarm recolours itself the
+			// moment the visitor switches the site's accent colour.
+			attributeFilter: ["class", "dir", "lang", "data-accent"],
 		});
 		live = true;
 		return true;
