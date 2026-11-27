@@ -18,7 +18,7 @@ const Projects = () => {
 	const tProjects = t.raw("Projects") as TranslateData[];
 
 	return (
-		<ul className="projects grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+		<ul className="projects grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
 			{projects.map((proj) => {
 				const translated = tProjects.find(
 					(item) => item.id === proj.id,
