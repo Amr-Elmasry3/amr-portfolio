@@ -25,7 +25,7 @@ const Projects = () => {
 				return (
 					<li
 						key={proj.id}
-						className="bg-linear-to-br from-surface-secondary/30 via-primary-lighter to-surface-secondary/30 hover:bg-surface-active p-4 rounded-sm border border-solid border-border-strong shadow-sm my-transition"
+						className="group flex flex-col bg-linear-to-br from-surface-secondary/30 via-primary-lighter to-surface-secondary/30 hover:bg-surface-active p-4 rounded-sm border border-solid border-border-strong shadow-sm my-transition"
 					>
 						{/* Image */}
 						<div className="w-full h-50 mb-4.5 rounded-sm border border-solid border-border-strong shadow-sm overflow-hidden">
@@ -35,7 +35,8 @@ const Projects = () => {
 								width={280}
 								height={200}
 								loading="lazy"
-								className="w-full h-full"
+								sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+								className="w-full h-full object-cover my-transition group-hover:scale-[1.04]"
 							/>
 						</div>
 
@@ -45,7 +46,7 @@ const Projects = () => {
 						</h3>
 
 						{/* Short Description */}
-						<p className="text-caption font-medium text-text-description mt-1.5 mb-3.5">
+						<p className="text-caption font-medium text-text-description mt-1.5 mb-3.5 line-clamp-3">
 							{translated?.shortDescription}
 						</p>
 
@@ -59,7 +60,7 @@ const Projects = () => {
 						</ul>
 
 						{/* Links */}
-						<div className="flex items-center justify-between mt-5">
+						<div className="flex items-center justify-between mt-auto pt-5">
 							<Link
 								href={proj.demo}
 								target="_blank"
