@@ -98,7 +98,7 @@ const Experience = () => {
 										</span>
 									</div>
 
-									<ul className="mt-3.5 flex flex-col gap-1.5">
+									<ul className="mt-5 flex flex-col gap-2.5">
 										{text?.points.map((point, pointIndex) => (
 											<li
 												key={point}
@@ -119,7 +119,11 @@ const Experience = () => {
 										))}
 									</ul>
 
-									<ul className="mt-4 flex flex-wrap gap-2">
+									<p className="mt-6 text-smallCaption font-bold uppercase tracking-wider text-text-secondary">
+										{t("techsLabel")}
+									</p>
+
+									<ul className="mt-2.5 flex flex-wrap gap-2">
 										{item.techs.map((tech) => (
 											<li
 												key={tech.label}
@@ -128,7 +132,7 @@ const Experience = () => {
 												<span className="w-4 text-text-primary [&_svg]:size-4">
 													{skillsIcon[tech.icon]}
 												</span>
-												{tech.label}
+												<span>{tech.label}</span>
 											</li>
 										))}
 									</ul>

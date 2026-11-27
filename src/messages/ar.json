@@ -146,6 +146,7 @@
   },
   "Experience": {
     "current": "حاليًا",
+    "techsLabel": "التقنيات اللي بتدرب عليها",
     "items": [
       {
         "id": "elmo-tech",

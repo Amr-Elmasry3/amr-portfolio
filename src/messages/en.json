@@ -146,6 +146,7 @@
   },
   "Experience": {
     "current": "Current",
+    "techsLabel": "Technologies I train with",
     "items": [
       {
         "id": "elmo-tech",
