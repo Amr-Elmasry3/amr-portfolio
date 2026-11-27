@@ -68,6 +68,11 @@ const Experience = () => {
 											{t("current")}
 										</span>
 									)}
+
+									<span className="ms-auto flex items-center gap-1.5 rounded-full border border-solid border-border-strong bg-surface-secondary px-2.5 py-0.5 text-smallCaption font-bold text-text-secondary">
+										<CalendarDays className="size-3.5" />
+										{text?.period}
+									</span>
 								</div>
 
 								<p className="mt-1.5 flex items-center gap-1.5 text-caption font-bold text-primary">
@@ -79,11 +84,6 @@ const Experience = () => {
 									<span className="flex items-center gap-1">
 										<MapPin className="size-3.5" />
 										{text?.location}
-									</span>
-
-									<span className="flex items-center gap-1">
-										<CalendarDays className="size-3.5" />
-										{text?.period}
 									</span>
 								</div>
 
