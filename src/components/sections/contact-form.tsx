@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleAlert, CircleCheck, Send } from "lucide-react";
+import { CircleAlert, CircleCheck, Clock, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import CustomButton from "@/components/shared/custom-button";
@@ -146,6 +146,12 @@ const ContactForm = () => {
 					<Send />
 				</CustomButton>
 			</div>
+
+			{/* Response time */}
+			<p className="flex items-center justify-center gap-1.5 text-smallCaption font-medium text-text-description">
+				<Clock className="size-3.5" />
+				{t("responseTime")}
+			</p>
 		</form>
 	);
 };

@@ -175,6 +175,7 @@
       "message": "Message",
       "messagePlaceholder": "Tell me how I can help...",
       "submit": "Send Message",
+      "responseTime": "I usually reply within 24 hours",
       "success": "Thanks! Your message was sent successfully.",
       "error": "Sorry, your message could not be sent. Please try again.",
       "validation": {
