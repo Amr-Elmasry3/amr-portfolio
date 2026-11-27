@@ -138,6 +138,15 @@
       }
     ]
   },
+  "Skills": {
+    "categories": {
+      "core": "الأساسيات",
+      "stateData": "إدارة الحالة والبيانات",
+      "forms": "النماذج والتحقق",
+      "ui": "الواجهة والتنسيق",
+      "tools": "التوجيه والأدوات"
+    }
+  },
   "SectionsHeading": {
     "about": "نبذة <highlight>عني</highlight>",
     "skills": "مهاراتي <highlight>التقنية</highlight>",

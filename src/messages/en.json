@@ -138,6 +138,15 @@
       }
     ]
   },
+  "Skills": {
+    "categories": {
+      "core": "Core",
+      "stateData": "State & Data",
+      "forms": "Forms & Validation",
+      "ui": "UI & Styling",
+      "tools": "Routing & Tools"
+    }
+  },
   "SectionsHeading": {
     "about": "About <highlight>Me</highlight>",
     "skills": "My <highlight>Skills</highlight>",

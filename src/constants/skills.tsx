@@ -9,10 +9,22 @@ type SkillsIcon = {
 	[key: string]: ReactNode;
 };
 
+export type SkillCategory = "core" | "stateData" | "forms" | "ui" | "tools";
+
+// The order the category groups render in.
+export const skillCategories: SkillCategory[] = [
+	"core",
+	"stateData",
+	"forms",
+	"ui",
+	"tools",
+];
+
 interface MySkill {
 	id: number;
 	skill: string;
 	icon: string;
+	category: SkillCategory;
 }
 
 export const skillsIcon: SkillsIcon = {
@@ -172,24 +184,24 @@ export const skillsIcon: SkillsIcon = {
 };
 
 export const mySkills: MySkill[] = [
-	{ id: 1, skill: "Next.js", icon: "Next.js" },
-	{ id: 2, skill: "React.js", icon: "React.js" },
-	{ id: 3, skill: "JavaScript", icon: "JavaScript" },
-	{ id: 4, skill: "TypeScript", icon: "TypeScript" },
-	{ id: 5, skill: "Redux", icon: "Redux" },
-	{ id: 6, skill: "Zustand", icon: "Zustand" },
-	{ id: 7, skill: "TanStack Query", icon: "TanStack Query" },
-	{ id: 8, skill: "Axios", icon: "Axios" },
-	{ id: 9, skill: "React Router", icon: "React Router" },
-	{ id: 10, skill: "React Hook Form", icon: "React Hook Form" },
-	{ id: 11, skill: "Zod", icon: "Zod" },
-	{ id: 12, skill: "Formik & Yup", icon: "Formik & Yup" },
-	{ id: 13, skill: "next-intl", icon: "next-intl" },
-	{ id: 14, skill: "Swiper", icon: "Swiper" },
-	{ id: 15, skill: "Tailwind CSS", icon: "Tailwind CSS" },
-	{ id: 16, skill: "Shadcn Ui", icon: "Shadcn Ui" },
-	{ id: 17, skill: "HTML5", icon: "HTML5" },
-	{ id: 18, skill: "CSS3", icon: "CSS3" },
-	{ id: 19, skill: "SCSS", icon: "SCSS" },
-	{ id: 20, skill: "Git & Github", icon: "Github" },
+	{ id: 1, skill: "Next.js", icon: "Next.js", category: "core" },
+	{ id: 2, skill: "React.js", icon: "React.js", category: "core" },
+	{ id: 3, skill: "JavaScript", icon: "JavaScript", category: "core" },
+	{ id: 4, skill: "TypeScript", icon: "TypeScript", category: "core" },
+	{ id: 5, skill: "Redux", icon: "Redux", category: "stateData" },
+	{ id: 6, skill: "Zustand", icon: "Zustand", category: "stateData" },
+	{ id: 7, skill: "TanStack Query", icon: "TanStack Query", category: "stateData" },
+	{ id: 8, skill: "Axios", icon: "Axios", category: "stateData" },
+	{ id: 9, skill: "React Router", icon: "React Router", category: "tools" },
+	{ id: 10, skill: "React Hook Form", icon: "React Hook Form", category: "forms" },
+	{ id: 11, skill: "Zod", icon: "Zod", category: "forms" },
+	{ id: 12, skill: "Formik & Yup", icon: "Formik & Yup", category: "forms" },
+	{ id: 13, skill: "next-intl", icon: "next-intl", category: "tools" },
+	{ id: 14, skill: "Swiper", icon: "Swiper", category: "ui" },
+	{ id: 15, skill: "Tailwind CSS", icon: "Tailwind CSS", category: "ui" },
+	{ id: 16, skill: "Shadcn Ui", icon: "Shadcn Ui", category: "ui" },
+	{ id: 17, skill: "HTML5", icon: "HTML5", category: "ui" },
+	{ id: 18, skill: "CSS3", icon: "CSS3", category: "ui" },
+	{ id: 19, skill: "SCSS", icon: "SCSS", category: "ui" },
+	{ id: 20, skill: "Git & Github", icon: "Github", category: "tools" },
 ];
