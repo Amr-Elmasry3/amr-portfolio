@@ -1,12 +1,12 @@
 import Image from "next/image";
 
-import HeroDecorations from "@/components/sections/hero-decorations";
 import HeroInfo from "@/components/sections/hero-info";
 
 // Hero section: intro text on one side and the photo on the
 // other (photo hidden on mobile, as in the previous version).
-// The swarm builder draws the whole composition in, photo,
-// logo and decorations included.
+// The construction-draw overlay and swarm cursor from the old
+// site are intentionally not ported yet — amr will revisit the
+// reveal animations in his own way later.
 const HeroSection = () => {
 	return (
 		<section
@@ -29,8 +29,6 @@ const HeroSection = () => {
 			<div className="flex-1 hidden md:block">
 				<div className="relative">
 					<div aria-hidden="true" className="hero-photo-glow"></div>
-
-					<HeroDecorations />
 
 					<div className="hero-fade relative aspect-[1299/941]">
 						<div aria-hidden="true" className="hero-logo-fill absolute inset-0"></div>

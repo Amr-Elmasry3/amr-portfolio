@@ -69,7 +69,6 @@ interface Agent {
 	phase: Phase;
 	role: Role;
 	target: Target | null;
-	visit: { el: Element; stage: number; since: number } | null;
 	t0: number;
 	dur: number;
 	rect: DOMRect | null;
@@ -99,8 +98,6 @@ export interface SwarmEngine {
 	start: () => void;
 	replay: () => void;
 	destroy: () => void;
-	/** Send a cursor over to an element for a small celebration. */
-	celebrate: (el: Element) => void;
 }
 
 const ROOT_SELECTORS = [
@@ -441,7 +438,6 @@ export function createSwarm(): SwarmEngine {
 		start: () => {},
 		replay: () => {},
 		destroy: () => {},
-		celebrate: () => {},
 	};
 	if (typeof window === "undefined") return noop;
 
@@ -642,7 +638,6 @@ export function createSwarm(): SwarmEngine {
 				phase: "idle",
 				role: "lead",
 				target: null,
-				visit: null,
 				t0: now,
 				dur: 1,
 				rect: null,
@@ -886,39 +881,6 @@ export function createSwarm(): SwarmEngine {
 	};
 
 	const stepAgent = (a: Agent, now: number, dt: number, speedMul: number) => {
-		if (a.visit) {
-			// A celebration visit: fly to the element, land on it
-			// with a ring and a ripple, hover a beat, then rejoin.
-			const v = a.visit;
-			if (!v.el.isConnected) {
-				a.visit = null;
-				return;
-			}
-			const r = v.el.getBoundingClientRect();
-			const cx = (r.left + r.right) / 2;
-			const cy = (r.top + r.bottom) / 2;
-			if (v.stage === 0) {
-				const d = seek(a, cx, cy, dt, 1150, 3800);
-				if (d < 16) {
-					v.stage = 1;
-					v.since = now;
-					const col = agentColor(a);
-					ghosts.push({
-						target: { el: v.el } as Target,
-						t0: now,
-						color: col,
-					});
-					ripples.push({ x: cx, y: cy, t0: now, color: col });
-				}
-			} else {
-				a.x = lerp(a.x, cx, 0.35);
-				a.y = lerp(a.y, cy, 0.35);
-				a.vx = 0;
-				a.vy = 0;
-				if (now - v.since > 420) a.visit = null;
-			}
-			return;
-		}
 		if (a.phase === "idle") {
 			a.rect = null;
 			if (now < introEnd) orbit(a, now);
@@ -1117,8 +1079,7 @@ export function createSwarm(): SwarmEngine {
 		// Hand out work: each free cursor takes a nearby block from the front of the queue.
 		if (!intro) {
 			const free = agents.filter(
-				(a) =>
-					a.phase === "idle" && !a.dying && !a.visit && a.alpha > 0.3,
+				(a) => a.phase === "idle" && !a.dying && a.alpha > 0.3,
 			);
 			for (const a of free) {
 				if (!ready.length) break;
@@ -1524,13 +1485,6 @@ export function createSwarm(): SwarmEngine {
 		releasing.length = 0;
 	};
 
-	const armOne = (t: Target) => {
-		byEl.set(t.el, t);
-		t.el.setAttribute("data-swarm-state", "pending");
-		t.el.setAttribute("data-swarm-kind", t.kind);
-		io?.observe(t.el);
-	};
-
 	const arm = () => {
 		const found: Target[] = [];
 		for (const sel of ROOT_SELECTORS) {
@@ -1542,64 +1496,13 @@ export function createSwarm(): SwarmEngine {
 			}
 		}
 		targets = found;
-		for (const t of targets) armOne(t);
+		for (const t of targets) {
+			byEl.set(t.el, t);
+			t.el.setAttribute("data-swarm-state", "pending");
+			t.el.setAttribute("data-swarm-kind", t.kind);
+			io?.observe(t.el);
+		}
 		html.setAttribute("data-swarm", "on");
-	};
-
-	// Content added after the first pass (a dialog opening, a
-	// section mounting later) gets armed too, so the swarm builds
-	// it like everything else instead of leaving it plain.
-	let domMo: MutationObserver | null = null;
-
-	const armAdded = (node: Element) => {
-		if (node === canvas) return;
-		let parent: Target | null = null;
-		for (let p = node.parentElement; p; p = p.parentElement) {
-			const hit = byEl.get(p);
-			if (hit) {
-				parent = hit;
-				break;
-			}
-		}
-		const fresh: Target[] = [];
-		discover(
-			node as El,
-			getComputedStyle(node).position === "fixed",
-			false,
-			fresh,
-		);
-		// discover lists parents before their children; re-anchor
-		// anything whose parent was already armed (a moved node) to
-		// the live target so the parent gate still releases.
-		const remap = new Map<Target, Target>();
-		for (const t of fresh) {
-			if (t.parent && remap.has(t.parent))
-				t.parent = remap.get(t.parent) ?? null;
-			else if (t.parent && byEl.get(t.parent.el) !== t.parent)
-				t.parent = parent;
-			const existing = byEl.get(t.el);
-			if (existing) {
-				remap.set(t, existing);
-				continue;
-			}
-			if (!t.parent) t.parent = parent;
-			targets.push(t);
-			armOne(t);
-		}
-		if (fresh.length) wake();
-	};
-
-	const watchDom = () => {
-		if (domMo) return;
-		domMo = new MutationObserver((muts) => {
-			if (!started || destroyed) return;
-			for (const m of muts) {
-				for (const n of Array.from(m.addedNodes)) {
-					if (n instanceof Element) armAdded(n);
-				}
-			}
-		});
-		domMo.observe(document.body, { childList: true, subtree: true });
 	};
 
 	const beginIntro = (now: number) => {
@@ -1619,10 +1522,8 @@ export function createSwarm(): SwarmEngine {
 		clearTargets();
 		io?.disconnect();
 		mo?.disconnect();
-		domMo?.disconnect();
 		io = null;
 		mo = null;
-		domMo = null;
 		canvas?.remove();
 		canvas = null;
 		ctx = null;
@@ -1660,9 +1561,7 @@ export function createSwarm(): SwarmEngine {
 		mo = new MutationObserver(readEnv);
 		mo.observe(html, {
 			attributes: true,
-			// data-accent included: the swarm recolours itself the
-			// moment the visitor switches the site's accent colour.
-			attributeFilter: ["class", "dir", "lang", "data-accent"],
+			attributeFilter: ["class", "dir", "lang"],
 		});
 		live = true;
 		return true;
@@ -1698,7 +1597,6 @@ export function createSwarm(): SwarmEngine {
 				return;
 			}
 			arm();
-			watchDom();
 			const now = performance.now();
 			if (previewing) {
 				// cursors are already out — burst straight into building
@@ -1734,37 +1632,11 @@ export function createSwarm(): SwarmEngine {
 		}
 	};
 
-	/** Send the nearest free cursor to an element for a small
-	 *  celebration — it lands on the element with a ring and a
-	 *  ripple, hovers a beat, then rejoins the swarm. */
-	const celebrate = (el: Element) => {
-		if (!live || !started || destroyed || !el.isConnected) return;
-		const r = el.getBoundingClientRect();
-		const cx = (r.left + r.right) / 2;
-		const cy = (r.top + r.bottom) / 2;
-		let best: Agent | null = null;
-		let bestD = Infinity;
-		for (const a of agents) {
-			if (a.phase !== "idle" || a.visit || a.dying) continue;
-			const d = Math.hypot(a.x - cx, a.y - cy);
-			if (d < bestD) {
-				bestD = d;
-				best = a;
-			}
-		}
-		if (!best) {
-			spawn(1, performance.now());
-			best = agents[agents.length - 1] ?? null;
-		}
-		if (best) best.visit = { el, stage: 0, since: 0 };
-		wake();
-	};
-
 	const destroy = () => {
 		if (destroyed) return;
 		destroyed = true;
 		teardown();
 	};
 
-	return { preview, start, replay, destroy, celebrate };
+	return { preview, start, replay, destroy };
 }

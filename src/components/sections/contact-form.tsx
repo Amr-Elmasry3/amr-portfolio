@@ -1,27 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { Send } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import CustomButton from "@/components/shared/custom-button";
 import { useContactForm } from "@/hooks/use-contact-form";
-import { celebrateWithSwarm } from "@/lib/swarm/celebrate";
 
 // The contact form (name, email, message) — Formik + Yup
 // validation and EmailJS sending via useContactForm.
 const ContactForm = () => {
 	const t = useTranslations("Contact.contactForm");
 	const { formik, status } = useContactForm();
-	const formRef = useRef<HTMLFormElement>(null);
-
-	// A successful send earns a visit from a swarm cursor.
-	useEffect(() => {
-		if (status?.type !== "success") return;
-		celebrateWithSwarm(
-			formRef.current?.querySelector('button[type="submit"]') ?? null,
-		);
-	}, [status]);
 
 	const getFieldClassName = (fieldName: "name" | "email" | "message") =>
 		`w-full border border-solid ${
@@ -32,7 +21,6 @@ const ContactForm = () => {
 
 	return (
 		<form
-			ref={formRef}
 			className="flex-1 p-4 border border-solid border-border-strong rounded-sm shadow-sm flex flex-col gap-4"
 			onSubmit={formik.handleSubmit}
 			noValidate
