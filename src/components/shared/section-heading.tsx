@@ -4,7 +4,12 @@ import { useTranslations } from "next-intl";
 // with the two dot-and-line connectors on its top edge. The
 // connectors are small SVGs the swarm traces in (data-swarm-draw)
 // when it builds the heading.
-export type SectionName = "about" | "skills" | "projects" | "contact";
+export type SectionName =
+	| "about"
+	| "experience"
+	| "skills"
+	| "projects"
+	| "contact";
 
 interface SectionHeadingProps {
 	sectionName: SectionName;
