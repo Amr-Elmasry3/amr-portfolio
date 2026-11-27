@@ -79,10 +79,12 @@ const Experience = () => {
 												</span>
 											)}
 
-											<span className="md:ms-auto flex items-center gap-1.5 rounded-full border border-solid border-border-strong bg-surface-secondary px-2.5 py-1 text-smallCaption font-bold text-text-secondary">
-												<CalendarDays className="size-3.5" />
-												{text?.period}
-											</span>
+											<div className="md:flex-1 md:flex md:justify-end">
+												<span className="md:ms-auto w-fit flex items-center gap-1.5 rounded-full border border-solid border-border-strong bg-surface-secondary px-2.5 py-1 text-smallCaption font-bold text-text-secondary">
+													<CalendarDays className="size-3.5" />
+													{text?.period}
+												</span>
+											</div>
 										</div>
 
 										<p className="mt-2.5 flex items-center gap-1.5 text-caption font-bold text-primary">
