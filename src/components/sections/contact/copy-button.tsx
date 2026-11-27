@@ -29,7 +29,7 @@ const CopyButton = ({ value }: CopyButtonProps) => {
 		<button
 			type="button"
 			onClick={handleCopy}
-			className="absolute top-2 right-2 ms-auto flex shrink-0 cursor-pointer items-center gap-1.5 rounded-xs border border-solid border-border-strong px-2 py-1.5 text-smallCaption font-bold text-text-secondary my-transition hover:border-primary-border hover:text-primary-active">
+			className="absolute top-2 right-2 rtl:left-2 rtl:right-auto ms-auto flex shrink-0 cursor-pointer items-center gap-1.5 rounded-xs border border-solid border-border-strong px-2 py-1.5 text-smallCaption font-bold text-text-secondary my-transition hover:border-primary-border hover:text-primary-active">
 			{copied ? (
 				<Check className="size-3.5 text-success" />
 			) : (
