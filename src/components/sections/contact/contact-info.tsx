@@ -34,13 +34,12 @@ const ContactInfo = () => {
 				</li>
 
 				{contactInfo.map((item) => (
-					<li key={item.key}>
+					<li key={item.key} className="relative">
 						<SmallBoxWrapper>
 							<div className="flex items-center gap-3">
 								<span className="min-w-12 h-12 text-subHeading text-text-secondary flex items-center justify-center border border-solid border-border-strong rounded-sm shadow-sm [&_svg]:w-5 [&_svg]:h-5">
 									{icons[item.icon]}
 								</span>
-
 								<div className="flex flex-col gap-1">
 									<span className="text-caption font-bold text-text-primary">
 										{info[item.key]}
@@ -54,13 +53,7 @@ const ContactInfo = () => {
 									</Link>
 								</div>
 
-								{item.key === "email" && (
-									<CopyButton
-										value={item.value}
-										copyLabel={t("copy")}
-										copiedLabel={t("copied")}
-									/>
-								)}
+								<CopyButton value={item.value} />
 							</div>
 						</SmallBoxWrapper>
 					</li>
