@@ -49,10 +49,18 @@ const Sidebar = () => {
 									</>
 								)}
 
-								{/* Icon */}
-								<span
-									className={`${isActive ? "text-primary-active" : "text-text-description group-hover:text-primary-active"} block text-[20px] [&_svg]:size-5 my-transition`}>
-									{icons[link.icon]}
+								{/* Icon, with a text label under it on the
+								    mobile bottom bar */}
+								<span className="flex flex-col items-center gap-1">
+									<span
+										className={`${isActive ? "text-primary-active" : "text-text-description group-hover:text-primary-active"} block text-[20px] [&_svg]:size-5 my-transition`}>
+										{icons[link.icon]}
+									</span>
+
+									<span
+										className={`sm:hidden text-[10px] font-medium leading-none ${isActive ? "text-primary-active" : "text-text-description"}`}>
+										{link.title}
+									</span>
 								</span>
 
 								{/* Popup (desktop hover) */}
