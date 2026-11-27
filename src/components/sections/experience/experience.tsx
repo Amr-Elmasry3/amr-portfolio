@@ -18,6 +18,11 @@ const Experience = () => {
 			{experience.map((item) => {
 				const text = translated.find((entry) => entry.id === item.id);
 
+				const initials = item.company
+					.split(" ")
+					.map((word) => word[0])
+					.join("");
+
 				return (
 					<li key={item.id} className="flex gap-4 sm:gap-6">
 						{/* Rail: traced node over a fading line */}
@@ -54,64 +59,72 @@ const Experience = () => {
 						{/* Role card */}
 						<div className="min-w-0 flex-1">
 							<SmallBoxWrapper>
-								<div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-									<h3 className="text-[17px] font-bold text-text-primary">
-										{text?.role}
-									</h3>
+								<div className="flex gap-4">
+									<span className="flex size-12 shrink-0 items-center justify-center rounded-sm border border-solid border-primary-border bg-primary-light text-[17px] font-black tracking-wide text-primary">
+										{initials}
+									</span>
 
-									{item.isCurrent && (
-										<span className="flex items-center gap-1.5 rounded-full border border-solid border-success/40 bg-success/10 px-2.5 py-0.5 text-smallCaption font-bold text-success">
-											<span className="relative flex size-1.5">
-												<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75 motion-reduce:animate-none"></span>
-												<span className="relative inline-flex size-1.5 rounded-full bg-success"></span>
+									<div className="min-w-0 flex-1">
+									<div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+										<h3 className="text-[17px] font-bold text-text-primary">
+											{text?.role}
+										</h3>
+
+										{item.isCurrent && (
+											<span className="flex items-center gap-1.5 rounded-full border border-solid border-success/40 bg-success/10 px-2.5 py-0.5 text-smallCaption font-bold text-success">
+												<span className="relative flex size-1.5">
+													<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75 motion-reduce:animate-none"></span>
+													<span className="relative inline-flex size-1.5 rounded-full bg-success"></span>
+												</span>
+												{t("current")}
 											</span>
-											{t("current")}
+										)}
+
+										<span className="ms-auto flex items-center gap-1.5 rounded-full border border-solid border-border-strong bg-surface-secondary px-2.5 py-0.5 text-smallCaption font-bold text-text-secondary">
+											<CalendarDays className="size-3.5" />
+											{text?.period}
 										</span>
-									)}
+									</div>
 
-									<span className="ms-auto flex items-center gap-1.5 rounded-full border border-solid border-border-strong bg-surface-secondary px-2.5 py-0.5 text-smallCaption font-bold text-text-secondary">
-										<CalendarDays className="size-3.5" />
-										{text?.period}
-									</span>
+									<p className="mt-1.5 flex items-center gap-1.5 text-caption font-bold text-primary">
+										<Building2 className="size-4" />
+										{item.company}
+									</p>
+
+									<div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-smallCaption font-medium text-text-secondary">
+										<span className="flex items-center gap-1">
+											<MapPin className="size-3.5" />
+											{text?.location}
+										</span>
+									</div>
+
+									<ul className="mt-3.5 flex flex-col gap-1.5">
+										{text?.points.map((point) => (
+											<li
+												key={point}
+												className="flex gap-2 text-caption font-medium leading-relaxed text-text-description"
+											>
+												<span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-primary" />
+												{point}
+											</li>
+										))}
+									</ul>
+
+									<ul className="mt-4 flex flex-wrap gap-2">
+										{item.techs.map((tech) => (
+											<li
+												key={tech.label}
+												className="flex items-center gap-1.5 rounded-full border border-solid border-border-strong bg-surface-secondary px-2.5 py-1 text-smallCaption font-bold text-text-secondary"
+											>
+												<span className="w-4 text-text-primary [&_svg]:size-4">
+													{skillsIcon[tech.icon]}
+												</span>
+												{tech.label}
+											</li>
+										))}
+									</ul>
+									</div>
 								</div>
-
-								<p className="mt-1.5 flex items-center gap-1.5 text-caption font-bold text-primary">
-									<Building2 className="size-4" />
-									{item.company}
-								</p>
-
-								<div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-smallCaption font-medium text-text-secondary">
-									<span className="flex items-center gap-1">
-										<MapPin className="size-3.5" />
-										{text?.location}
-									</span>
-								</div>
-
-								<ul className="mt-3.5 flex flex-col gap-1.5">
-									{text?.points.map((point) => (
-										<li
-											key={point}
-											className="flex gap-2 text-caption font-medium leading-relaxed text-text-description"
-										>
-											<span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-primary" />
-											{point}
-										</li>
-									))}
-								</ul>
-
-								<ul className="mt-4 flex flex-wrap gap-2">
-									{item.techs.map((tech) => (
-										<li
-											key={tech.label}
-											className="flex items-center gap-1.5 rounded-full border border-solid border-border-strong bg-surface-secondary px-2.5 py-1 text-smallCaption font-bold text-text-secondary"
-										>
-											<span className="w-4 text-text-primary [&_svg]:size-4">
-												{skillsIcon[tech.icon]}
-											</span>
-											{tech.label}
-										</li>
-									))}
-								</ul>
 							</SmallBoxWrapper>
 						</div>
 					</li>
