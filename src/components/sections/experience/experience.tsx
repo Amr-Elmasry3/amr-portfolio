@@ -32,8 +32,7 @@ const Experience = () => {
 								aria-hidden="true"
 								className="h-6 w-6 shrink-0 overflow-visible"
 								viewBox="0 0 24 24"
-								fill="none"
-							>
+								fill="none">
 								<circle
 									cx="12"
 									cy="12"
@@ -60,82 +59,88 @@ const Experience = () => {
 						<div className="min-w-0 flex-1">
 							<SmallBoxWrapper>
 								<div className="flex gap-4">
-									<span className="flex size-12 shrink-0 items-center justify-center rounded-sm border border-solid border-primary-border bg-primary-light text-[17px] font-black tracking-wide text-primary">
+									<span className="hidden sm:flex size-12 shrink-0 items-center justify-center rounded-sm border border-solid border-primary-border bg-primary-light text-[17px] font-black tracking-wide text-primary">
 										{initials}
 									</span>
 
 									<div className="min-w-0 flex-1">
-									<div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-										<h3 className="text-[17px] font-bold text-text-primary">
-											{text?.role}
-										</h3>
+										<div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+											<h3 className="text-[17px] font-bold text-text-primary">
+												{text?.role}
+											</h3>
 
-										{item.isCurrent && (
-											<span className="flex items-center gap-1.5 rounded-full border border-solid border-success/40 bg-success/10 px-2.5 py-0.5 text-smallCaption font-bold text-success">
-												<span className="relative flex size-1.5">
-													<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75 motion-reduce:animate-none"></span>
-													<span className="relative inline-flex size-1.5 rounded-full bg-success"></span>
+											{item.isCurrent && (
+												<span className="flex items-center gap-1.5 rounded-full border border-solid border-success/40 bg-success/10 px-2.5 py-0.5 text-smallCaption font-bold text-success">
+													<span className="relative flex size-1.5">
+														<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75 motion-reduce:animate-none"></span>
+														<span className="relative inline-flex size-1.5 rounded-full bg-success"></span>
+													</span>
+													{t("current")}
 												</span>
-												{t("current")}
+											)}
+
+											<span className="md:ms-auto flex items-center gap-1.5 rounded-full border border-solid border-border-strong bg-surface-secondary px-2.5 py-1 text-smallCaption font-bold text-text-secondary">
+												<CalendarDays className="size-3.5" />
+												{text?.period}
 											</span>
-										)}
+										</div>
 
-										<span className="ms-auto flex items-center gap-1.5 rounded-full border border-solid border-border-strong bg-surface-secondary px-2.5 py-0.5 text-smallCaption font-bold text-text-secondary">
-											<CalendarDays className="size-3.5" />
-											{text?.period}
-										</span>
-									</div>
+										<p className="mt-2.5 flex items-center gap-1.5 text-caption font-bold text-primary">
+											<Building2 className="size-4" />
+											{item.company}
+										</p>
 
-									<p className="mt-2.5 flex items-center gap-1.5 text-caption font-bold text-primary">
-										<Building2 className="size-4" />
-										{item.company}
-									</p>
+										<div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-smallCaption font-medium text-text-secondary">
+											<span className="flex items-center gap-1">
+												<MapPin className="size-3.5" />
+												{text?.location}
+											</span>
+										</div>
 
-									<div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-smallCaption font-medium text-text-secondary">
-										<span className="flex items-center gap-1">
-											<MapPin className="size-3.5" />
-											{text?.location}
-										</span>
-									</div>
+										<ul className="mt-5 flex flex-col gap-2.5">
+											{text?.points.map(
+												(point, pointIndex) => (
+													<li
+														key={point}
+														className="flex items-center gap-2 text-caption font-medium leading-relaxed text-text-description">
+														<span className="size-1.5 shrink-0 rounded-full bg-primary" />
+														<p>
+															{t.rich(
+																`items.${itemIndex}.points.${pointIndex}`,
+																{
+																	highlight: (
+																		chunks,
+																	) => (
+																		<span className="gradient-text font-bold">
+																			{
+																				chunks
+																			}
+																		</span>
+																	),
+																},
+															)}
+														</p>
+													</li>
+												),
+											)}
+										</ul>
 
-									<ul className="mt-5 flex flex-col gap-2.5">
-										{text?.points.map((point, pointIndex) => (
-											<li
-												key={point}
-												className="flex gap-2 text-caption font-medium leading-relaxed text-text-description"
-											>
-												<span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-primary" />
-												{t.rich(
-													`items.${itemIndex}.points.${pointIndex}`,
-													{
-														highlight: (chunks) => (
-															<span className="gradient-text font-bold">
-																{chunks}
-															</span>
-														),
-													},
-												)}
-											</li>
-										))}
-									</ul>
+										<p className="mt-6 text-smallCaption font-bold uppercase tracking-wider text-text-secondary">
+											{t("techsLabel")}
+										</p>
 
-									<p className="mt-6 text-smallCaption font-bold uppercase tracking-wider text-text-secondary">
-										{t("techsLabel")}
-									</p>
-
-									<ul className="mt-2.5 flex flex-wrap gap-2">
-										{item.techs.map((tech) => (
-											<li
-												key={tech.label}
-												className="flex items-center gap-1.5 rounded-full border border-solid border-border-strong bg-surface-secondary px-2.5 py-1 text-smallCaption font-bold text-text-secondary"
-											>
-												<span className="w-4 text-text-primary [&_svg]:size-4">
-													{skillsIcon[tech.icon]}
-												</span>
-												<span>{tech.label}</span>
-											</li>
-										))}
-									</ul>
+										<ul className="mt-2.5 flex flex-wrap gap-2">
+											{item.techs.map((tech) => (
+												<li
+													key={tech.label}
+													className="flex items-center gap-1.5 rounded-full border border-solid border-border-strong bg-surface-secondary px-2.5 py-1 text-smallCaption font-bold text-text-secondary">
+													<span className="w-4 text-text-primary [&_svg]:size-4">
+														{skillsIcon[tech.icon]}
+													</span>
+													<span>{tech.label}</span>
+												</li>
+											))}
+										</ul>
 									</div>
 								</div>
 							</SmallBoxWrapper>
