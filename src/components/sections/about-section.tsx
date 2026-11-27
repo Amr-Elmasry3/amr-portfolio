@@ -1,9 +1,11 @@
 import AboutMe from "@/components/sections/about-me";
 import MyNumbers from "@/components/sections/my-numbers";
+import WhatIDo from "@/components/sections/what-i-do";
 import SectionHeading from "@/components/shared/section-heading";
 
 // About section: heading, the bio paragraphs and the numbers
-// grid side by side on desktop, stacked on mobile.
+// grid side by side on desktop (stacked on mobile), and the
+// "what I do" strip underneath.
 const AboutSection = () => {
 	return (
 		<section className="about-section" id="about">
@@ -14,6 +16,8 @@ const AboutSection = () => {
 
 				<MyNumbers />
 			</div>
+
+			<WhatIDo />
 		</section>
 	);
 };

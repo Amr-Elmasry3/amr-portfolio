@@ -119,6 +119,23 @@
         "number": "100%",
         "icon": "heartCode"
       }
+    ],
+    "services": [
+      {
+        "icon": "monitorSmartphone",
+        "title": "تطبيقات ويب متجاوبة",
+        "description": "واجهات مريحة على كل الشاشات، من الموبايل للشاشات العريضة"
+      },
+      {
+        "icon": "codeAlt",
+        "title": "بناء واجهات حديثة",
+        "description": "كود نضيف وقابل للصيانة بـ React وNext.js وTypeScript"
+      },
+      {
+        "icon": "gauge",
+        "title": "الأداء وتجربة الاستخدام",
+        "description": "صفحات سريعة التحميل وتجربة استخدام سلسة وممتعة"
+      }
     ]
   },
   "SectionsHeading": {

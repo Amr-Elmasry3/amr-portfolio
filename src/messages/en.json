@@ -119,6 +119,23 @@
         "number": "100%",
         "icon": "heartCode"
       }
+    ],
+    "services": [
+      {
+        "icon": "monitorSmartphone",
+        "title": "Responsive Web Apps",
+        "description": "Interfaces that feel right on every screen, from phones to wide monitors"
+      },
+      {
+        "icon": "codeAlt",
+        "title": "Modern Front-End Builds",
+        "description": "Clean, maintainable code with React, Next.js and TypeScript"
+      },
+      {
+        "icon": "gauge",
+        "title": "Performance & UX",
+        "description": "Fast loading pages and smooth, delightful user experiences"
+      }
     ]
   },
   "SectionsHeading": {
