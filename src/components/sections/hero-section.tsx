@@ -1,5 +1,6 @@
 import HeroInfo from "@/components/sections/hero-info";
 import HeroVisual from "@/components/sections/hero-visual";
+import ScrollHint from "@/components/sections/scroll-hint";
 
 // Hero section: intro text on one side and the photo composition
 // on the other; on mobile the composition shrinks and sits above
@@ -8,7 +9,7 @@ import HeroVisual from "@/components/sections/hero-visual";
 const HeroSection = () => {
 	return (
 		<section
-			className="hero-section flex flex-col md:flex-row items-center justify-center md:justify-between gap-0 md:gap-6 mb-12 min-h-[calc(100dvh-7.5rem)]"
+			className="hero-section relative flex flex-col md:flex-row items-center justify-center md:justify-between gap-0 md:gap-6 mb-12 min-h-[calc(100dvh-7.5rem)]"
 			role="banner"
 		>
 			{/* Hero Info */}
@@ -20,6 +21,8 @@ const HeroSection = () => {
 			<div className="order-first md:order-none w-full max-w-64 xxs:max-w-72 mx-auto mb-10 md:mb-0 md:max-w-none md:flex-1">
 				<HeroVisual />
 			</div>
+
+			<ScrollHint />
 		</section>
 	);
 };

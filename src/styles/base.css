@@ -291,12 +291,36 @@ p {
 	}
 }
 
+/* The wheel dot inside the hero scroll hint, dropping and fading. */
+.scroll-hint-dot {
+	animation: scroll-hint-drop 1.8s ease-in-out infinite;
+}
+
+@keyframes scroll-hint-drop {
+	0% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	70% {
+		transform: translateY(10px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 0;
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.boot-letter {
 		animation: none;
 	}
 
 	.title-caret {
+		animation: none;
+	}
+
+	.scroll-hint-dot {
 		animation: none;
 	}
 }
