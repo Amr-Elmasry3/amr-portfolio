@@ -18,23 +18,22 @@ const WhatIDo = () => {
 	const services = t.raw("services") as Service[];
 
 	return (
-		<ul className="mt-6 grid gap-3 sm:grid-cols-3">
+		<ul className="mt-10 grid gap-4 sm:grid-cols-3">
 			{services.map((service) => (
 				<li
 					key={service.title}
-					className="my-transition hover:-translate-y-1"
-				>
+					className="my-transition hover:-translate-y-1">
 					<SmallBoxWrapper>
 						<div className="flex flex-col gap-3">
 							<span className="flex size-11 items-center justify-center rounded-full bg-primary-light text-primary [&_svg]:w-[22px] [&_svg]:h-[22px]">
 								{icons[service.icon]}
 							</span>
 
-							<span className="text-caption font-bold text-text-primary">
+							<span className="text-caption font-bold text-text-primary line-clamp-1">
 								{service.title}
 							</span>
 
-							<span className="text-smallCaption font-medium text-text-description line-clamp-2">
+							<span className="text-smallCaption font-medium text-text-description leading-4! line-clamp-2">
 								{service.description}
 							</span>
 						</div>

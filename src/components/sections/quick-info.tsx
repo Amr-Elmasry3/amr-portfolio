@@ -11,7 +11,7 @@ const QuickInfo = () => {
 	const t = useTranslations("HomePage");
 
 	return (
-		<div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+		<div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
 			<span className="flex items-center gap-1.5 text-caption font-medium text-text-secondary">
 				<span className="text-primary [&_svg]:w-4 [&_svg]:h-4">
 					{icons["location"]}
@@ -21,8 +21,7 @@ const QuickInfo = () => {
 
 			<Link
 				href={`mailto:${SITE_CONFIG.email}`}
-				className="flex items-center gap-1.5 text-caption font-medium text-text-secondary my-transition hover:text-primary-active"
-			>
+				className="flex items-center gap-1.5 text-caption font-medium text-text-secondary my-transition hover:text-primary-active">
 				<span className="text-primary [&_svg]:w-4 [&_svg]:h-4">
 					{icons["envelope"]}
 				</span>

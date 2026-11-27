@@ -11,7 +11,7 @@ const AboutSection = () => {
 		<section className="about-section" id="about">
 			<SectionHeading sectionName="about" />
 
-			<div className="about-content flex flex-col md:flex-row items-center gap-4 gap-y-6">
+			<div className="about-content flex flex-col md:flex-row items-center gap-4 gap-y-10">
 				<AboutMe />
 
 				<MyNumbers />
