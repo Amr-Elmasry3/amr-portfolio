@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 
 import { icons } from "@/constants/icons";
+import { SITE_CONFIG } from "@/constants/site-config.constants";
 import { useActiveSection } from "@/hooks/use-active-section";
 
 interface SidebarLink {
@@ -24,12 +25,18 @@ const Sidebar = () => {
 
 	const { activeHref, selectSection } = useActiveSection(sectionLinks);
 
+	const socials = [
+		{ title: "GitHub", icon: "github", href: SITE_CONFIG.github },
+		{ title: "LinkedIn", icon: "linkedin", href: SITE_CONFIG.linkedin },
+	];
+
 	return (
 		<aside
-			className={`sidebar fixed z-80 bottom-0 start-0 w-full sm:w-auto h-auto sm:h-screen flex items-end sm:items-center`}>
+			className={`sidebar fixed z-80 bottom-0 start-0 w-full sm:w-auto h-auto sm:h-screen flex items-end sm:items-stretch`}>
 			<nav
-				className={`rounded-t-md sm:rounded-none sm:rounded-e-sm w-full flex flex-row sm:flex-col justify-around gap-3.5 [background-color:var(--sidebar-background)] py-3 px-2 border border-solid border-border-strong shadow-sm my-transition`}
+				className={`rounded-t-md sm:rounded-none sm:rounded-e-sm w-full flex flex-row sm:flex-col sm:h-full justify-around sm:justify-between gap-3.5 [background-color:var(--sidebar-background)] py-3 px-2 border border-solid border-border-strong shadow-sm my-transition`}
 				role="navigation">
+				<div className="flex flex-row sm:flex-col justify-around sm:justify-center gap-3.5 sm:flex-1">
 				{links.map((link) => {
 					const isActive = activeHref === link.href;
 
@@ -75,6 +82,24 @@ const Sidebar = () => {
 						</div>
 					);
 				})}
+				</div>
+
+				{/* Socials at the bottom of the desktop rail */}
+				<div className="hidden sm:flex flex-col items-center gap-3.5 border-t border-solid border-border-strong pt-3.5">
+					{socials.map((social) => (
+						<a
+							key={social.title}
+							href={social.href}
+							target="_blank"
+							rel="noreferrer"
+							aria-label={social.title}
+							className="block p-2 border border-solid border-border rounded-sm text-text-description shadow-xs my-transition hover:bg-primary-light hover:border-primary-border hover:text-primary-active">
+							<span className="block text-[20px] [&_svg]:size-5">
+								{icons[social.icon]}
+							</span>
+						</a>
+					))}
+				</div>
 			</nav>
 		</aside>
 	);
