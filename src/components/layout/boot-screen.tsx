@@ -38,21 +38,29 @@ const BootScreen = ({ onComplete }: BootScreenProps) => {
 			}`}
 		>
 			<div className="flex items-center gap-1">
-				{letters.map((letter, i) => (
-					<span
-						key={`${letter}-${i}`}
-						className="boot-letter text-heading2 sm:text-heading1 font-bold gradient-text"
-						style={
-							{
-								"--boot-x": `${(i - 5) * 12}px`,
-								"--boot-rot": i % 2 === 0 ? "-15deg" : "15deg",
-								animationDelay: `${i * 0.08}s`,
-							} as CSSProperties
-						}
-					>
-						{letter === " " ? "\u00A0" : letter}
-					</span>
-				))}
+				{letters.map((letter, i) => {
+					// The Arabic name is still Latin letters, laid out from a
+					// reversed array — but its animation must run in the same
+					// direction as the English one: first letter first.
+					const order =
+						currentLocale === "en" ? i : letters.length - 1 - i;
+					return (
+						<span
+							key={`${letter}-${i}`}
+							className="boot-letter text-heading2 sm:text-heading1 font-bold gradient-text"
+							style={
+								{
+									"--boot-x": `${(order - 5) * 12}px`,
+									"--boot-rot":
+										order % 2 === 0 ? "-15deg" : "15deg",
+									animationDelay: `${order * 0.08}s`,
+								} as CSSProperties
+							}
+						>
+							{letter === " " ? "\u00A0" : letter}
+						</span>
+					);
+				})}
 			</div>
 		</div>
 	);
