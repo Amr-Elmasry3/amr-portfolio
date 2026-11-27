@@ -22,7 +22,7 @@ const HeroInfo = () => {
 				{/* Avatar — mobile only: the full photo composition
 				    needs room to breathe, so phones get his face in a
 				    small accent-ringed circle above the greeting */}
-				<div className="mb-5 size-24 overflow-hidden rounded-full border-2 border-solid border-primary bg-primary-light md:hidden">
+				<div className="mb-5 size-32 overflow-hidden rounded-full border-2 border-solid border-primary bg-primary-light md:hidden">
 					<Image
 						data-swarm-paint
 						src="/assets/hero-image.png"
@@ -30,7 +30,7 @@ const HeroInfo = () => {
 						width={729}
 						height={941}
 						priority
-						className="h-full w-full scale-[1.75] object-cover object-top translate-y-[25%]"
+						className="h-full w-full scale-[1.58] object-cover object-top translate-y-[26%]"
 					/>
 				</div>
 
