@@ -53,7 +53,11 @@ const Projects = () => {
 						{/* Skills */}
 						<ul className="flex items-center gap-2.5">
 							{proj.technicals.map((tech) => (
-								<li key={tech} className="w-6 text-text-primary">
+								<li
+									key={tech}
+									title={tech}
+									className="w-6 text-text-primary"
+								>
 									{skillsIcon[tech]}
 								</li>
 							))}
