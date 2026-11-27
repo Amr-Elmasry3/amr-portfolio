@@ -52,7 +52,7 @@ const Header = () => {
 			</div>
 
 			{/* Settings — one pill holding the three controls */}
-			<div className="settings flex items-center gap-1 rounded-full border border-solid border-border-strong bg-surface-secondary/70 px-1.5 py-1 shadow-sm backdrop-blur">
+			<div className="settings flex items-center gap-1 rounded-full border border-solid border-border-strong bg-surface-secondary/70 px-1 py-1 shadow-sm backdrop-blur">
 				{/* Switch Language */}
 				<SwitchLanguage />
 
