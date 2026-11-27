@@ -39,7 +39,7 @@ const AccentSwitch = () => {
 				aria-expanded={open}
 				aria-haspopup="menu"
 				onClick={() => setOpen((v) => !v)}
-				className="flex items-center gap-2 min-h-9.5 h-full px-3 py-1 rounded-md border border-solid border-border-strong bg-surface-secondary shadow-xs cursor-pointer">
+				className="flex items-center gap-2 min-h-9 h-full px-2.5 py-1 rounded-full cursor-pointer my-transition hover:bg-primary-light">
 				<Palette className="hidden sm:block text-text-secondary" size={16} />
 
 				<span
