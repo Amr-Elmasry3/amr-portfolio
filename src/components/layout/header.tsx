@@ -8,9 +8,10 @@ import SwitchLanguage from "./switch-language";
 import ThemeToggle from "./theme-toggle";
 
 // Sticky header: transparent over the top of the page; once the
-// visitor scrolls, it turns into a glass bar with a hairline
-// reading-progress line in the accent colour along its bottom
-// edge, so the settings stay reachable from anywhere.
+// visitor scrolls, it detaches into a floating rounded glass bar
+// (with a hairline reading-progress line in the accent colour
+// along its bottom edge), so the settings stay reachable from
+// anywhere without the bar ever hugging the screen edges.
 const Header = () => {
 	const [scrolled, setScrolled] = useState(false);
 	const progressRef = useRef<HTMLDivElement>(null);
@@ -38,7 +39,7 @@ const Header = () => {
 
 	return (
 		<header
-			className={`sticky top-0 z-50 flex items-center justify-between gap-2 pt-6 pb-3.5 mb-10 border-b border-solid my-transition ${scrolled ? "border-border-strong bg-background/75 shadow-sm backdrop-blur-md" : "border-transparent"}`}
+			className={`sticky top-3 z-50 flex items-center justify-between gap-2 mb-10 border border-solid my-transition ${scrolled ? "rounded-2xl border-border-strong bg-background/80 px-4 pt-3 pb-3 shadow-lg backdrop-blur-xl" : "border-transparent pt-6 pb-3.5"}`}
 		>
 			{/* Logo */}
 			<div>
@@ -67,7 +68,7 @@ const Header = () => {
 			<div
 				ref={progressRef}
 				aria-hidden="true"
-				className={`absolute bottom-0 start-0 h-0.5 w-full origin-left bg-primary my-transition rtl:origin-right ${scrolled ? "opacity-100" : "opacity-0"}`}
+				className={`absolute bottom-1.5 start-4 end-4 h-0.5 w-auto origin-left rounded-full bg-primary my-transition rtl:origin-right ${scrolled ? "opacity-100" : "opacity-0"}`}
 				style={{ transform: "scaleX(0)" }}
 			></div>
 		</header>
