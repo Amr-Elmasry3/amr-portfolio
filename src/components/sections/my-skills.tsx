@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 
+import SkillGroup from "@/components/sections/skill-group";
 import SmallBoxWrapper from "@/components/shared/small-box-wrapper";
 import { mySkills, skillCategories, skillsIcon } from "@/constants/skills";
 
@@ -19,27 +20,17 @@ const MySkills = () => {
 				);
 
 				return (
-					<div key={category} className="flex flex-col gap-3">
-						{/* Category heading: title, count and a hairline */}
-						<div className="flex items-center gap-3">
-							<h3 className="text-button font-bold text-text-primary">
-								{t(`categories.${category}`)}
-							</h3>
-
-							<span className="text-smallCaption font-bold text-text-description">
-								{skills.length}
-							</span>
-
-							<span
-								aria-hidden="true"
-								className="h-px flex-1 bg-border"></span>
-						</div>
-
-						<ul className="skills-content grid gap-4 grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
+					<SkillGroup
+						key={category}
+						title={t(`categories.${category}`)}
+						count={skills.length}
+					>
+						<ul className="skills-content grid gap-3 grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
 							{skills.map((skill) => (
 								<li
 									key={skill.id}
-									className="hover:-translate-y-1 my-transition">
+									className="hover:-translate-y-1 my-transition"
+								>
 									<SmallBoxWrapper>
 										<div className="flex flex-col items-center gap-3">
 											<span className="w-7 text-text-primary">
@@ -54,7 +45,7 @@ const MySkills = () => {
 								</li>
 							))}
 						</ul>
-					</div>
+					</SkillGroup>
 				);
 			})}
 		</div>
