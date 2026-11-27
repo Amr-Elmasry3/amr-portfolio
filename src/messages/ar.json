@@ -75,6 +75,12 @@
         "active": false
       },
       {
+        "title": "الخبرة",
+        "icon": "briefcase",
+        "href": "#experience",
+        "active": false
+      },
+      {
         "title": "المهارات",
         "icon": "codeAlt",
         "href": "#skills",
@@ -138,6 +144,22 @@
       }
     ]
   },
+  "Experience": {
+    "current": "حاليًا",
+    "items": [
+      {
+        "id": "elmo-tech",
+        "role": "متدرب تطوير واجهات أمامية",
+        "location": "المنصورة، مصر",
+        "period": "أكتوبر 2026 — حتى الآن",
+        "points": [
+          "أتدرب على مشروع حقيقي كبير اسمه Baytfolio ضمن فريق تطوير الواجهات الأمامية.",
+          "أتعلم كيف يعمل الـ Business ودورة حياة المشاريع الكبيرة (SDLC) من التخطيط حتى التسليم.",
+          "أتدرب على العمل الاحترافي بـ Git وGitHub: استراتيجيات الـ Branches وقواعد الـ Commits."
+        ]
+      }
+    ]
+  },
   "Skills": {
     "categories": {
       "core": "الأساسيات",
@@ -151,7 +173,8 @@
     "about": "نبذة <highlight>عني</highlight>",
     "skills": "مهاراتي <highlight>التقنية</highlight>",
     "projects": "أبرز <highlight>مشاريعي</highlight>",
-    "contact": "تواصل <highlight>معي</highlight>"
+    "contact": "تواصل <highlight>معي</highlight>",
+    "experience": "خبرتي <highlight>العملية</highlight>"
   },
   "Contact": {
     "contactInfo": {

@@ -75,6 +75,12 @@
         "active": false
       },
       {
+        "title": "Experience",
+        "icon": "briefcase",
+        "href": "#experience",
+        "active": false
+      },
+      {
         "title": "Skills",
         "icon": "codeAlt",
         "href": "#skills",
@@ -138,6 +144,22 @@
       }
     ]
   },
+  "Experience": {
+    "current": "Current",
+    "items": [
+      {
+        "id": "elmo-tech",
+        "role": "Frontend Developer Intern",
+        "location": "Mansoura, Egypt",
+        "period": "Oct 2026 — Present",
+        "points": [
+          "Training on Baytfolio, a large-scale real-world project, as part of the frontend team.",
+          "Learning how the business works and the full SDLC lifecycle of large projects, from planning to delivery.",
+          "Practicing professional Git and GitHub workflows: branching strategies and commit conventions."
+        ]
+      }
+    ]
+  },
   "Skills": {
     "categories": {
       "core": "Core",
@@ -151,7 +173,8 @@
     "about": "About <highlight>Me</highlight>",
     "skills": "My <highlight>Skills</highlight>",
     "projects": "Our <highlight>Projects</highlight>",
-    "contact": "Get <highlight>In Touch</highlight>"
+    "contact": "Get <highlight>In Touch</highlight>",
+    "experience": "My <highlight>Experience</highlight>"
   },
   "Contact": {
     "contactInfo": {
