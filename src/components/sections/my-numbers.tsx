@@ -10,7 +10,7 @@ const MyNumbers = () => {
 	const numbers = t.raw("numbers") as StatNumber[];
 
 	return (
-		<ul className="my-numbers w-full flex-1 grid gap-2 grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(220px,1fr))]">
+		<ul className="my-numbers w-full flex-1 grid gap-3 grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(220px,1fr))]">
 			{numbers.map((num) => (
 				<StateCard key={num.title} number={num} />
 			))}
