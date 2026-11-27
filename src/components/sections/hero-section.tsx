@@ -1,12 +1,9 @@
-import Image from "next/image";
-
 import HeroInfo from "@/components/sections/hero-info";
+import HeroVisual from "@/components/sections/hero-visual";
 
-// Hero section: intro text on one side and the photo on the
-// other (photo hidden on mobile, as in the previous version).
-// The construction-draw overlay and swarm cursor from the old
-// site are intentionally not ported yet — amr will revisit the
-// reveal animations in his own way later.
+// Hero section: intro text on one side and the photo composition
+// on the other (photo hidden on mobile, as in the previous
+// version). The swarm builder paints the whole composition in.
 const HeroSection = () => {
 	return (
 		<section
@@ -18,32 +15,9 @@ const HeroSection = () => {
 				<HeroInfo />
 			</div>
 
-			{/* Hero Image — two layers on the original 1299x941
-			    canvas: the AE logo artwork extracted from the old
-			    composite, used as a mask over an accent gradient
-			    (so the original mark recolors with the accent), and
-			    amr's clean cutout photo on top, offset to the exact
-			    position it held in the composite. An accent glow
-			    sits behind and the composition fades out at the
-			    bottom so it never looks cropped. */}
+			{/* Hero Image */}
 			<div className="flex-1 hidden md:block">
-				<div className="relative">
-					<div aria-hidden="true" className="hero-photo-glow"></div>
-
-					<div className="hero-fade relative aspect-[1299/941]">
-						<div aria-hidden="true" className="hero-logo-fill absolute inset-0"></div>
-
-						<Image
-							data-swarm-paint
-							src="/assets/hero-image.png"
-							alt="Amr Elmasry"
-							width={729}
-							height={941}
-							priority
-							className="absolute top-0 left-[32.02%] h-full w-auto"
-						/>
-					</div>
-				</div>
+				<HeroVisual />
 			</div>
 		</section>
 	);
