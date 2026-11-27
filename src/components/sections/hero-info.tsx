@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 import HeroButtons from "@/components/sections/hero-buttons";
+import RotatingTitle from "@/components/sections/rotating-title";
 import { icons } from "@/constants/icons";
 import { socialLinks } from "@/constants/social-links";
 
@@ -11,6 +12,7 @@ const HeroInfo = () => {
 	const t = useTranslations("HomePage");
 
 	const name = t.raw("name") as { first: string; second: string };
+	const titles = t.raw("titles") as string[];
 
 	return (
 		<div className="hero-info">
@@ -29,9 +31,7 @@ const HeroInfo = () => {
 				</h1>
 
 				{/* Title */}
-				<h3 className="text-button font-medium text-text-primary">
-					{t("title")}
-				</h3>
+				<RotatingTitle titles={titles} />
 
 				{/* Description */}
 				<p className="text-[13px] font-medium text-text-description mt-3.5 mb-5.5 max-w-[95%] xxs:max-w-[75%] sm:max-w-[60%]">

@@ -29,6 +29,7 @@
       "second": "Elmasry"
     },
     "title": "Frontend Developer",
+    "titles": ["Frontend Developer", "React.js Developer", "Next.js Developer"],
     "description": "I build fast, modern and delightful web experiences with <highlight>React.js</highlight>, <highlight>Next.js</highlight> and <highlight>TypeScript</highlight>.",
     "location": "Mansoura, Egypt",
     "status": "Available for Work",
