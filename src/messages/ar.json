@@ -162,7 +162,9 @@
         "phone": "رقم التليفون",
         "linkedin": "لينكد إن",
         "github": "GitHub"
-      }
+      },
+      "copy": "نسخ",
+      "copied": "اتنسخ"
     },
     "contactForm": {
       "title": "أرسل لي رسالة",

@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
+import CopyButton from "@/components/sections/copy-button";
 import SmallBoxWrapper from "@/components/shared/small-box-wrapper";
 import { contactInfo } from "@/constants/contact-info";
 import { icons } from "@/constants/icons";
@@ -53,6 +54,14 @@ const ContactInfo = () => {
 										{item.value}
 									</Link>
 								</div>
+
+								{item.key === "email" && (
+									<CopyButton
+										value={item.value}
+										copyLabel={t("copy")}
+										copiedLabel={t("copied")}
+									/>
+								)}
 							</div>
 						</SmallBoxWrapper>
 					</li>

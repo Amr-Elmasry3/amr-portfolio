@@ -162,7 +162,9 @@
         "phone": "Phone",
         "linkedin": "Linkedin",
         "github": "Github"
-      }
+      },
+      "copy": "Copy",
+      "copied": "Copied"
     },
     "contactForm": {
       "title": "Send Me a Message",
