@@ -153,8 +153,8 @@
         "location": "Mansoura, Egypt",
         "period": "Oct 2026 — Present",
         "points": [
-          "Training on Baytfolio, a large-scale real-world project, as part of the frontend team.",
-          "Learning how the business works and the full SDLC lifecycle of large projects, from planning to delivery.",
+          "Training on <highlight>Baytfolio</highlight>, a large-scale real-world project, as part of the frontend team.",
+          "Learning how the business works and the full <highlight>SDLC</highlight> lifecycle of large projects, from planning to delivery.",
           "Practicing professional Git and GitHub workflows: branching strategies and commit conventions."
         ]
       }

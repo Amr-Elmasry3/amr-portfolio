@@ -15,7 +15,7 @@ const Experience = () => {
 
 	return (
 		<ul className="flex flex-col gap-8">
-			{experience.map((item) => {
+			{experience.map((item, itemIndex) => {
 				const text = translated.find((entry) => entry.id === item.id);
 
 				const initials = item.company
@@ -99,13 +99,22 @@ const Experience = () => {
 									</div>
 
 									<ul className="mt-3.5 flex flex-col gap-1.5">
-										{text?.points.map((point) => (
+										{text?.points.map((point, pointIndex) => (
 											<li
 												key={point}
 												className="flex gap-2 text-caption font-medium leading-relaxed text-text-description"
 											>
 												<span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-primary" />
-												{point}
+												{t.rich(
+													`items.${itemIndex}.points.${pointIndex}`,
+													{
+														highlight: (chunks) => (
+															<span className="gradient-text font-bold">
+																{chunks}
+															</span>
+														),
+													},
+												)}
 											</li>
 										))}
 									</ul>
