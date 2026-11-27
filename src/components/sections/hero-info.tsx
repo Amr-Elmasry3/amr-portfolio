@@ -30,7 +30,7 @@ const HeroInfo = () => {
 						width={729}
 						height={941}
 						priority
-						className="h-full w-full scale-[1.58] object-cover object-top translate-y-[26%]"
+						className="h-full w-full scale-[1.4] object-cover object-top translate-y-[28%]"
 					/>
 				</div>
 
