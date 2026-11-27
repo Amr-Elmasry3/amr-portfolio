@@ -39,7 +39,7 @@ const Header = () => {
 
 	return (
 		<header
-			className={`sticky top-3 z-50 flex items-center justify-between gap-2 mb-10 border border-solid my-transition ${scrolled ? "rounded-2xl border-border-strong bg-background/80 px-4 pt-3 pb-3 shadow-lg backdrop-blur-xl" : "border-transparent pt-6 pb-3.5"}`}
+			className={`sticky top-3 z-[10000] flex items-center justify-between gap-2 mb-10 border border-solid my-transition ${scrolled ? "rounded-2xl border-border-strong bg-background/80 px-4 pt-3 pb-3 shadow-lg backdrop-blur-xl" : "border-transparent pt-6 pb-3.5"}`}
 		>
 			{/* Logo */}
 			<div>
