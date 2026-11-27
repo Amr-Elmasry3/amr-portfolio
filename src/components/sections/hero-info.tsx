@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
@@ -18,6 +19,21 @@ const HeroInfo = () => {
 		<div className="hero-info">
 			{/* Details */}
 			<div className="flex flex-col items-center md:items-start">
+				{/* Avatar — mobile only: the full photo composition
+				    needs room to breathe, so phones get his face in a
+				    small accent-ringed circle above the greeting */}
+				<div className="mb-5 size-24 overflow-hidden rounded-full border-2 border-solid border-primary bg-primary-light md:hidden">
+					<Image
+						data-swarm-paint
+						src="/assets/hero-image.png"
+						alt="Amr Elmasry"
+						width={729}
+						height={941}
+						priority
+						className="h-full w-full scale-[1.75] object-cover object-top translate-y-[25%]"
+					/>
+				</div>
+
 				{/* Hello */}
 				<span className="text-[18px] text-text-primary">{t("hello")}</span>
 

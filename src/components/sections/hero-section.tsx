@@ -3,13 +3,13 @@ import HeroVisual from "@/components/sections/hero-visual";
 import ScrollHint from "@/components/sections/scroll-hint";
 
 // Hero section: intro text on one side and the photo composition
-// on the other; on mobile the composition shrinks and sits above
-// the text instead of disappearing. The swarm builder paints the
-// whole composition in.
+// on the other. The composition needs room, so it stays hidden
+// on mobile — phones get a small round avatar in the text block
+// instead (see hero-info). The swarm builder paints it all in.
 const HeroSection = () => {
 	return (
 		<section
-			className="hero-section relative flex flex-col md:flex-row items-center justify-center md:justify-between gap-0 md:gap-6 mb-12 min-h-[calc(100dvh-7.5rem)]"
+			className="hero-section relative flex items-center justify-baseline md:justify-between gap-0 md:gap-6 mb-12 min-h-[calc(100dvh-7.5rem)]"
 			role="banner"
 		>
 			{/* Hero Info */}
@@ -18,7 +18,7 @@ const HeroSection = () => {
 			</div>
 
 			{/* Hero Image */}
-			<div className="order-first md:order-none w-full max-w-64 xxs:max-w-72 mx-auto mb-10 md:mb-0 md:max-w-none md:flex-1">
+			<div className="flex-1 hidden md:block">
 				<HeroVisual />
 			</div>
 
