@@ -69,6 +69,7 @@ interface Agent {
 	phase: Phase;
 	role: Role;
 	target: Target | null;
+	visit: { el: Element; stage: number; since: number } | null;
 	t0: number;
 	dur: number;
 	rect: DOMRect | null;
@@ -98,6 +99,8 @@ export interface SwarmEngine {
 	start: () => void;
 	replay: () => void;
 	destroy: () => void;
+	/** Send a cursor over to an element for a small celebration. */
+	celebrate: (el: Element) => void;
 }
 
 const ROOT_SELECTORS = [
@@ -438,6 +441,7 @@ export function createSwarm(): SwarmEngine {
 		start: () => {},
 		replay: () => {},
 		destroy: () => {},
+		celebrate: () => {},
 	};
 	if (typeof window === "undefined") return noop;
 
@@ -638,6 +642,7 @@ export function createSwarm(): SwarmEngine {
 				phase: "idle",
 				role: "lead",
 				target: null,
+				visit: null,
 				t0: now,
 				dur: 1,
 				rect: null,
@@ -881,6 +886,39 @@ export function createSwarm(): SwarmEngine {
 	};
 
 	const stepAgent = (a: Agent, now: number, dt: number, speedMul: number) => {
+		if (a.visit) {
+			// A celebration visit: fly to the element, land on it
+			// with a ring and a ripple, hover a beat, then rejoin.
+			const v = a.visit;
+			if (!v.el.isConnected) {
+				a.visit = null;
+				return;
+			}
+			const r = v.el.getBoundingClientRect();
+			const cx = (r.left + r.right) / 2;
+			const cy = (r.top + r.bottom) / 2;
+			if (v.stage === 0) {
+				const d = seek(a, cx, cy, dt, 1150, 3800);
+				if (d < 16) {
+					v.stage = 1;
+					v.since = now;
+					const col = agentColor(a);
+					ghosts.push({
+						target: { el: v.el } as Target,
+						t0: now,
+						color: col,
+					});
+					ripples.push({ x: cx, y: cy, t0: now, color: col });
+				}
+			} else {
+				a.x = lerp(a.x, cx, 0.35);
+				a.y = lerp(a.y, cy, 0.35);
+				a.vx = 0;
+				a.vy = 0;
+				if (now - v.since > 420) a.visit = null;
+			}
+			return;
+		}
 		if (a.phase === "idle") {
 			a.rect = null;
 			if (now < introEnd) orbit(a, now);
@@ -1079,7 +1117,8 @@ export function createSwarm(): SwarmEngine {
 		// Hand out work: each free cursor takes a nearby block from the front of the queue.
 		if (!intro) {
 			const free = agents.filter(
-				(a) => a.phase === "idle" && !a.dying && a.alpha > 0.3,
+				(a) =>
+					a.phase === "idle" && !a.dying && !a.visit && a.alpha > 0.3,
 			);
 			for (const a of free) {
 				if (!ready.length) break;
@@ -1695,11 +1734,37 @@ export function createSwarm(): SwarmEngine {
 		}
 	};
 
+	/** Send the nearest free cursor to an element for a small
+	 *  celebration — it lands on the element with a ring and a
+	 *  ripple, hovers a beat, then rejoins the swarm. */
+	const celebrate = (el: Element) => {
+		if (!live || !started || destroyed || !el.isConnected) return;
+		const r = el.getBoundingClientRect();
+		const cx = (r.left + r.right) / 2;
+		const cy = (r.top + r.bottom) / 2;
+		let best: Agent | null = null;
+		let bestD = Infinity;
+		for (const a of agents) {
+			if (a.phase !== "idle" || a.visit || a.dying) continue;
+			const d = Math.hypot(a.x - cx, a.y - cy);
+			if (d < bestD) {
+				bestD = d;
+				best = a;
+			}
+		}
+		if (!best) {
+			spawn(1, performance.now());
+			best = agents[agents.length - 1] ?? null;
+		}
+		if (best) best.visit = { el, stage: 0, since: 0 };
+		wake();
+	};
+
 	const destroy = () => {
 		if (destroyed) return;
 		destroyed = true;
 		teardown();
 	};
 
-	return { preview, start, replay, destroy };
+	return { preview, start, replay, destroy, celebrate };
 }
