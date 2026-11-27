@@ -46,7 +46,10 @@ const HeroInfo = () => {
 				<div className="flex items-center justify-center md:justify-start xxs:gap-2 gap-4">
 					{/* Status */}
 					<div className="w-max flex items-center gap-2 bg-transparent py-2.5 px-3 border border-solid border-border-strong rounded-sm shadow-xs">
-						<span className="w-2 h-2 bg-success rounded-full"></span>
+						<span className="relative flex w-2 h-2">
+							<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75 motion-reduce:animate-none"></span>
+							<span className="relative inline-flex w-2 h-2 bg-success rounded-full"></span>
+						</span>
 
 						<span className="text-smallCaption xxs:text-[13px] font-bold text-text-secondary">
 							{t("status")}
