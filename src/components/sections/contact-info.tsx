@@ -19,7 +19,10 @@ const ContactInfo = () => {
 				<li>
 					<div className="bg-primary-light p-3 border border-solid border-primary-border rounded-sm">
 						<span className="flex items-center gap-2 mb-2 text-[15px] font-bold text-text-secondary">
-							<span className="w-2 h-2 bg-success rounded-full"></span>
+							<span className="relative flex w-2 h-2">
+								<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75 motion-reduce:animate-none"></span>
+								<span className="relative inline-flex w-2 h-2 bg-success rounded-full"></span>
+							</span>
 							{t("status")}
 						</span>
 
