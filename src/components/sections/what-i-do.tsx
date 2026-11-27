@@ -34,7 +34,7 @@ const WhatIDo = () => {
 								{service.title}
 							</span>
 
-							<span className="text-smallCaption font-medium text-text-description">
+							<span className="text-smallCaption font-medium text-text-description line-clamp-2">
 								{service.description}
 							</span>
 						</div>
