@@ -53,7 +53,7 @@ const SwitchLanguage = () => {
 				aria-expanded={open}
 				aria-haspopup="menu"
 				onClick={() => setOpen((v) => !v)}
-				className="flex items-center gap-2 min-h-9.5 h-full px-3 py-1 rounded-md border border-solid border-border-strong bg-surface-secondary shadow-xs cursor-pointer">
+				className="flex items-center gap-2 min-h-9 h-full px-2.5 py-1 rounded-full cursor-pointer my-transition hover:bg-primary-light">
 				<span className="flex items-center gap-2">
 					{flagFor(currentLocale)}
 
@@ -70,7 +70,7 @@ const SwitchLanguage = () => {
 
 			{open && (
 				<ul
-					className={`absolute ${isArabic ? "left-0" : "right-0"} mt-2 w-32 divide-y divide-border border border-solid border-border-strong bg-surface-secondary rounded-md shadow-sm z-50 overflow-hidden my-transition`}
+					className={`absolute ${isArabic ? "left-0" : "right-0"} mt-6 w-30 divide-y divide-border border border-solid border-border-strong bg-surface-secondary rounded-sm shadow-sm z-50 overflow-hidden my-transition`}
 					role="menu">
 					{routing.locales.map((loc) => (
 						<li key={loc} role="none">

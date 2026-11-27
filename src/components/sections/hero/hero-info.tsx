@@ -1,7 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
-import HeroButtons from "@/components/sections/hero-buttons";
+import HeroButtons from "@/components/sections/hero/hero-buttons";
+import RotatingTitle from "@/components/sections/hero/rotating-title";
 import { icons } from "@/constants/icons";
 import { socialLinks } from "@/constants/social-links";
 
@@ -11,11 +13,27 @@ const HeroInfo = () => {
 	const t = useTranslations("HomePage");
 
 	const name = t.raw("name") as { first: string; second: string };
+	const titles = t.raw("titles") as string[];
 
 	return (
 		<div className="hero-info">
 			{/* Details */}
 			<div className="flex flex-col items-center md:items-start">
+				{/* Avatar — mobile only: the full photo composition
+				    needs room to breathe, so phones get his face in a
+				    small accent-ringed circle above the greeting */}
+				<div className="mb-5 size-32 overflow-hidden rounded-full border-2 border-solid border-primary bg-primary-light md:hidden">
+					<Image
+						data-swarm-paint
+						src="/assets/hero-image.png"
+						alt="Amr Elmasry"
+						width={729}
+						height={941}
+						priority
+						className="h-full w-full scale-[1.4] object-cover object-top translate-y-[28%]"
+					/>
+				</div>
+
 				{/* Hello */}
 				<span className="text-[18px] text-text-primary">{t("hello")}</span>
 
@@ -29,9 +47,7 @@ const HeroInfo = () => {
 				</h1>
 
 				{/* Title */}
-				<h3 className="text-button font-medium text-text-primary">
-					{t("title")}
-				</h3>
+				<RotatingTitle titles={titles} />
 
 				{/* Description */}
 				<p className="text-[13px] font-medium text-text-description mt-3.5 mb-5.5 max-w-[95%] xxs:max-w-[75%] sm:max-w-[60%]">
@@ -46,7 +62,10 @@ const HeroInfo = () => {
 				<div className="flex items-center justify-center md:justify-start xxs:gap-2 gap-4">
 					{/* Status */}
 					<div className="w-max flex items-center gap-2 bg-transparent py-2.5 px-3 border border-solid border-border-strong rounded-sm shadow-xs">
-						<span className="w-2 h-2 bg-success rounded-full"></span>
+						<span className="relative flex w-2 h-2">
+							<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75 motion-reduce:animate-none"></span>
+							<span className="relative inline-flex w-2 h-2 bg-success rounded-full"></span>
+						</span>
 
 						<span className="text-smallCaption xxs:text-[13px] font-bold text-text-secondary">
 							{t("status")}
@@ -70,12 +89,17 @@ const HeroInfo = () => {
 			<HeroButtons />
 
 			{/* Social links */}
-			<div className="found-me">
+			<div className="found-me flex items-center justify-center md:justify-start gap-3">
+				<span
+					aria-hidden="true"
+					className="h-px w-10 bg-border-strong"
+				></span>
+
 				<span className="text-smallCaption font-bold text-text-secondary">
 					{t("foundMe")}
 				</span>
 
-				<ul className="social-links mt-2.5 flex items-center justify-center md:justify-start gap-3">
+				<ul className="social-links flex items-center gap-3">
 					{socialLinks.map((link) => (
 						<li key={link.title}>
 							<Link

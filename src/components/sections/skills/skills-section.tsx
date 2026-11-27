@@ -1,4 +1,4 @@
-import MySkills from "@/components/sections/my-skills";
+import MySkills from "@/components/sections/skills/my-skills";
 import SectionHeading from "@/components/shared/section-heading";
 
 // Skills section: heading plus the skills grid.

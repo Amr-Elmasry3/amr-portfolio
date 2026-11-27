@@ -1,5 +1,5 @@
-import ContactForm from "@/components/sections/contact-form";
-import ContactInfo from "@/components/sections/contact-info";
+import ContactForm from "@/components/sections/contact/contact-form";
+import ContactInfo from "@/components/sections/contact/contact-info";
 import SectionHeading from "@/components/shared/section-heading";
 
 // Contact section: heading, the info column and the message

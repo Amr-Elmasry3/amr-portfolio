@@ -80,10 +80,10 @@ const StateCard = ({ number }: StateCardProps) => {
 	}, []);
 
 	return (
-		<li ref={ref}>
+		<li ref={ref} className="my-transition hover:-translate-y-1">
 			<SmallBoxWrapper>
-				<div className="flex flex-col items-center gap-1">
-					<span className="text-[26px] text-primary [&_svg]:w-[26px] [&_svg]:h-[26px]">
+				<div className="flex flex-col items-center gap-2.5">
+					<span className="flex size-11 items-center justify-center rounded-full bg-primary-light text-primary [&_svg]:w-[22px] [&_svg]:h-[22px]">
 						{icons[number.icon]}
 					</span>
 

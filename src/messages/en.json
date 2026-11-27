@@ -29,6 +29,7 @@
       "second": "Elmasry"
     },
     "title": "Frontend Developer",
+    "titles": ["Frontend Developer", "React.js Developer", "Next.js Developer"],
     "description": "I build fast, modern and delightful web experiences with <highlight>React.js</highlight>, <highlight>Next.js</highlight> and <highlight>TypeScript</highlight>.",
     "location": "Mansoura, Egypt",
     "status": "Available for Work",
@@ -118,7 +119,33 @@
         "number": "100%",
         "icon": "heartCode"
       }
+    ],
+    "services": [
+      {
+        "icon": "monitorSmartphone",
+        "title": "Responsive Web Apps",
+        "description": "Interfaces that feel right on every screen, from phones to wide monitors"
+      },
+      {
+        "icon": "codeAlt",
+        "title": "Modern Front-End Builds",
+        "description": "Clean, maintainable code with React, Next.js and TypeScript"
+      },
+      {
+        "icon": "gauge",
+        "title": "Performance & UX",
+        "description": "Fast loading pages and smooth, delightful user experiences"
+      }
     ]
+  },
+  "Skills": {
+    "categories": {
+      "core": "Core",
+      "stateData": "State & Data",
+      "forms": "Forms & Validation",
+      "ui": "UI & Styling",
+      "tools": "Routing & Tools"
+    }
   },
   "SectionsHeading": {
     "about": "About <highlight>Me</highlight>",
@@ -135,7 +162,9 @@
         "phone": "Phone",
         "linkedin": "Linkedin",
         "github": "Github"
-      }
+      },
+      "copy": "Copy",
+      "copied": "Copied"
     },
     "contactForm": {
       "title": "Send Me a Message",
@@ -146,6 +175,7 @@
       "message": "Message",
       "messagePlaceholder": "Tell me how I can help...",
       "submit": "Send Message",
+      "responseTime": "I usually reply within 24 hours",
       "success": "Thanks! Your message was sent successfully.",
       "error": "Sorry, your message could not be sent. Please try again.",
       "validation": {

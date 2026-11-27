@@ -39,8 +39,11 @@ const AccentSwitch = () => {
 				aria-expanded={open}
 				aria-haspopup="menu"
 				onClick={() => setOpen((v) => !v)}
-				className="flex items-center gap-2 min-h-9.5 h-full px-3 py-1 rounded-md border border-solid border-border-strong bg-surface-secondary shadow-xs cursor-pointer">
-				<Palette className="hidden sm:block text-text-secondary" size={16} />
+				className="flex items-center gap-2 min-h-9 h-full px-2.5 py-1 rounded-full cursor-pointer my-transition hover:bg-primary-light">
+				<Palette
+					className="hidden sm:block text-text-secondary"
+					size={16}
+				/>
 
 				<span
 					aria-hidden="true"
@@ -48,12 +51,15 @@ const AccentSwitch = () => {
 					style={{ backgroundColor: activeAccent?.swatch }}
 				/>
 
-				<ChevronDown className="hidden sm:block text-text-secondary" size={16} />
+				<ChevronDown
+					className="hidden sm:block text-text-secondary"
+					size={16}
+				/>
 			</button>
 
 			{open && (
 				<ul
-					className={`absolute ${isArabic ? "left-0" : "right-0"} mt-2 w-40 divide-y divide-border border border-solid border-border-strong bg-surface-secondary rounded-md shadow-sm z-50 overflow-hidden my-transition`}
+					className={`absolute ${isArabic ? "left-0" : "right-0"} mt-6 w-40 divide-y divide-border border border-solid border-border-strong bg-surface-secondary rounded-sm shadow-sm z-50 overflow-hidden my-transition`}
 					role="menu">
 					{ACCENTS.map((item) => {
 						const isActive = item.name === accent;
@@ -65,10 +71,13 @@ const AccentSwitch = () => {
 									role="menuitem"
 									aria-label={t(item.name)}
 									onClick={(e) => {
-										withViewTransition(() => setAccent(item.name), {
-											x: e.clientX,
-											y: e.clientY,
-										});
+										withViewTransition(
+											() => setAccent(item.name),
+											{
+												x: e.clientX,
+												y: e.clientY,
+											},
+										);
 										setOpen(false);
 									}}
 									className={`w-full text-start flex items-center gap-2 px-3 py-2 cursor-pointer my-transition ${isActive ? "bg-primary-light" : "hover:bg-surface"}`}>
@@ -83,7 +92,10 @@ const AccentSwitch = () => {
 									</span>
 
 									{isActive && (
-										<Check className="text-primary" size={14} />
+										<Check
+											className="text-primary"
+											size={14}
+										/>
 									)}
 								</button>
 							</li>

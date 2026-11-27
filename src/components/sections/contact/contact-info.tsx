@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
+import CopyButton from "@/components/sections/contact/copy-button";
 import SmallBoxWrapper from "@/components/shared/small-box-wrapper";
 import { contactInfo } from "@/constants/contact-info";
 import { icons } from "@/constants/icons";
@@ -15,11 +16,14 @@ const ContactInfo = () => {
 
 	return (
 		<div className="w-full lg:w-[35%]">
-			<ul className="flex flex-col gap-3">
+			<ul className="flex flex-col gap-4">
 				<li>
 					<div className="bg-primary-light p-3 border border-solid border-primary-border rounded-sm">
 						<span className="flex items-center gap-2 mb-2 text-[15px] font-bold text-text-secondary">
-							<span className="w-2 h-2 bg-success rounded-full"></span>
+							<span className="relative flex w-2 h-2">
+								<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75 motion-reduce:animate-none"></span>
+								<span className="relative inline-flex w-2 h-2 bg-success rounded-full"></span>
+							</span>
 							{t("status")}
 						</span>
 
@@ -45,11 +49,18 @@ const ContactInfo = () => {
 									<Link
 										href={item.link}
 										className="text-caption text-text-secondary hover:text-primary-hover text-wrap my-transition"
-										target="_blank"
-									>
+										target="_blank">
 										{item.value}
 									</Link>
 								</div>
+
+								{item.key === "email" && (
+									<CopyButton
+										value={item.value}
+										copyLabel={t("copy")}
+										copiedLabel={t("copied")}
+									/>
+								)}
 							</div>
 						</SmallBoxWrapper>
 					</li>

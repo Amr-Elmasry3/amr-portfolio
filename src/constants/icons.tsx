@@ -37,6 +37,7 @@ import {
 	Download,
 	FileCode,
 	FolderCode,
+	Gauge,
 	Globe,
 	GraduationCap,
 	Heart,
@@ -44,6 +45,7 @@ import {
 	Mail,
 	MapPin,
 	MessageCircle,
+	MonitorSmartphone,
 	Moon,
 	Send,
 	Sun,
@@ -76,4 +78,6 @@ export const icons: Icons = {
 	heartCode: <Heart />,
 	fileCode: <FileCode />,
 	folderCode2: <FolderCode />,
+	monitorSmartphone: <MonitorSmartphone />,
+	gauge: <Gauge />,
 };

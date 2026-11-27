@@ -29,6 +29,7 @@
       "second": "المصري"
     },
     "title": "مطور واجهة أمامية",
+    "titles": ["مطور واجهة أمامية", "مطور React.js", "مطور Next.js"],
     "description": "أبني واجهات ويب حديثة وسريعة بتجربة استخدام سلسلة بإستخدام <highlight>React.js</highlight> و <highlight>Next.js</highlight> و <highlight>TypeScript</highlight>",
     "location": "المنصورة، مصر",
     "status": "متاح للعمل",
@@ -118,7 +119,33 @@
         "number": "100%",
         "icon": "heartCode"
       }
+    ],
+    "services": [
+      {
+        "icon": "monitorSmartphone",
+        "title": "تطبيقات ويب متجاوبة",
+        "description": "واجهات مريحة على كل الشاشات، من الموبايل للشاشات العريضة"
+      },
+      {
+        "icon": "codeAlt",
+        "title": "بناء واجهات حديثة",
+        "description": "كود نضيف وقابل للصيانة بـ React وNext.js وTypeScript"
+      },
+      {
+        "icon": "gauge",
+        "title": "الأداء وتجربة الاستخدام",
+        "description": "صفحات سريعة التحميل وتجربة استخدام سلسة وممتعة"
+      }
     ]
+  },
+  "Skills": {
+    "categories": {
+      "core": "الأساسيات",
+      "stateData": "إدارة الحالة والبيانات",
+      "forms": "النماذج والتحقق",
+      "ui": "الواجهة والتنسيق",
+      "tools": "التوجيه والأدوات"
+    }
   },
   "SectionsHeading": {
     "about": "نبذة <highlight>عني</highlight>",
@@ -135,7 +162,9 @@
         "phone": "رقم التليفون",
         "linkedin": "لينكد إن",
         "github": "GitHub"
-      }
+      },
+      "copy": "نسخ",
+      "copied": "اتنسخ"
     },
     "contactForm": {
       "title": "أرسل لي رسالة",
@@ -146,6 +175,7 @@
       "message": "الرسالة",
       "messagePlaceholder": "اكتب رسالتك هنا...",
       "submit": "إرسال الرسالة",
+      "responseTime": "عادةً برد خلال 24 ساعة",
       "success": "شكرًا! تم إرسال رسالتك بنجاح.",
       "error": "عذرًا، تعذر إرسال رسالتك. حاول مرة أخرى.",
       "validation": {
