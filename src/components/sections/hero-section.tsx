@@ -34,6 +34,7 @@ const HeroSection = () => {
 						<div aria-hidden="true" className="hero-logo-fill absolute inset-0"></div>
 
 						<Image
+							data-swarm-paint
 							src="/assets/hero-image.png"
 							alt="Amr Elmasry"
 							width={729}

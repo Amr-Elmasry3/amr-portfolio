@@ -6,10 +6,11 @@ import SmallBoxWrapper from "@/components/shared/small-box-wrapper";
 import { icons } from "@/constants/icons";
 import { useCountUp } from "@/hooks/use-count-up";
 
-// One stat tile in the About numbers grid. The number counts up
-// the first time the card scrolls into view (the old site
-// chained this to the motion entrance animation; here an
-// IntersectionObserver does the trigger instead).
+// One stat tile in the About numbers grid. The count-up is
+// chained to the swarm: it starts the moment a cursor begins
+// typing the number, so the digits roll as they are written.
+// Without a swarm on the page (reduced motion), an
+// IntersectionObserver starts it instead, as before.
 export interface StatNumber {
 	title: string;
 	number: string;
@@ -22,6 +23,7 @@ interface StateCardProps {
 
 const StateCard = ({ number }: StateCardProps) => {
 	const ref = useRef<HTMLLIElement>(null);
+	const numberRef = useRef<HTMLSpanElement>(null);
 	const [started, setStarted] = useState(false);
 
 	const { count, suffix } = useCountUp({
@@ -31,20 +33,50 @@ const StateCard = ({ number }: StateCardProps) => {
 
 	useEffect(() => {
 		const el = ref.current;
-		if (!el) return;
+		const numberEl = numberRef.current;
+		if (!el || !numberEl) return;
+
+		let safetyTimer = 0;
+
+		const start = () => {
+			window.clearTimeout(safetyTimer);
+			setStarted(true);
+			mutationObserver.disconnect();
+			observer.disconnect();
+		};
+
+		// The number span becoming "building" is the cursor
+		// starting to type it — that is the count's cue. The
+		// attribute disappearing means it already finished.
+		const mutationObserver = new MutationObserver(() => {
+			if (numberEl.getAttribute("data-swarm-state") !== "pending")
+				start();
+		});
+		mutationObserver.observe(numberEl, {
+			attributes: true,
+			attributeFilter: ["data-swarm-state"],
+		});
 
 		const observer = new IntersectionObserver(
 			(entries) => {
-				if (entries[0].isIntersecting) {
-					setStarted(true);
-					observer.disconnect();
-				}
+				if (!entries[0].isIntersecting) return;
+				observer.disconnect();
+				// No swarm on this page: count as soon as seen.
+				// Otherwise wait for the cursor; the safety timer
+				// only guards against a missed mutation.
+				if (!document.documentElement.hasAttribute("data-swarm"))
+					start();
+				else safetyTimer = window.setTimeout(start, 4000);
 			},
 			{ threshold: 0.2 },
 		);
 
 		observer.observe(el);
-		return () => observer.disconnect();
+		return () => {
+			window.clearTimeout(safetyTimer);
+			mutationObserver.disconnect();
+			observer.disconnect();
+		};
 	}, []);
 
 	return (
@@ -55,7 +87,10 @@ const StateCard = ({ number }: StateCardProps) => {
 						{icons[number.icon]}
 					</span>
 
-					<span className="text-subHeading font-extrabold text-primary-active">
+					<span
+						ref={numberRef}
+						className="text-subHeading font-extrabold text-primary-active"
+					>
 						{count} {suffix}
 					</span>
 

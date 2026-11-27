@@ -1,0 +1,178 @@
+/* ############### Swarm Builder (cursors build the page as you scroll) ###############
+   Only holds elements back until a cursor reveals them. No colors or content change.
+   Everything is gated on html[data-swarm], which JS sets only when motion is allowed. */
+html[data-swarm="arming"] .home-page,
+html[data-swarm="arming"] body > header,
+html[data-swarm="arming"] .my-container > header,
+html[data-swarm="arming"] body > aside {
+	opacity: 0 !important;
+}
+
+html[data-swarm="on"] [data-swarm-state="pending"] {
+	opacity: 0 !important;
+}
+
+html[data-swarm="on"] [data-swarm-state="building"] {
+	transition:
+		opacity 0.4s ease,
+		filter 0.8s ease !important;
+}
+
+/* Images and icons come into focus as they are built */
+html[data-swarm="on"]
+	:is(img, picture, video, canvas, svg)[data-swarm-state="pending"] {
+	filter: blur(16px) !important;
+}
+
+/* Single-line text: typed in from the reading-direction start */
+html[data-swarm="on"] [data-swarm-state="building"][data-swarm-kind="text"] {
+	clip-path: inset(-4px calc(var(--swarm-clip, 0) * 1%) -4px -4px);
+}
+html[data-swarm="on"][dir="rtl"]
+	[data-swarm-state="building"][data-swarm-kind="text"] {
+	clip-path: inset(-4px -4px -4px calc(var(--swarm-clip, 0) * 1%));
+}
+
+/* Multi-line text: revealed top to bottom */
+html[data-swarm="on"] [data-swarm-state="building"][data-swarm-kind="block"] {
+	clip-path: inset(-4px -4px calc(var(--swarm-clip, 0) * 1%) -4px);
+}
+
+@media print, (prefers-reduced-motion: reduce) {
+	html[data-swarm] .home-page,
+	html[data-swarm] body > header,
+	html[data-swarm] .my-container > header,
+	html[data-swarm] body > aside,
+	html[data-swarm] [data-swarm-state] {
+		opacity: 1 !important;
+		clip-path: none !important;
+		filter: none !important;
+		transition: none !important;
+	}
+
+	.hero-draw-fill,
+	.hero-dot {
+		clip-path: none !important;
+		opacity: 1 !important;
+	}
+
+	.hero-draw-stroke {
+		stroke-dashoffset: 0 !important;
+	}
+
+	.hero-draw-dashed {
+		clip-path: none !important;
+	}
+
+	html[data-swarm] img[data-swarm-kind="paint"] {
+		-webkit-mask-image: none !important;
+		mask-image: none !important;
+		filter: none !important;
+	}
+
+	.swarm-replay {
+		display: none !important;
+	}
+}
+
+/* ############### Hero drawn decorations ###############
+   The swarm engine moves --swarm-draw from 0 to 1 while its cursor travels.
+   These rules turn that number into ink: strokes are traced, filled circles
+   grow in, dot grids appear dot by dot, and the portrait is painted on. */
+.hero-draw-fill {
+	clip-path: circle(calc(var(--swarm-draw, 1) * 52%) at center);
+	opacity: var(--swarm-draw, 1);
+}
+
+.hero-draw-stroke {
+	stroke-dashoffset: calc(1 - var(--swarm-draw, 1));
+}
+
+.hero-draw-dashed {
+	clip-path: inset(0 0 calc((1 - var(--swarm-draw, 1)) * 100%) 0);
+}
+
+.hero-dot {
+	--dot-p: clamp(
+		0,
+		calc((var(--swarm-draw, 1) - var(--dot-delay, 0)) * 2.5),
+		1
+	);
+	clip-path: circle(calc(var(--dot-p) * 52%) at center);
+	opacity: var(--dot-p);
+}
+
+html[data-swarm="on"] img[data-swarm-kind="paint"] {
+	--paint-edge: calc(var(--swarm-draw, 0) * 112% - 12%);
+	-webkit-mask-image: linear-gradient(
+		to right,
+		#000 var(--paint-edge),
+		transparent calc(var(--paint-edge) + 12%)
+	);
+	mask-image: linear-gradient(
+		to right,
+		#000 var(--paint-edge),
+		transparent calc(var(--paint-edge) + 12%)
+	);
+	filter: blur(calc((1 - var(--swarm-draw, 0)) * 5px));
+}
+
+html[data-swarm="on"][dir="rtl"] img[data-swarm-kind="paint"] {
+	-webkit-mask-image: linear-gradient(
+		to left,
+		#000 var(--paint-edge),
+		transparent calc(var(--paint-edge) + 12%)
+	);
+	mask-image: linear-gradient(
+		to left,
+		#000 var(--paint-edge),
+		transparent calc(var(--paint-edge) + 12%)
+	);
+}
+
+/* The portrait fades into the drawn shapes at its base, so the straight cut of
+   the cut-out photo never shows. It also lets the bottom ring show through, so
+   the person looks like they stand inside the composition instead of on top of
+   a cropped rectangle. This mask lives on the wrapper, so it composes with the
+   paint sweep that the engine applies to the image itself. The photo's content
+   ends around 97% of its box, so the fade is fully transparent by then. */
+.hero-photo {
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		#000 80%,
+		rgba(0, 0, 0, 0.88) 87%,
+		rgba(0, 0, 0, 0.45) 92%,
+		rgba(0, 0, 0, 0.1) 95.5%,
+		transparent 97%
+	);
+	mask-image: linear-gradient(
+		to bottom,
+		#000 80%,
+		rgba(0, 0, 0, 0.88) 87%,
+		rgba(0, 0, 0, 0.45) 92%,
+		rgba(0, 0, 0, 0.1) 95.5%,
+		transparent 97%
+	);
+}
+
+@keyframes hero-float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-0.9%);
+	}
+}
+
+.hero-float {
+	animation: hero-float var(--float-d, 5s) ease-in-out var(--float-delay, 0s)
+		infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.hero-float {
+		animation: none;
+	}
+}
+

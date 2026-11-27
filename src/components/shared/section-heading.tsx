@@ -2,8 +2,8 @@ import { useTranslations } from "next-intl";
 
 // Centered badge heading shown at the top of every section,
 // with the two dot-and-line connectors on its top edge. The
-// old site animated the connectors drawing in with the motion
-// framework; this port renders them statically.
+// connectors are small SVGs the swarm traces in (data-swarm-draw)
+// when it builds the heading.
 export type SectionName = "about" | "skills" | "projects" | "contact";
 
 interface SectionHeadingProps {
@@ -26,20 +26,63 @@ const SectionHeading = ({ sectionName }: SectionHeadingProps) => {
 					})}
 				</p>
 
-				{/* Connectors */}
+				{/* Connectors — dot, line, dot; the swarm traces them */}
 				<div className="absolute -top-6.5 w-full flex justify-between px-6">
 					{[0, 1].map((i) => (
-						<div key={i} className="flex flex-col items-center">
-							<span className="w-1.5 h-1.5 outline-2 outline-primary rounded-full flex items-center justify-center">
-								<span className="w-1 h-1 bg-primary rounded-full"></span>
-							</span>
-
-							<span className="w-0.5 h-7 bg-primary"></span>
-
-							<span className="w-1.5 h-1.5 outline-2 outline-primary rounded-full flex items-center justify-center">
-								<span className="w-1 h-1 bg-primary rounded-full"></span>
-							</span>
-						</div>
+						<svg
+							key={i}
+							data-swarm-draw
+							aria-hidden="true"
+							className="h-10 w-3 overflow-visible"
+							viewBox="0 0 12 40"
+							fill="none"
+						>
+							<circle
+								cx="6"
+								cy="4"
+								r="2.75"
+								pathLength={1}
+								strokeDasharray={1}
+								className="hero-draw-stroke"
+								stroke="var(--primary)"
+								strokeWidth="1.5"
+							/>
+							<circle
+								cx="6"
+								cy="4"
+								r="2"
+								className="hero-draw-fill"
+								fill="var(--primary)"
+							/>
+							<line
+								x1="6"
+								y1="8"
+								x2="6"
+								y2="32"
+								pathLength={1}
+								strokeDasharray={1}
+								className="hero-draw-stroke"
+								stroke="var(--primary)"
+								strokeWidth="2"
+							/>
+							<circle
+								cx="6"
+								cy="36"
+								r="2.75"
+								pathLength={1}
+								strokeDasharray={1}
+								className="hero-draw-stroke"
+								stroke="var(--primary)"
+								strokeWidth="1.5"
+							/>
+							<circle
+								cx="6"
+								cy="36"
+								r="2"
+								className="hero-draw-fill"
+								fill="var(--primary)"
+							/>
+						</svg>
 					))}
 				</div>
 			</div>

@@ -12,6 +12,7 @@ import GoTopButton from "@/components/layout/go-top-button";
 import Header from "@/components/layout/header";
 import PageBackground from "@/components/layout/page-background";
 import Sidebar from "@/components/layout/sidebar";
+import SwarmBuilder from "@/components/layout/swarm-builder";
 
 export { generateMetadata } from "@/lib/generate-metadata";
 
@@ -70,6 +71,8 @@ const RootLayout = async ({
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<AllProviders>
 						<BootGate>
+							<SwarmBuilder />
+
 							<PageBackground />
 
 							<GoTopButton />
