@@ -117,7 +117,8 @@
       {
         "title": "Passion for Development",
         "number": "100%",
-        "icon": "heartCode"
+        "icon": "heartCode",
+        "highlight": true
       }
     ],
     "services": [
