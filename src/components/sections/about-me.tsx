@@ -1,5 +1,7 @@
 import { useTranslations } from "next-intl";
 
+import QuickInfo from "@/components/sections/quick-info";
+
 // The three About paragraphs, with highlighted phrases rendered
 // in the accent gradient.
 const AboutMe = () => {
@@ -8,7 +10,8 @@ const AboutMe = () => {
 	const paragraphs = ["paragraph1", "paragraph2", "paragraph3"] as const;
 
 	return (
-		<ul className="about-me flex-1 flex flex-col gap-4">
+		<div className="flex-1 flex flex-col gap-5">
+			<ul className="about-me flex flex-col gap-4">
 			{paragraphs.map((key, index) => (
 				<li key={key}>
 					<p
@@ -26,7 +29,10 @@ const AboutMe = () => {
 					</p>
 				</li>
 			))}
-		</ul>
+			</ul>
+
+			<QuickInfo />
+		</div>
 	);
 };
 
