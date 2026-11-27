@@ -1485,6 +1485,13 @@ export function createSwarm(): SwarmEngine {
 		releasing.length = 0;
 	};
 
+	const armOne = (t: Target) => {
+		byEl.set(t.el, t);
+		t.el.setAttribute("data-swarm-state", "pending");
+		t.el.setAttribute("data-swarm-kind", t.kind);
+		io?.observe(t.el);
+	};
+
 	const arm = () => {
 		const found: Target[] = [];
 		for (const sel of ROOT_SELECTORS) {
@@ -1496,13 +1503,64 @@ export function createSwarm(): SwarmEngine {
 			}
 		}
 		targets = found;
-		for (const t of targets) {
-			byEl.set(t.el, t);
-			t.el.setAttribute("data-swarm-state", "pending");
-			t.el.setAttribute("data-swarm-kind", t.kind);
-			io?.observe(t.el);
-		}
+		for (const t of targets) armOne(t);
 		html.setAttribute("data-swarm", "on");
+	};
+
+	// Content added after the first pass (a dialog opening, a
+	// section mounting later) gets armed too, so the swarm builds
+	// it like everything else instead of leaving it plain.
+	let domMo: MutationObserver | null = null;
+
+	const armAdded = (node: Element) => {
+		if (node === canvas) return;
+		let parent: Target | null = null;
+		for (let p = node.parentElement; p; p = p.parentElement) {
+			const hit = byEl.get(p);
+			if (hit) {
+				parent = hit;
+				break;
+			}
+		}
+		const fresh: Target[] = [];
+		discover(
+			node as El,
+			getComputedStyle(node).position === "fixed",
+			false,
+			fresh,
+		);
+		// discover lists parents before their children; re-anchor
+		// anything whose parent was already armed (a moved node) to
+		// the live target so the parent gate still releases.
+		const remap = new Map<Target, Target>();
+		for (const t of fresh) {
+			if (t.parent && remap.has(t.parent))
+				t.parent = remap.get(t.parent) ?? null;
+			else if (t.parent && byEl.get(t.parent.el) !== t.parent)
+				t.parent = parent;
+			const existing = byEl.get(t.el);
+			if (existing) {
+				remap.set(t, existing);
+				continue;
+			}
+			if (!t.parent) t.parent = parent;
+			targets.push(t);
+			armOne(t);
+		}
+		if (fresh.length) wake();
+	};
+
+	const watchDom = () => {
+		if (domMo) return;
+		domMo = new MutationObserver((muts) => {
+			if (!started || destroyed) return;
+			for (const m of muts) {
+				for (const n of Array.from(m.addedNodes)) {
+					if (n instanceof Element) armAdded(n);
+				}
+			}
+		});
+		domMo.observe(document.body, { childList: true, subtree: true });
 	};
 
 	const beginIntro = (now: number) => {
@@ -1522,8 +1580,10 @@ export function createSwarm(): SwarmEngine {
 		clearTargets();
 		io?.disconnect();
 		mo?.disconnect();
+		domMo?.disconnect();
 		io = null;
 		mo = null;
+		domMo = null;
 		canvas?.remove();
 		canvas = null;
 		ctx = null;
@@ -1599,6 +1659,7 @@ export function createSwarm(): SwarmEngine {
 				return;
 			}
 			arm();
+			watchDom();
 			const now = performance.now();
 			if (previewing) {
 				// cursors are already out — burst straight into building
