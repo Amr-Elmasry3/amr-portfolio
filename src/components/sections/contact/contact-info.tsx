@@ -16,7 +16,7 @@ const ContactInfo = () => {
 
 	return (
 		<div className="w-full lg:w-[35%]">
-			<ul className="flex flex-col gap-3">
+			<ul className="flex flex-col gap-4">
 				<li>
 					<div className="bg-primary-light p-3 border border-solid border-primary-border rounded-sm">
 						<span className="flex items-center gap-2 mb-2 text-[15px] font-bold text-text-secondary">
@@ -49,8 +49,7 @@ const ContactInfo = () => {
 									<Link
 										href={item.link}
 										className="text-caption text-text-secondary hover:text-primary-hover text-wrap my-transition"
-										target="_blank"
-									>
+										target="_blank">
 										{item.value}
 									</Link>
 								</div>
