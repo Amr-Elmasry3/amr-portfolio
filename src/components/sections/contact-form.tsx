@@ -1,6 +1,14 @@
 "use client";
 
-import { CircleAlert, CircleCheck, Clock, Send } from "lucide-react";
+import {
+	CircleAlert,
+	CircleCheck,
+	Clock,
+	Mail,
+	MessageSquare,
+	Send,
+	User,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import CustomButton from "@/components/shared/custom-button";
@@ -17,7 +25,7 @@ const ContactForm = () => {
 			formik.touched[fieldName] && formik.errors[fieldName]
 				? "border-danger focus:border-danger"
 				: "border-border-strong focus:border-primary"
-		} rounded-xs shadow-sm bg-surface-secondary px-3 py-2 text-text-primary outline-none transition-colors placeholder:text-[14px] placeholder:text-text-placeholder`;
+		} rounded-xs shadow-sm bg-surface-secondary py-2 ps-9 pe-3 text-text-primary outline-none transition-colors placeholder:text-[14px] placeholder:text-text-placeholder`;
 
 	return (
 		<form
@@ -36,18 +44,24 @@ const ContactForm = () => {
 					{t("name")}
 				</label>
 
-				<input
-					className={getFieldClassName("name")}
-					id="name"
-					name="name"
-					type="text"
-					placeholder={t("namePlaceholder")}
-					onChange={formik.handleChange}
-					onBlur={formik.handleBlur}
-					value={formik.values.name}
-					aria-invalid={Boolean(formik.touched.name && formik.errors.name)}
-					aria-describedby="name-error"
-				/>
+				<div className="relative">
+					<span className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 text-text-placeholder [&_svg]:size-4">
+						<User />
+					</span>
+
+					<input
+						className={getFieldClassName("name")}
+						id="name"
+						name="name"
+						type="text"
+						placeholder={t("namePlaceholder")}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.name}
+						aria-invalid={Boolean(formik.touched.name && formik.errors.name)}
+						aria-describedby="name-error"
+					/>
+				</div>
 
 				{formik.touched.name && formik.errors.name && (
 					<p className="mt-1 text-smallCaption text-danger" id="name-error">
@@ -65,18 +79,24 @@ const ContactForm = () => {
 					{t("email")}
 				</label>
 
-				<input
-					className={getFieldClassName("email")}
-					id="email"
-					name="email"
-					type="email"
-					placeholder={t("emailPlaceholder")}
-					onChange={formik.handleChange}
-					onBlur={formik.handleBlur}
-					value={formik.values.email}
-					aria-invalid={Boolean(formik.touched.email && formik.errors.email)}
-					aria-describedby="email-error"
-				/>
+				<div className="relative">
+					<span className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 text-text-placeholder [&_svg]:size-4">
+						<Mail />
+					</span>
+
+					<input
+						className={getFieldClassName("email")}
+						id="email"
+						name="email"
+						type="email"
+						placeholder={t("emailPlaceholder")}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.email}
+						aria-invalid={Boolean(formik.touched.email && formik.errors.email)}
+						aria-describedby="email-error"
+					/>
+				</div>
 
 				{formik.touched.email && formik.errors.email && (
 					<p className="mt-1 text-smallCaption text-danger" id="email-error">
@@ -94,19 +114,25 @@ const ContactForm = () => {
 					{t("message")}
 				</label>
 
-				<textarea
-					className={`${getFieldClassName("message")} min-h-32 resize-none`}
-					id="message"
-					name="message"
-					placeholder={t("messagePlaceholder")}
-					onChange={formik.handleChange}
-					onBlur={formik.handleBlur}
-					value={formik.values.message}
-					aria-invalid={Boolean(
-						formik.touched.message && formik.errors.message,
-					)}
-					aria-describedby="message-error"
-				/>
+				<div className="relative">
+					<span className="pointer-events-none absolute start-3 top-3 text-text-placeholder [&_svg]:size-4">
+						<MessageSquare />
+					</span>
+
+					<textarea
+						className={`${getFieldClassName("message")} min-h-32 resize-none`}
+						id="message"
+						name="message"
+						placeholder={t("messagePlaceholder")}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.message}
+						aria-invalid={Boolean(
+							formik.touched.message && formik.errors.message,
+						)}
+						aria-describedby="message-error"
+					/>
+				</div>
 
 				{formik.touched.message && formik.errors.message && (
 					<p className="mt-1 text-smallCaption text-danger" id="message-error">
