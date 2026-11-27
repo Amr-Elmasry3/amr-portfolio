@@ -349,12 +349,11 @@ function discover(
 }
 
 /**
- * Pre-measure where each typing step ends, so text can be typed in
- * instead of wiped: short text goes character by character, long
- * text a word at a time (measuring every character of a paragraph
- * would be wasteful). Alongside the single-line clip percentages,
- * each step records which line it lands on and where the caret is,
- * so multi-line text can be revealed line by line, following the
+ * Pre-measure where each character ends, so text can be typed in
+ * character by character instead of wiped — paragraphs included.
+ * Alongside the single-line clip percentages, each character
+ * records which line it lands on and where the caret is, so
+ * multi-line text can be revealed line by line, following the
  * cursor. Returns null when the text is too long or can't be
  * measured (the smooth wipe is used instead).
  */
@@ -381,7 +380,6 @@ function measureTyping(
 	}
 	if (total < 3 || r.width < 20) return null;
 
-	const perChar = total <= 120;
 	const clips: number[] = [100];
 	const fx: number[] = [rtl ? r.right : r.left];
 	const fy: number[] = [(r.top + r.bottom) / 2];
@@ -394,9 +392,6 @@ function measureTyping(
 	for (const tn of nodes) {
 		for (let i = 1; i <= tn.data.length; i++) {
 			done++;
-			// In word mode only measure at word ends.
-			if (!perChar && i < tn.data.length && !/\s/.test(tn.data[i]))
-				continue;
 			range.setStart(nodes[0], 0);
 			range.setEnd(tn, i);
 			const rr = range.getBoundingClientRect();
