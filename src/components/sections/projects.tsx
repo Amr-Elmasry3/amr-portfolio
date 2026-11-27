@@ -18,17 +18,18 @@ const Projects = () => {
 	const tProjects = t.raw("Projects") as TranslateData[];
 
 	return (
-		<ul className="projects grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+		<ul className="projects grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
 			{projects.map((proj) => {
-				const translated = tProjects.find((item) => item.id === proj.id);
+				const translated = tProjects.find(
+					(item) => item.id === proj.id,
+				);
 
 				return (
 					<li
 						key={proj.id}
-						className="group flex flex-col bg-linear-to-br from-surface-secondary/30 via-primary-lighter to-surface-secondary/30 hover:bg-surface-active p-4 rounded-sm border border-solid border-border-strong shadow-sm my-transition"
-					>
+						className="group flex flex-col bg-linear-to-br from-surface-secondary/30 via-primary-lighter to-surface-secondary/30 hover:bg-surface-active p-4 rounded-sm border border-solid border-border-strong shadow-sm my-transition">
 						{/* Image */}
-						<div className="w-full h-50 mb-4.5 rounded-sm border border-solid border-border-strong shadow-sm overflow-hidden">
+						<div className="w-full h-54 mb-4.5 rounded-sm border border-solid border-border-strong shadow-sm overflow-hidden">
 							<Image
 								src={proj.images[0]}
 								alt={translated?.title ?? "project"}
@@ -36,28 +37,27 @@ const Projects = () => {
 								height={200}
 								loading="lazy"
 								sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-								className="w-full h-full object-cover my-transition group-hover:scale-[1.04]"
+								className="w-full h-full object-fit my-transition group-hover:scale-[1.04]"
 							/>
 						</div>
 
 						{/* Title */}
-						<h3 className="text-button font-bold text-text-primary">
+						<h3 className="text-button font-bold text-text-primary mb-1">
 							{translated?.title}
 						</h3>
 
 						{/* Short Description */}
-						<p className="text-caption font-medium text-text-description mt-1.5 mb-3.5 line-clamp-3">
+						<p className="text-caption font-medium text-text-description mt-1.5 mb-3.5 line-clamp-2">
 							{translated?.shortDescription}
 						</p>
 
 						{/* Skills */}
-						<ul className="flex items-center gap-2.5">
+						<ul className="flex items-center gap-3 my-2">
 							{proj.technicals.map((tech) => (
 								<li
 									key={tech}
 									title={tech}
-									className="w-6 text-text-primary"
-								>
+									className="w-6 text-text-primary">
 									{skillsIcon[tech]}
 								</li>
 							))}
@@ -68,9 +68,11 @@ const Projects = () => {
 							<Link
 								href={proj.demo}
 								target="_blank"
-								className="hover:bg-primary-light w-25 flex items-center justify-center gap-2.5 py-2 border border-solid border-primary rounded-xs shadow-sm my-transition"
-							>
-								<ExternalLink size={15} className="text-primary" />
+								className="hover:bg-primary-light w-25 flex items-center justify-center gap-2.5 py-2 border border-solid border-primary rounded-xs shadow-sm my-transition">
+								<ExternalLink
+									size={15}
+									className="text-primary"
+								/>
 								<span className="text-caption font-bold text-primary">
 									Demo
 								</span>
@@ -79,8 +81,7 @@ const Projects = () => {
 							<Link
 								href={proj.github}
 								target="_blank"
-								className="hover:bg-surface-secondary w-25 flex items-center justify-center gap-2.5 py-2 border border-solid border-border-strong rounded-xs shadow-sm my-transition"
-							>
+								className="hover:bg-surface-secondary w-25 flex items-center justify-center gap-2.5 py-2 border border-solid border-border-strong rounded-xs shadow-sm my-transition">
 								<span className="text-text-primary [&_svg]:w-4 [&_svg]:h-4">
 									{icons.github}
 								</span>
