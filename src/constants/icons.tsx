@@ -32,6 +32,7 @@ const LinkedinIcon = () => (
 
 import {
 	ArrowRight,
+	Briefcase,
 	CircleArrowRight,
 	CodeXml,
 	Download,
@@ -64,6 +65,7 @@ export const icons: Icons = {
 	codeAlt: <CodeXml />,
 	folderCode: <FolderCode />,
 	paperPlane: <Send />,
+	briefcase: <Briefcase />,
 	envelope: <Mail />,
 	envelopeFill: <Mail />,
 	sun: <Sun />,
