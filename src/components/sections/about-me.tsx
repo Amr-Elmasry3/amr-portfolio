@@ -12,15 +12,9 @@ const AboutMe = () => {
 	return (
 		<div className="flex-1 flex flex-col gap-5">
 			<ul className="about-me flex flex-col gap-4">
-			{paragraphs.map((key, index) => (
+			{paragraphs.map((key) => (
 				<li key={key}>
-					<p
-						className={
-							index === 0
-								? "text-button font-medium text-text-secondary"
-								: "text-caption font-medium text-text-description"
-						}
-					>
+					<p className="text-caption font-medium text-text-description">
 						{t.rich(key, {
 							highlight: (chunks) => (
 								<span className="gradient-text font-bold">{chunks}</span>
