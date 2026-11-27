@@ -86,12 +86,12 @@ const Experience = () => {
 										</span>
 									</div>
 
-									<p className="mt-1.5 flex items-center gap-1.5 text-caption font-bold text-primary">
+									<p className="mt-2.5 flex items-center gap-1.5 text-caption font-bold text-primary">
 										<Building2 className="size-4" />
 										{item.company}
 									</p>
 
-									<div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-smallCaption font-medium text-text-secondary">
+									<div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-smallCaption font-medium text-text-secondary">
 										<span className="flex items-center gap-1">
 											<MapPin className="size-3.5" />
 											{text?.location}
