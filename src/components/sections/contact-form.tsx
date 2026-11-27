@@ -1,6 +1,6 @@
 "use client";
 
-import { Send } from "lucide-react";
+import { CircleAlert, CircleCheck, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import CustomButton from "@/components/shared/custom-button";
@@ -115,6 +115,26 @@ const ContactForm = () => {
 				)}
 			</div>
 
+			{/* Status After Send: a banner above the button, so the
+			    outcome of the send cannot be missed */}
+			{status && (
+				<p
+					className={`flex items-center gap-2 rounded-xs border border-solid px-3 py-2.5 text-caption font-medium ${
+						status.type === "error"
+							? "border-danger/40 bg-danger/10 text-danger"
+							: "border-success/40 bg-success/10 text-success"
+					}`}
+					role="status"
+				>
+					{status.type === "error" ? (
+						<CircleAlert className="size-4 shrink-0" />
+					) : (
+						<CircleCheck className="size-4 shrink-0" />
+					)}
+					{status.message}
+				</p>
+			)}
+
 			{/* Send Button */}
 			<div className="w-full">
 				<CustomButton
@@ -126,18 +146,6 @@ const ContactForm = () => {
 					<Send />
 				</CustomButton>
 			</div>
-
-			{/* Status After Send Message */}
-			{status && (
-				<p
-					className={`text-caption text-center ${
-						status.type === "error" ? "text-danger" : "text-success"
-					}`}
-					role="status"
-				>
-					{status.message}
-				</p>
-			)}
 		</form>
 	);
 };
