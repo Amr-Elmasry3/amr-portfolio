@@ -73,12 +73,17 @@ const HeroInfo = () => {
 			<HeroButtons />
 
 			{/* Social links */}
-			<div className="found-me">
+			<div className="found-me flex items-center justify-center md:justify-start gap-3">
+				<span
+					aria-hidden="true"
+					className="h-px w-10 bg-border-strong"
+				></span>
+
 				<span className="text-smallCaption font-bold text-text-secondary">
 					{t("foundMe")}
 				</span>
 
-				<ul className="social-links mt-2.5 flex items-center justify-center md:justify-start gap-3">
+				<ul className="social-links flex items-center gap-3">
 					{socialLinks.map((link) => (
 						<li key={link.title}>
 							<Link
