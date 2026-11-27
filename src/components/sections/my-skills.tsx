@@ -23,14 +23,12 @@ const MySkills = () => {
 					<SkillGroup
 						key={category}
 						title={t(`categories.${category}`)}
-						count={skills.length}
-					>
-						<ul className="skills-content grid gap-3 grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
+						count={skills.length}>
+						<ul className="skills-content grid gap-4 grid-cols-[repeat(auto-fill,minmax(180px,1fr))]">
 							{skills.map((skill) => (
 								<li
 									key={skill.id}
-									className="hover:-translate-y-1 my-transition"
-								>
+									className="hover:-translate-y-1 my-transition">
 									<SmallBoxWrapper>
 										<div className="flex flex-col items-center gap-3">
 											<span className="w-7 text-text-primary">
